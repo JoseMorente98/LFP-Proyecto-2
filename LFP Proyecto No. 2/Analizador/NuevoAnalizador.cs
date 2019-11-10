@@ -174,7 +174,6 @@ namespace LFP_Proyecto_No._2.Analizador
                 //Por si se esta declarando un arreglo;
                 if (preAnalisis.Descripcion.Equals("S_Corchete_Izquierdo"))
                 {
-                    Parea("S_Corchete_Izquierdo");
                     DeclararArreglo();
                 }
                 else
@@ -265,17 +264,14 @@ namespace LFP_Proyecto_No._2.Analizador
         #region ARREGLO
         public void DeclararArreglo()
         {
-            if (preAnalisis.Descripcion.Equals("S_Corchete_Derecho"))
-            {
-                Parea("S_Corchete_Derecho");
-                this.nombreArregloDeclarado = preAnalisis.Lexema;
-                Parea("Identificador");
-                OpcAsignacionArreglo();
-            }
-            else
-            {
-                this.lex = ">>Error sintactico: Se esperaba corchete de cierre en lugar de [" + preAnalisis.Descripcion + ", " + preAnalisis.Lexema + "]";
-            }
+            Parea("S_Corchete_Izquierdo");
+            Parea("S_Corchete_Derecho");
+            this.nombreArregloDeclarado = preAnalisis.Lexema;
+            Parea("Identificador");
+            OpcAsignacionArreglo();
+            Parea("S_Punto_y_Coma");
+            //LISTA DECLARACION
+            ListaDeclaracion();
         }
 
         public void OpcAsignacionArreglo()
@@ -300,6 +296,16 @@ namespace LFP_Proyecto_No._2.Analizador
                 Parea("S_Llave_Izquierda");
                 ListaValor();
                 Parea("S_Llave_Derecha");
+            } else if (preAnalisis.Descripcion.Equals("PR_new"))
+            {
+                this.ExpresionArreglo2();
+            }
+
+            /*if (preAnalisis.Descripcion.Equals("S_Llave_Izquierda"))
+            {
+                Parea("S_Llave_Izquierda");
+                ListaValor();
+                Parea("S_Llave_Derecha");
                 Parea("S_Punto_y_Coma");
                 ListaDeclaracion();
             }
@@ -311,12 +317,29 @@ namespace LFP_Proyecto_No._2.Analizador
             else
             {
                 this.lex = ">>Error sintactico: Se esperaba Llave apertura en lugar de [" + preAnalisis.Descripcion + ", " + preAnalisis.Lexema + "]";
-            }
+            }*/
         }
+
+
         public void ListaValor()
         {
-
-            if ((preAnalisis.Descripcion.Equals("Digito") && (tokenInicio.Equals("PR_int") || tokenInicio.Equals("PR_float")))
+            if (preAnalisis.Descripcion.Equals("Digito")) {
+                Parea("Digito");
+                AnidarElementos();
+                ListaValor1();
+            }
+            else if (preAnalisis.Descripcion.Equals("Cadena")) {
+                Parea("Cadena");
+                AnidarElementos();
+                ListaValor1();
+            }
+            else if (preAnalisis.Descripcion.Equals("Identificador"))
+            {
+                Parea("Identificador");
+                AnidarElementos();
+                ListaValor1();
+            }
+            /*if ((preAnalisis.Descripcion.Equals("Digito") && (tokenInicio.Equals("PR_int") || tokenInicio.Equals("PR_float")))
                 ||
                 (preAnalisis.Descripcion.Equals("Cadena") && (tokenInicio.Equals("PR_char") || tokenInicio.Equals("PR_string")))
                 ||
@@ -331,38 +354,48 @@ namespace LFP_Proyecto_No._2.Analizador
             else
             {
                 this.lex = ">>Error Sintactico: para un arreglo tipo " + tokenInicio + " se esperan valores numericos en lugar de [" + preAnalisis.Descripcion + ", " + preAnalisis.Lexema + "]";
-            }
+            }*/
+        }
 
+        public void AnidarElementos()
+        {
+            if (preAnalisis.Descripcion.Equals("S_Suma")) {
+                Parea("S_Suma");
+                ListaValor();
+            } else
+            {
+
+            }
         }
         public void ListaValor1()
         {
             if (preAnalisis.Descripcion.Equals("S_Coma"))
             {
                 Parea("S_Coma");
-
-                if (preAnalisis.Descripcion.Equals("Digito") && (tokenInicio.Equals("PR_int") || tokenInicio.Equals("PR_float")))
+                ListaValor();
+                /*f (preAnalisis.Descripcion.Equals("Digito") && (tokenInicio.Equals("PR_int") || tokenInicio.Equals("PR_float")))
                 {
-                    this.contenidoDeclarado = this.contenidoDeclarado + "," + preAnalisis.Lexema;
+                    //this.contenidoDeclarado = this.contenidoDeclarado + "," + preAnalisis.Lexema;
                     Parea("Digito");
                     ListaValor1();
                 }
                 else if (preAnalisis.Descripcion.Equals("Cadena") && ((tokenInicio.Equals("PR_char") || tokenInicio.Equals("PR_string"))))
                 {
-                    this.contenidoDeclarado = this.contenidoDeclarado + "," + preAnalisis.Lexema;
+                    //this.contenidoDeclarado = this.contenidoDeclarado + "," + preAnalisis.Lexema;
                     Parea("Cadena");
                     ListaValor1();
                 }
                 else if (preAnalisis.Descripcion.Equals("Identificador") && ((tokenInicio.Equals("PR_bool") || tokenInicio.Equals("PR_boolean"))))
                 {
-                    this.contenidoDeclarado = this.contenidoDeclarado + "," + preAnalisis.Lexema;
+                    //this.contenidoDeclarado = this.contenidoDeclarado + "," + preAnalisis.Lexema;
                     Parea("Identificador");
                     ListaValor1();
                 }
                 else
                 {
-                    Parea(preAnalisis.Descripcion);
-                    this.lex = ">>Error Sintactico: para un arreglo tipo " + tokenInicio + " se esperan valores tipo " + tokenInicio + " en lugar de [" + preAnalisis.Descripcion + ", " + preAnalisis.Lexema + "]";
-                }
+                    //Parea(preAnalisis.Descripcion);
+                    //this.lex = ">>Error Sintactico: para un arreglo tipo " + tokenInicio + " se esperan valores tipo " + tokenInicio + " en lugar de [" + preAnalisis.Descripcion + ", " + preAnalisis.Lexema + "]";
+                }*/
             }
             else
             {
@@ -374,6 +407,8 @@ namespace LFP_Proyecto_No._2.Analizador
 
         public void ExpresionArreglo2()
         {
+            Parea("PR_new");
+
             Console.WriteLine("TIPO DE VARIABLE" + preAnalisis.Descripcion);
             Console.WriteLine("TOKEN DE INICIO" + tokenInicio);
             string[] reservadasVariable = { "PR_int", "PR_float", "PR_char", "PR_bool", "PR_boolean", "PR_string" };
@@ -384,9 +419,8 @@ namespace LFP_Proyecto_No._2.Analizador
                 {
                     Parea(preAnalisis.Descripcion);
                     Parea("S_Corchete_Izquierdo");
+                    Numero();
                     Parea("S_Corchete_Derecho");
-                    Parea("S_Punto_y_Coma");
-                    ListaDeclaracion();
                 } else
                 {
                     //Parea(preAnalisis.Descripcion);
@@ -437,6 +471,20 @@ namespace LFP_Proyecto_No._2.Analizador
             {
                 this.lex = ">>Error Sintactico: el tipo del arreglo debe ser el mismo que el de su asignacion, " + tokenInicio + "[] = new " + tokenInicio + "[] en lugar de " + preAnalisis.Descripcion + "[]";
             }*/
+        }
+
+        public void Numero()
+        {
+            if (preAnalisis.Descripcion.Equals("Digito"))
+            {
+                Parea("Digito");
+            } else if (preAnalisis.Descripcion.Equals("Identificador"))
+            {
+                Parea("Identificador");
+            } else
+            {
+                //EPSILON
+            }
         }
         #endregion
 
