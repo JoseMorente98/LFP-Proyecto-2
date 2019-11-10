@@ -21,7 +21,7 @@
     <div class="container">
         <h1 class="display-2">Tokens</h1>
         <p class="lead">Listado de Tokens detectados por el analizador</p>
-        <p class="lead"><strong>9/11/2019 20:14:55</strong></p>
+        <p class="lead"><strong>9/11/2019 22:38:46</strong></p>
     </div>
     </div>
     <table class="table" id="mytable">
@@ -35,239 +35,488 @@
     <tbody>
 <tr>
      <th scope="row">1</th>
-     <td>//hola //HOla</td>
-     <td>ComentarioLinea</td>
-     <td>1</td>
-     <td>-6</td>
-</tr><tr>
-     <th scope="row">2</th>
-     <td>/*
-cComo
-eSTAN
-*/</td>
-     <td>ComentarioMultiLinea</td>
-     <td>5</td>
-     <td>-15</td>
-</tr><tr>
-     <th scope="row">3</th>
      <td>class</td>
      <td>PR_class</td>
-     <td>6</td>
      <td>1</td>
+     <td>0</td>
 </tr><tr>
-     <th scope="row">4</th>
-     <td>HolaMundo</td>
+     <th scope="row">2</th>
+     <td>MyProgram</td>
      <td>Identificador</td>
-     <td>6</td>
-     <td>8</td>
+     <td>1</td>
+     <td>7</td>
 </tr><tr>
-     <th scope="row">5</th>
+     <th scope="row">3</th>
      <td>{</td>
      <td>S_Llave_Izquierda</td>
-     <td>6</td>
-     <td>18</td>
-</tr><tr>
-     <th scope="row">6</th>
-     <td>//hola</td>
-     <td>ComentarioLinea</td>
-     <td>7</td>
      <td>2</td>
+     <td>0</td>
 </tr><tr>
-     <th scope="row">7</th>
-     <td>/*}d
-das
-dsaad
-das
-*/</td>
-     <td>ComentarioMultiLinea</td>
-     <td>12</td>
-     <td>-19</td>
-</tr><tr>
-     <th scope="row">8</th>
+     <th scope="row">4</th>
      <td>static</td>
      <td>PR_static</td>
-     <td>13</td>
      <td>3</td>
+     <td>9</td>
 </tr><tr>
-     <th scope="row">9</th>
+     <th scope="row">5</th>
      <td>void</td>
      <td>PR_void</td>
-     <td>13</td>
-     <td>11</td>
+     <td>3</td>
+     <td>17</td>
 </tr><tr>
-     <th scope="row">10</th>
+     <th scope="row">6</th>
      <td>Main</td>
      <td>PR_Main</td>
-     <td>14</td>
-     <td>1</td>
+     <td>3</td>
+     <td>23</td>
 </tr><tr>
-     <th scope="row">11</th>
+     <th scope="row">7</th>
      <td>(</td>
      <td>S_Parentesis_Izquierdo</td>
-     <td>14</td>
-     <td>5</td>
+     <td>3</td>
+     <td>27</td>
+</tr><tr>
+     <th scope="row">8</th>
+     <td>string</td>
+     <td>PR_string</td>
+     <td>3</td>
+     <td>28</td>
+</tr><tr>
+     <th scope="row">9</th>
+     <td>[</td>
+     <td>S_Corchete_Izquierdo</td>
+     <td>3</td>
+     <td>34</td>
+</tr><tr>
+     <th scope="row">10</th>
+     <td>]</td>
+     <td>S_Corchete_Derecho</td>
+     <td>3</td>
+     <td>35</td>
+</tr><tr>
+     <th scope="row">11</th>
+     <td>args</td>
+     <td>Identificador</td>
+     <td>3</td>
+     <td>38</td>
 </tr><tr>
      <th scope="row">12</th>
      <td>)</td>
      <td>S_Parentesis_Derecho</td>
-     <td>14</td>
-     <td>6</td>
+     <td>3</td>
+     <td>42</td>
 </tr><tr>
      <th scope="row">13</th>
      <td>{</td>
      <td>S_Llave_Izquierda</td>
-     <td>14</td>
+     <td>4</td>
      <td>8</td>
 </tr><tr>
      <th scope="row">14</th>
-     <td>//Hola</td>
-     <td>ComentarioLinea</td>
-     <td>15</td>
-     <td>2</td>
+     <td>/*
+        #################### Ejemplo comentario multiples lineas #################
+        ####### Linea 1
+        ####### Linea 2
+        ####### Linea 3
+        */</td>
+     <td>ComentarioMultiLinea</td>
+     <td>10</td>
+     <td>-158</td>
 </tr><tr>
      <th scope="row">15</th>
-     <td>int</td>
-     <td>PR_int</td>
-     <td>16</td>
-     <td>1</td>
+     <td>Console</td>
+     <td>PR_Console</td>
+     <td>11</td>
+     <td>17</td>
 </tr><tr>
      <th scope="row">16</th>
-     <td>var</td>
-     <td>Identificador</td>
-     <td>16</td>
-     <td>6</td>
+     <td>.</td>
+     <td>S_Punto</td>
+     <td>11</td>
+     <td>23</td>
 </tr><tr>
      <th scope="row">17</th>
-     <td>=</td>
-     <td>S_Igual</td>
-     <td>16</td>
+     <td>WriteLine</td>
+     <td>PR_WriteLine</td>
      <td>11</td>
+     <td>25</td>
 </tr><tr>
      <th scope="row">18</th>
-     <td>0</td>
-     <td>Digito</td>
-     <td>16</td>
-     <td>15</td>
+     <td>(</td>
+     <td>S_Parentesis_Izquierdo</td>
+     <td>11</td>
+     <td>34</td>
 </tr><tr>
      <th scope="row">19</th>
-     <td>;</td>
-     <td>S_Punto_y_Coma</td>
-     <td>16</td>
-     <td>15</td>
+     <td>x</td>
+     <td>Identificador</td>
+     <td>11</td>
+     <td>35</td>
 </tr><tr>
      <th scope="row">20</th>
-     <td>string</td>
-     <td>PR_string</td>
-     <td>17</td>
-     <td>1</td>
+     <td>)</td>
+     <td>S_Parentesis_Derecho</td>
+     <td>11</td>
+     <td>36</td>
 </tr><tr>
      <th scope="row">21</th>
-     <td>nombre</td>
-     <td>Identificador</td>
-     <td>17</td>
-     <td>9</td>
-</tr><tr>
-     <th scope="row">22</th>
-     <td>,</td>
-     <td>S_Coma</td>
-     <td>17</td>
-     <td>14</td>
-</tr><tr>
-     <th scope="row">23</th>
-     <td>apellido</td>
-     <td>Identificador</td>
-     <td>17</td>
-     <td>18</td>
-</tr><tr>
-     <th scope="row">24</th>
      <td>;</td>
      <td>S_Punto_y_Coma</td>
+     <td>11</td>
+     <td>36</td>
+</tr><tr>
+     <th scope="row">22</th>
+     <td>Console</td>
+     <td>PR_Console</td>
+     <td>12</td>
      <td>17</td>
+</tr><tr>
+     <th scope="row">23</th>
+     <td>.</td>
+     <td>S_Punto</td>
+     <td>12</td>
+     <td>23</td>
+</tr><tr>
+     <th scope="row">24</th>
+     <td>WriteLine</td>
+     <td>PR_WriteLine</td>
+     <td>12</td>
      <td>25</td>
 </tr><tr>
      <th scope="row">25</th>
-     <td>bool</td>
-     <td>PR_bool</td>
-     <td>18</td>
-     <td>1</td>
+     <td>(</td>
+     <td>S_Parentesis_Izquierdo</td>
+     <td>12</td>
+     <td>34</td>
 </tr><tr>
      <th scope="row">26</th>
-     <td>verdadero</td>
-     <td>Identificador</td>
-     <td>18</td>
-     <td>7</td>
+     <td>"Hola Mundo"</td>
+     <td>Cadena</td>
+     <td>12</td>
+     <td>35</td>
 </tr><tr>
      <th scope="row">27</th>
-     <td>;</td>
-     <td>S_Punto_y_Coma</td>
-     <td>18</td>
-     <td>15</td>
+     <td>)</td>
+     <td>S_Parentesis_Derecho</td>
+     <td>12</td>
+     <td>48</td>
 </tr><tr>
      <th scope="row">28</th>
-     <td>char</td>
-     <td>PR_char</td>
-     <td>19</td>
-     <td>1</td>
-</tr><tr>
-     <th scope="row">29</th>
-     <td>caracter</td>
-     <td>Identificador</td>
-     <td>19</td>
-     <td>7</td>
-</tr><tr>
-     <th scope="row">30</th>
      <td>;</td>
      <td>S_Punto_y_Coma</td>
-     <td>19</td>
+     <td>12</td>
+     <td>48</td>
+</tr><tr>
+     <th scope="row">29</th>
+     <td>Console</td>
+     <td>PR_Console</td>
      <td>14</td>
+     <td>17</td>
+</tr><tr>
+     <th scope="row">30</th>
+     <td>.</td>
+     <td>S_Punto</td>
+     <td>14</td>
+     <td>23</td>
 </tr><tr>
      <th scope="row">31</th>
-     <td>char</td>
-     <td>PR_char</td>
-     <td>21</td>
-     <td>1</td>
+     <td>WriteLine</td>
+     <td>PR_WriteLine</td>
+     <td>14</td>
+     <td>25</td>
 </tr><tr>
      <th scope="row">32</th>
-     <td>hola</td>
-     <td>Identificador</td>
-     <td>21</td>
-     <td>7</td>
+     <td>(</td>
+     <td>S_Parentesis_Izquierdo</td>
+     <td>14</td>
+     <td>34</td>
 </tr><tr>
      <th scope="row">33</th>
-     <td>}</td>
-     <td>S_Llave_Derecha</td>
-     <td>23</td>
-     <td>0</td>
+     <td>)</td>
+     <td>S_Parentesis_Derecho</td>
+     <td>14</td>
+     <td>35</td>
 </tr><tr>
      <th scope="row">34</th>
      <td>;</td>
      <td>S_Punto_y_Coma</td>
-     <td>23</td>
-     <td>1</td>
+     <td>14</td>
+     <td>35</td>
 </tr><tr>
      <th scope="row">35</th>
-     <td>/*Hola
-Xd*/</td>
-     <td>ComentarioMultiLinea</td>
-     <td>26</td>
-     <td>-7</td>
+     <td>//HOLA </td>
+     <td>ComentarioLinea</td>
+     <td>15</td>
+     <td>18</td>
 </tr><tr>
      <th scope="row">36</th>
-     <td>//dasda</td>
-     <td>ComentarioLinea</td>
-     <td>27</td>
-     <td>2</td>
+     <td>Console</td>
+     <td>PR_Console</td>
+     <td>17</td>
+     <td>17</td>
 </tr><tr>
      <th scope="row">37</th>
-     <td>//dasdasdas</td>
-     <td>ComentarioLinea</td>
-     <td>28</td>
-     <td>2</td>
+     <td>.</td>
+     <td>S_Punto</td>
+     <td>17</td>
+     <td>23</td>
 </tr><tr>
      <th scope="row">38</th>
+     <td>WriteLine</td>
+     <td>PR_WriteLine</td>
+     <td>17</td>
+     <td>25</td>
+</tr><tr>
+     <th scope="row">39</th>
+     <td>(</td>
+     <td>S_Parentesis_Izquierdo</td>
+     <td>17</td>
+     <td>34</td>
+</tr><tr>
+     <th scope="row">40</th>
+     <td>">>>>>>> Arreglo1 <<<<<<<<<<"</td>
+     <td>Cadena</td>
+     <td>17</td>
+     <td>35</td>
+</tr><tr>
+     <th scope="row">41</th>
+     <td>)</td>
+     <td>S_Parentesis_Derecho</td>
+     <td>17</td>
+     <td>65</td>
+</tr><tr>
+     <th scope="row">42</th>
+     <td>;</td>
+     <td>S_Punto_y_Coma</td>
+     <td>17</td>
+     <td>65</td>
+</tr><tr>
+     <th scope="row">43</th>
+     <td>Console</td>
+     <td>PR_Console</td>
+     <td>18</td>
+     <td>17</td>
+</tr><tr>
+     <th scope="row">44</th>
+     <td>.</td>
+     <td>S_Punto</td>
+     <td>18</td>
+     <td>23</td>
+</tr><tr>
+     <th scope="row">45</th>
+     <td>WriteLine</td>
+     <td>PR_WriteLine</td>
+     <td>18</td>
+     <td>25</td>
+</tr><tr>
+     <th scope="row">46</th>
+     <td>(</td>
+     <td>S_Parentesis_Izquierdo</td>
+     <td>18</td>
+     <td>34</td>
+</tr><tr>
+     <th scope="row">47</th>
+     <td>arreglo1</td>
+     <td>Identificador</td>
+     <td>18</td>
+     <td>35</td>
+</tr><tr>
+     <th scope="row">48</th>
+     <td>[</td>
+     <td>S_Corchete_Izquierdo</td>
+     <td>18</td>
+     <td>43</td>
+</tr><tr>
+     <th scope="row">49</th>
+     <td>true</td>
+     <td>Identificador</td>
+     <td>18</td>
+     <td>44</td>
+</tr><tr>
+     <th scope="row">50</th>
+     <td>]</td>
+     <td>S_Corchete_Derecho</td>
+     <td>18</td>
+     <td>48</td>
+</tr><tr>
+     <th scope="row">51</th>
+     <td>)</td>
+     <td>S_Parentesis_Derecho</td>
+     <td>18</td>
+     <td>49</td>
+</tr><tr>
+     <th scope="row">52</th>
+     <td>;</td>
+     <td>S_Punto_y_Coma</td>
+     <td>18</td>
+     <td>49</td>
+</tr><tr>
+     <th scope="row">53</th>
+     <td>Console</td>
+     <td>PR_Console</td>
+     <td>19</td>
+     <td>17</td>
+</tr><tr>
+     <th scope="row">54</th>
+     <td>.</td>
+     <td>S_Punto</td>
+     <td>19</td>
+     <td>23</td>
+</tr><tr>
+     <th scope="row">55</th>
+     <td>WriteLine</td>
+     <td>PR_WriteLine</td>
+     <td>19</td>
+     <td>25</td>
+</tr><tr>
+     <th scope="row">56</th>
+     <td>(</td>
+     <td>S_Parentesis_Izquierdo</td>
+     <td>19</td>
+     <td>34</td>
+</tr><tr>
+     <th scope="row">57</th>
+     <td>"Iteracion no. "</td>
+     <td>Cadena</td>
+     <td>19</td>
+     <td>35</td>
+</tr><tr>
+     <th scope="row">58</th>
+     <td>+</td>
+     <td>S_Suma</td>
+     <td>19</td>
+     <td>52</td>
+</tr><tr>
+     <th scope="row">59</th>
+     <td>x</td>
+     <td>Identificador</td>
+     <td>19</td>
+     <td>54</td>
+</tr><tr>
+     <th scope="row">60</th>
+     <td>)</td>
+     <td>S_Parentesis_Derecho</td>
+     <td>19</td>
+     <td>55</td>
+</tr><tr>
+     <th scope="row">61</th>
+     <td>;</td>
+     <td>S_Punto_y_Coma</td>
+     <td>19</td>
+     <td>55</td>
+</tr><tr>
+     <th scope="row">62</th>
+     <td>Console</td>
+     <td>PR_Console</td>
+     <td>20</td>
+     <td>17</td>
+</tr><tr>
+     <th scope="row">63</th>
+     <td>.</td>
+     <td>S_Punto</td>
+     <td>20</td>
+     <td>23</td>
+</tr><tr>
+     <th scope="row">64</th>
+     <td>WriteLine</td>
+     <td>PR_WriteLine</td>
+     <td>20</td>
+     <td>25</td>
+</tr><tr>
+     <th scope="row">65</th>
+     <td>(</td>
+     <td>S_Parentesis_Izquierdo</td>
+     <td>20</td>
+     <td>34</td>
+</tr><tr>
+     <th scope="row">66</th>
+     <td>"Iteracion no. "</td>
+     <td>Cadena</td>
+     <td>20</td>
+     <td>35</td>
+</tr><tr>
+     <th scope="row">67</th>
+     <td>+</td>
+     <td>S_Suma</td>
+     <td>20</td>
+     <td>52</td>
+</tr><tr>
+     <th scope="row">68</th>
+     <td>2</td>
+     <td>Digito</td>
+     <td>20</td>
+     <td>54</td>
+</tr><tr>
+     <th scope="row">69</th>
+     <td>+</td>
+     <td>S_Suma</td>
+     <td>20</td>
+     <td>55</td>
+</tr><tr>
+     <th scope="row">70</th>
+     <td>x</td>
+     <td>Identificador</td>
+     <td>20</td>
+     <td>57</td>
+</tr><tr>
+     <th scope="row">71</th>
+     <td>+</td>
+     <td>S_Suma</td>
+     <td>20</td>
+     <td>58</td>
+</tr><tr>
+     <th scope="row">72</th>
+     <td>arreglo1</td>
+     <td>Identificador</td>
+     <td>20</td>
+     <td>60</td>
+</tr><tr>
+     <th scope="row">73</th>
+     <td>[</td>
+     <td>S_Corchete_Izquierdo</td>
+     <td>20</td>
+     <td>68</td>
+</tr><tr>
+     <th scope="row">74</th>
+     <td>j</td>
+     <td>Identificador</td>
+     <td>20</td>
+     <td>69</td>
+</tr><tr>
+     <th scope="row">75</th>
+     <td>]</td>
+     <td>S_Corchete_Derecho</td>
+     <td>20</td>
+     <td>70</td>
+</tr><tr>
+     <th scope="row">76</th>
+     <td>)</td>
+     <td>S_Parentesis_Derecho</td>
+     <td>20</td>
+     <td>71</td>
+</tr><tr>
+     <th scope="row">77</th>
+     <td>;</td>
+     <td>S_Punto_y_Coma</td>
+     <td>20</td>
+     <td>71</td>
+</tr><tr>
+     <th scope="row">78</th>
+     <td>///COMO ESTAS</td>
+     <td>ComentarioLinea</td>
+     <td>23</td>
+     <td>18</td>
+</tr><tr>
+     <th scope="row">79</th>
      <td>}</td>
      <td>S_Llave_Derecha</td>
-     <td>29</td>
+     <td>25</td>
+     <td>8</td>
+</tr><tr>
+     <th scope="row">80</th>
+     <td>}</td>
+     <td>S_Llave_Derecha</td>
+     <td>26</td>
      <td>0</td>
 </tr>    </tbody>
     </table>

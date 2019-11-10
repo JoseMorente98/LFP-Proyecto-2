@@ -39,9 +39,13 @@ namespace LFP_Proyecto_No._2
             }
             if (TokenControlador.Instancia.getArrayListErrors().Count == 0)
             {
-                AnalizadorSintactico.Instancia.obtenerLista(TokenControlador.Instancia.getArrayListTokens());
+                NuevoAnalizador.Instancia.obtenerLista(TokenControlador.Instancia.getArrayListTokens());
                 this.consola.Text = "";
-                this.consola.AppendText(AnalizadorSintactico.Instancia.returnT());
+                consola.AppendText(NuevoAnalizador.Instancia.returnT());
+
+                /*AnalizadorSintactico.Instancia.obtenerLista(TokenControlador.Instancia.getArrayListTokens());
+                this.consola.Text = "";
+                this.consola.AppendText(AnalizadorSintactico.Instancia.returnT());*/
                 //TraductorControlador.Instancia.obtenerLista(TokenControlador.Instancia.getArrayListTokens());
                 //this.traduccion.Text = "";
                 //traduccion.AppendText(TraductorControlador.Instancia.getTokensTraducidos());

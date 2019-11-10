@@ -260,14 +260,19 @@ namespace LFP_Proyecto_No._2.Analizador
             if (preAnalisis.Descripcion.Equals("Digito") && (tokenInicio.Equals("PR_int") || tokenInicio.Equals("PR_float")))
             {
                 Parea("Digito");
+                SimboloControlador.Instancia.agregarSimbolo(this.lexemaAuxiliar, preAnalisis.Lexema, tokenInicio);
             }
             else if (preAnalisis.Descripcion.Equals("Cadena") && (tokenInicio.Equals("PR_char") || tokenInicio.Equals("PR_string")))
             {
                 Parea("Cadena");
+                SimboloControlador.Instancia.agregarSimbolo(this.lexemaAuxiliar, preAnalisis.Lexema, tokenInicio);
+
             }
             else if (preAnalisis.Descripcion.Equals("Identificador") && (tokenInicio.Equals("PR_bool") || tokenInicio.Equals("PR_boolean")))
             {
                 Parea("Identificador");
+                SimboloControlador.Instancia.agregarSimbolo(this.lexemaAuxiliar, preAnalisis.Lexema, tokenInicio);
+
             }
             else
             {

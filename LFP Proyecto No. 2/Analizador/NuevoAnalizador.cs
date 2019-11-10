@@ -1,4 +1,5 @@
-﻿using LFP_Proyecto_No._2.Modelo;
+﻿using LFP_Proyecto_No._2.Controlador;
+using LFP_Proyecto_No._2.Modelo;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace LFP_Proyecto_No._2.Analizador
         string tok;
         string lex;
         String tokenInicio = "";
+        bool errorSintactico = false;
+
         //-------TRADUCCIONES ---------
 
         //Variables variable
@@ -85,6 +88,22 @@ namespace LFP_Proyecto_No._2.Analizador
                 {
                     Clase();
                 }
+                else if (preAnalisis.Descripcion.Equals("PR_if"))
+                {
+                    InicioIf();
+                }
+                else if (preAnalisis.Descripcion.Equals("PR_switch"))
+                {
+                    InicioSwitch();
+                }
+                else if (preAnalisis.Descripcion.Equals("PR_while"))
+                {
+                    InicioWhile();
+                }
+                else if (preAnalisis.Descripcion.Equals("PR_for"))
+                {
+                    InicioFor();
+                }
                 else if (preAnalisis.Descripcion.Equals("PR_static"))
                 {
                     MetodoPrincipal();
@@ -96,6 +115,14 @@ namespace LFP_Proyecto_No._2.Analizador
                 else if (preAnalisis.Descripcion.Equals("ComentarioMultiLinea"))
                 {
                     ComentarioMultiLinea();
+                }
+                else if (preAnalisis.Descripcion.Equals("PR_Console"))
+                {
+                    InicioConsole();
+                }
+                else if (preAnalisis.Descripcion.Equals("Identificador"))
+                {
+                    AsignacionSinTipo();
                 }
                 else
                 {
@@ -470,7 +497,6 @@ namespace LFP_Proyecto_No._2.Analizador
             Comentario();
             ListaDeclaracion();
             Parea("S_Llave_Derecha");
-            
         }
 
         public void MetodoPrincipal()
@@ -502,9 +528,522 @@ namespace LFP_Proyecto_No._2.Analizador
             }
         }
         #endregion
+        
+        #region CONSOLE WRITELINE
+        public void InicioConsole()
+        {
+            Parea("PR_Console");
+            Parea("S_Punto");
+            Parea("PR_WriteLine");
+            Parea("S_Parentesis_Izquierdo");
+            CuerpoConsole();
+            Parea("S_Parentesis_Derecho");
+            Parea("S_Punto_y_Coma");
+            ListaDeclaracion();
+        }
+
+        public void CuerpoConsole()
+        {
+            if(preAnalisis.Descripcion.Equals("Identificador")) {
+                Parea("Identificador");
+                arreglo();
+                masArgumetos();
+            }
+            else if (preAnalisis.Descripcion.Equals("Cadena")){
+                Parea("Cadena");
+                masArgumetos();
+            }
+            else if (preAnalisis.Descripcion.Equals("Digito")) {
+                Parea("Digito");
+                masArgumetos();
+            } else
+            {
+                
+            }
+        }
+
+        //ARREGLO CONSOLE
+        public void arreglo()
+        {
+            if (preAnalisis.Descripcion.Equals("S_Corchete_Izquierdo"))
+            {
+                Parea("S_Corchete_Izquierdo");
+                TipoVariable();
+                Parea("S_Corchete_Derecho");
+            } else
+            {
+                //EPSILON
+            }
+        }
+
+        public void TipoVariable()
+        {
+            if (preAnalisis.Descripcion.Equals("Identificador"))
+            {
+                Parea("Identificador");
+            }
+            else if (preAnalisis.Descripcion.Equals("Digito"))
+            {
+                Parea("Digito");
+            } else
+            {
+                this.lex = ">> Error sintactico se esperaba [ identificador o digito ] en lugar de [" + preAnalisis.Descripcion + ", " + preAnalisis.Lexema + "]";
+                SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
+                this.errorSintactico = true;
+            }
+        }
+
+        public void masArgumetos()
+        {
+            if (preAnalisis.Descripcion.Equals("S_Suma"))
+            {
+                Parea("S_Suma");
+                CuerpoConsole();
+            }
+        }
+
+
+
+        #endregion
+
+        #region IF
+        public void InicioIf()
+        {
+            Parea("PR_if");
+            Parea("S_Parentesis_Izquierdo");
+            //CONDICION
+            IdentificadorIf();
+            SimboloIf();
+            IdentificadorIf();
+            Parea("S_Parentesis_Derecho");
+            Parea("S_Llave_Izquierda");
+            //LISTA DECLARACION
+            ListaDeclaracion();
+            Parea("S_Llave_Derecha");
+            //ELSEIF
+            ElseIf();
+            //LISTA DECLARACION
+            ListaDeclaracion();
+        }
+
+        public void IdentificadorIf()
+        {
+            if (preAnalisis.Descripcion.Equals("Identificador"))
+            {
+                Parea("Identificador");
+            }
+            else if (preAnalisis.Descripcion.Equals("Digito"))
+            {
+                Parea("Digito");
+            } else
+            {
+                this.lex = ">> Error sintactico se esperaba [ identificador o digito ] en lugar de [" + preAnalisis.Descripcion + ", " + preAnalisis.Lexema + "]";
+                SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
+                this.errorSintactico = true;
+            }
+        }
+
+        public void SimboloIf()
+        {
+            switch (preAnalisis.Descripcion)
+            {
+                case "S_Igual":
+                    Parea("S_Igual");
+                    Parea("S_Igual");
+                    break;
+                case "S_Mayor_Que":
+                    Parea("S_Mayor_Que");
+                    switch (preAnalisis.Descripcion)
+                    {
+                        case "S_Igual":
+                            Parea("S_Igual");
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case "S_Menor_Que":
+                    Parea("S_Menor_Que");
+                    switch (preAnalisis.Descripcion)
+                    {
+                        case "S_Igual":
+                            Parea("S_Igual");
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case "S_Excl":
+                    Parea("S_Excl");
+                    Parea("S_Igual");
+                    break;
+                default:
+                    this.lex = ">> Error sintactico se esperaba [ operador ] en lugar de [" + preAnalisis.Descripcion + ", " + preAnalisis.Lexema + "]";
+                    SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
+                    this.errorSintactico = true;
+                    break;
+            }
+        }
+
+        public void ElseIf()
+        {
+            if (preAnalisis.Descripcion.Equals("PR_else"))
+            {
+                Parea("PR_else");
+                Parea("S_Llave_Izquierda");
+                //LISTA DECLARACION
+                ListaDeclaracion();
+                Parea("S_Llave_Derecha");
+            } else
+            {
+
+            }
+        }
+        #endregion
+
+        #region WHILE
+        public void InicioWhile()
+        {
+            Parea("PR_while");
+            Parea("S_Parentesis_Izquierdo");
+            //CONDICION
+            IdentificadorWhile();
+            SimboloWhile();
+            IdentificadorWhile();
+            Parea("S_Parentesis_Derecho");
+            Parea("S_Llave_Izquierda");
+            ListaDeclaracion();
+            Parea("S_Llave_Derecha");
+            //LISTA DECLARACION
+            ListaDeclaracion();
+        }
+
+        public void IdentificadorWhile()
+        {
+            if (preAnalisis.Descripcion.Equals("Identificador"))
+            {
+                Parea("Identificador");
+            }
+            else if (preAnalisis.Descripcion.Equals("Digito"))
+            {
+                Parea("Digito");
+            }
+            else
+            {
+                this.lex = ">> Error sintactico se esperaba [ identificador o digito ] en lugar de [" + preAnalisis.Descripcion + ", " + preAnalisis.Lexema + "]";
+                SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
+                this.errorSintactico = true;
+            }
+        }
+
+        public void SimboloWhile()
+        {
+            switch (preAnalisis.Descripcion)
+            {
+                case "S_Igual":
+                    Parea("S_Igual");
+                    Parea("S_Igual");
+                    break;
+                case "S_Mayor_Que":
+                    Parea("S_Mayor_Que");
+                    switch (preAnalisis.Descripcion)
+                    {
+                        case "S_Igual":
+                            Parea("S_Igual");
+                            break;
+                        default:
+                            break;
+                    }                            
+                    break;
+                case "S_Menor_Que":
+                    Parea("S_Menor_Que");
+                    switch (preAnalisis.Descripcion)
+                    {
+                        case "S_Igual":
+                            Parea("S_Igual");
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case "S_Excl":
+                    Parea("S_Excl");
+                    Parea("S_Igual");
+                    break;
+                default:
+                    this.lex = ">> Error sintactico se esperaba [ operador ] en lugar de [" + preAnalisis.Descripcion + ", " + preAnalisis.Lexema + "]";
+                    SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
+                    this.errorSintactico = true;
+                    break;
+            }
+        }
+        #endregion
+
+        #region FOR 
+        public void InicioFor()
+        {
+            Parea("PR_for");
+            Parea("S_Parentesis_Izquierdo");
+            DeclaracionFor();
+            Parea("S_Punto_y_Coma");
+            ExpresionFor();
+            Parea("S_Punto_y_Coma");
+            IncrementoDecremento();
+            Parea("S_Parentesis_Derecho");
+            Parea("S_Llave_Izquierda");
+            //LISTA DECLARACION
+            ListaDeclaracion();
+            Parea("S_Llave_Derecha");
+            //LISTA DECLARACION
+            ListaDeclaracion();
+        }
+
+        public void DeclaracionFor()
+        {
+            if (preAnalisis.Descripcion.Equals("PR_int"))
+            {
+                Parea("PR_int");
+                Parea("Identificador");
+                Parea("S_Igual");
+                Parea("Digito");
+            }
+            else if (preAnalisis.Descripcion.Equals("Identificador"))
+            {
+                Parea("Identificador");
+                Parea("S_Igual");
+                Parea("Digito");
+            }
+        }
+
+
+        public void ExpresionFor()
+        {
+            IdentificadorFor();
+            SimboloFor();
+            IdentificadorFor();
+        }
+
+        public void IdentificadorFor()
+        {
+            if (preAnalisis.Descripcion.Equals("Identificador"))
+            {
+                Parea("Identificador");
+            }
+            else if (preAnalisis.Descripcion.Equals("Digito"))
+            {
+                Parea("Digito");
+            }
+            else
+            {
+                this.lex = ">> Error sintactico se esperaba [ identificador o digito ] en lugar de [" + preAnalisis.Descripcion + ", " + preAnalisis.Lexema + "]";
+                SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
+                this.errorSintactico = true;
+            }
+        }
+
+        public void SimboloFor()
+        {
+            switch (preAnalisis.Descripcion)
+            {
+                case "S_Igual":
+                    Parea("S_Igual");
+                    Parea("S_Igual");
+                    break;
+                case "S_Mayor_Que":
+                    Parea("S_Mayor_Que");
+                    switch (preAnalisis.Descripcion)
+                    {
+                        case "S_Igual":
+                            Parea("S_Igual");
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case "S_Menor_Que":
+                    Parea("S_Menor_Que");
+                    switch (preAnalisis.Descripcion)
+                    {
+                        case "S_Igual":
+                            Parea("S_Igual");
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case "S_Excl":
+                    Parea("S_Excl");
+                    Parea("S_Igual");
+                    break;
+                default:
+                    this.lex = ">> Error sintactico se esperaba [ operador ] en lugar de [" + preAnalisis.Descripcion + ", " + preAnalisis.Lexema + "]";
+                    SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
+                    this.errorSintactico = true;
+                    break;
+            }
+        }
+
+        public void IncrementoDecremento()
+        {
+            if (preAnalisis.Descripcion.Equals("Identificador"))
+            {
+                Parea("Identificador");
+                switch (preAnalisis.Descripcion)
+                {
+                    case "S_Suma":
+                        Parea("S_Suma");
+                        Parea("S_Suma");
+                        break;
+                    case "S_Resta":
+                        Parea("S_Resta");
+                        Parea("S_Resta");
+                        break;
+                }
+             }
+         }
+
+        #endregion
+
+        #region SWITCH
+        public void InicioSwitch()
+        {
+            Parea("PR_switch");
+            Parea("S_Parentesis_Izquierdo");
+            //ASIGNACION
+            Parea("Identificador");
+            Parea("S_Parentesis_Derecho");
+            Parea("S_Llave_Izquierda");
+            //CUERPO SWITCH
+            CuerpoSwitch();
+            Parea("S_Llave_Derecha");
+            //lista
+            ListaDeclaracion();
+        }
+
+        public void CuerpoSwitch()
+        {
+            if (preAnalisis.Descripcion.Equals("PR_case"))
+            {
+                Parea("PR_case");
+                IdentificadorCase();
+                Parea("S_Dos_puntos");
+                ListaDeclaracion();
+                Parea("PR_break");
+                Parea("S_Punto_y_Coma");
+                DefaultSwitch();
+            }
+        }
+
+        public void IdentificadorCase()
+        {
+            if (preAnalisis.Descripcion.Equals("Cadena"))
+            {
+                Parea("Cadena");
+            }
+            else if (preAnalisis.Descripcion.Equals("Digito"))
+            {
+                Parea("Digito");
+            }
+            else
+            {
+                this.lex = ">> Error sintactico se esperaba [ Cadena o Digito ] en lugar de [" + preAnalisis.Descripcion + ", " + preAnalisis.Lexema + "]";
+                SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
+                this.errorSintactico = true;
+            }
+        }
+
+        public void DefaultSwitch()
+        {
+            if (preAnalisis.Descripcion.Equals("PR_case"))
+            {
+                CuerpoSwitch();
+            }
+            if (preAnalisis.Descripcion.Equals("PR_default"))
+            {
+                Parea("PR_default");
+                Parea("S_Dos_puntos");
+                ListaDeclaracion();
+                Parea("PR_break");
+                Parea("S_Punto_y_Coma");
+            } else
+            {
+                //EPSILON
+            }
+        }
+        #endregion
+
+        #region ASIGNACION SIN TIPO
+        public void AsignacionSinTipo()
+        {
+            if (preAnalisis.Descripcion.Equals("Identificador"))
+            {
+                Parea("Identificador");
+                Parea("S_Igual");
+                SinTipo();
+                Parea("S_Punto_y_Coma");
+                ListaDeclaracion();
+            }
+        }
+
+        public void SinTipo()
+        {
+            if (preAnalisis.Descripcion.Equals("Identificador"))
+            {
+                Parea("Identificador");
+            } else if (preAnalisis.Descripcion.Equals("Cadena"))
+            {
+                Parea("Cadena");
+            } else if (preAnalisis.Descripcion.Equals("Digito"))
+            {
+                Parea("Digito");
+            }
+        }
+        #endregion
 
 
         public void Parea(String tipoToken)
+        {
+            Console.WriteLine("ERROR:" + errorSintactico);
+            Console.WriteLine("TOKEN:" + tipoToken);
+            if (errorSintactico)
+            {
+
+                if (indice < listaTokens.Count - 1)
+                {
+                    indice++;
+                    preAnalisis = (Token)listaTokens[indice];
+                    if (preAnalisis.Descripcion.Equals("S_Punto_y_Coma"))
+                    {
+                        errorSintactico = false;
+                    }
+                }
+
+            }
+            else
+            {
+                if (indice < listaTokens.Count - 1)
+                {
+                    Console.WriteLine(tipoToken);
+                    if (preAnalisis.Descripcion.Equals(tipoToken))
+                    {
+                        indice++;
+                        preAnalisis = (Token)listaTokens[indice];
+                        lex = lex + " " + preAnalisis.Lexema;
+                    }
+                    else
+                    {
+                        //Se genera un error sintactico y se agrega a la lista de errores sintacitos
+                        Token t = (Token)listaTokens[indice -1];
+                        this.lex = ">> Error sintactico se esperaba [" + tipoToken + "] en lugar de [" + preAnalisis.Descripcion + ", " + preAnalisis.Lexema + "]";
+                        SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
+                        errorSintactico = true;
+                    }
+                }
+            }
+
+        }
+
+        /*public void Parea(String tipoToken)
         {
             Console.WriteLine("ACTUAL " + preAnalisis.Descripcion + "==" + tipoToken);
             Console.WriteLine("INDICE" + indice);
@@ -559,7 +1098,7 @@ namespace LFP_Proyecto_No._2.Analizador
                 this.lex = ">> Error sintactico se esperaba [" + tipoToken + "] en lugar de [" + preAnalisis.Descripcion + ", " + preAnalisis.Lexema + "]";
                 Console.WriteLine(">> Error sintactico se esperaba [" + tipoToken + "] en lugar de [" + preAnalisis.Descripcion + ", " + preAnalisis.Lexema + "]");
             }*/
-        }
+        // }
 
         public string returnT()
         {

@@ -239,7 +239,7 @@ namespace LFP_Proyecto_No._2.Analizador
                             else
                             {
                                 string[] reservadasC = { "class", "static", "void", "string",
-                                    "int", "new", "float", "char", "bool", "boolean", "if", "else",
+                                    "int", "new", "float", "char", "bool", "boolean", "if", "else", "default",
                                     "switch", "case", "break", "for",  "while" };
 
                                 string[] reservadasMayus = { "Main", "Console", "WriteLine", "Count", "Length" };
