@@ -236,7 +236,11 @@ namespace LFP_Proyecto_No._2.Analizador
             else
             {
                 this.lex = ">>Error sintactico: el tipo de variable " + this.tokenInicio + " no coincide con el valor de [" + preAnalisis.Descripcion + ", " + preAnalisis.Lexema + "]";
+                SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
+
                 Parea(preAnalisis.Descripcion);
+                this.errorSintactico = true;
+
             }
         }
         public void PuntoComa()
@@ -256,6 +260,8 @@ namespace LFP_Proyecto_No._2.Analizador
             else
             {
                 this.lex = ">>Error sintactico: Se esperaba [ punto y coma  ] al final de [" + preAnalisis.Descripcion + ", " + preAnalisis.Lexema + "]";
+                SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
+                this.errorSintactico = true;
                 Console.WriteLine(">>Error sintactico: Se esperaba [ punto y coma  ] al final de [" + preAnalisis.Descripcion + ", " + preAnalisis.Lexema + "]");
             }
         }
@@ -425,7 +431,10 @@ namespace LFP_Proyecto_No._2.Analizador
                 {
                     //Parea(preAnalisis.Descripcion);
                     this.lex = ">>Error Sintactico: el tipo del arreglo debe ser el mismo que el de su asignacion, " + tokenInicio + "[] = new " + tokenInicio + "[] en lugar de " + preAnalisis.Descripcion + "[]";
+                    SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
                     Console.WriteLine(this.lex);
+                    this.errorSintactico = true;
+
                 }
             }
 
