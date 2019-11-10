@@ -1,0 +1,295 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Tokens</title>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+        <img src="https://www.usac.edu.gt/g/escudo10.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        Lenguajes Formales y de Programación
+    </a>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search">
+    </form>
+    </nav>
+    <div class="container">
+    <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-2">Tokens</h1>
+        <p class="lead">Listado de Tokens detectados por el analizador</p>
+        <p class="lead"><strong>9/11/2019 20:14:55</strong></p>
+    </div>
+    </div>
+    <table class="table" id="mytable">
+    <thead class="thead-dark">
+        <tr>
+<th scope="col">ID Token</th>
+<th scope="col">Token</th>
+<th scope="col">Descripcion</th><th scope="col">Fila</th>
+<th scope="col">Columna</th>        </tr>
+    </thead>
+    <tbody>
+<tr>
+     <th scope="row">1</th>
+     <td>//hola //HOla</td>
+     <td>ComentarioLinea</td>
+     <td>1</td>
+     <td>-6</td>
+</tr><tr>
+     <th scope="row">2</th>
+     <td>/*
+cComo
+eSTAN
+*/</td>
+     <td>ComentarioMultiLinea</td>
+     <td>5</td>
+     <td>-15</td>
+</tr><tr>
+     <th scope="row">3</th>
+     <td>class</td>
+     <td>PR_class</td>
+     <td>6</td>
+     <td>1</td>
+</tr><tr>
+     <th scope="row">4</th>
+     <td>HolaMundo</td>
+     <td>Identificador</td>
+     <td>6</td>
+     <td>8</td>
+</tr><tr>
+     <th scope="row">5</th>
+     <td>{</td>
+     <td>S_Llave_Izquierda</td>
+     <td>6</td>
+     <td>18</td>
+</tr><tr>
+     <th scope="row">6</th>
+     <td>//hola</td>
+     <td>ComentarioLinea</td>
+     <td>7</td>
+     <td>2</td>
+</tr><tr>
+     <th scope="row">7</th>
+     <td>/*}d
+das
+dsaad
+das
+*/</td>
+     <td>ComentarioMultiLinea</td>
+     <td>12</td>
+     <td>-19</td>
+</tr><tr>
+     <th scope="row">8</th>
+     <td>static</td>
+     <td>PR_static</td>
+     <td>13</td>
+     <td>3</td>
+</tr><tr>
+     <th scope="row">9</th>
+     <td>void</td>
+     <td>PR_void</td>
+     <td>13</td>
+     <td>11</td>
+</tr><tr>
+     <th scope="row">10</th>
+     <td>Main</td>
+     <td>PR_Main</td>
+     <td>14</td>
+     <td>1</td>
+</tr><tr>
+     <th scope="row">11</th>
+     <td>(</td>
+     <td>S_Parentesis_Izquierdo</td>
+     <td>14</td>
+     <td>5</td>
+</tr><tr>
+     <th scope="row">12</th>
+     <td>)</td>
+     <td>S_Parentesis_Derecho</td>
+     <td>14</td>
+     <td>6</td>
+</tr><tr>
+     <th scope="row">13</th>
+     <td>{</td>
+     <td>S_Llave_Izquierda</td>
+     <td>14</td>
+     <td>8</td>
+</tr><tr>
+     <th scope="row">14</th>
+     <td>//Hola</td>
+     <td>ComentarioLinea</td>
+     <td>15</td>
+     <td>2</td>
+</tr><tr>
+     <th scope="row">15</th>
+     <td>int</td>
+     <td>PR_int</td>
+     <td>16</td>
+     <td>1</td>
+</tr><tr>
+     <th scope="row">16</th>
+     <td>var</td>
+     <td>Identificador</td>
+     <td>16</td>
+     <td>6</td>
+</tr><tr>
+     <th scope="row">17</th>
+     <td>=</td>
+     <td>S_Igual</td>
+     <td>16</td>
+     <td>11</td>
+</tr><tr>
+     <th scope="row">18</th>
+     <td>0</td>
+     <td>Digito</td>
+     <td>16</td>
+     <td>15</td>
+</tr><tr>
+     <th scope="row">19</th>
+     <td>;</td>
+     <td>S_Punto_y_Coma</td>
+     <td>16</td>
+     <td>15</td>
+</tr><tr>
+     <th scope="row">20</th>
+     <td>string</td>
+     <td>PR_string</td>
+     <td>17</td>
+     <td>1</td>
+</tr><tr>
+     <th scope="row">21</th>
+     <td>nombre</td>
+     <td>Identificador</td>
+     <td>17</td>
+     <td>9</td>
+</tr><tr>
+     <th scope="row">22</th>
+     <td>,</td>
+     <td>S_Coma</td>
+     <td>17</td>
+     <td>14</td>
+</tr><tr>
+     <th scope="row">23</th>
+     <td>apellido</td>
+     <td>Identificador</td>
+     <td>17</td>
+     <td>18</td>
+</tr><tr>
+     <th scope="row">24</th>
+     <td>;</td>
+     <td>S_Punto_y_Coma</td>
+     <td>17</td>
+     <td>25</td>
+</tr><tr>
+     <th scope="row">25</th>
+     <td>bool</td>
+     <td>PR_bool</td>
+     <td>18</td>
+     <td>1</td>
+</tr><tr>
+     <th scope="row">26</th>
+     <td>verdadero</td>
+     <td>Identificador</td>
+     <td>18</td>
+     <td>7</td>
+</tr><tr>
+     <th scope="row">27</th>
+     <td>;</td>
+     <td>S_Punto_y_Coma</td>
+     <td>18</td>
+     <td>15</td>
+</tr><tr>
+     <th scope="row">28</th>
+     <td>char</td>
+     <td>PR_char</td>
+     <td>19</td>
+     <td>1</td>
+</tr><tr>
+     <th scope="row">29</th>
+     <td>caracter</td>
+     <td>Identificador</td>
+     <td>19</td>
+     <td>7</td>
+</tr><tr>
+     <th scope="row">30</th>
+     <td>;</td>
+     <td>S_Punto_y_Coma</td>
+     <td>19</td>
+     <td>14</td>
+</tr><tr>
+     <th scope="row">31</th>
+     <td>char</td>
+     <td>PR_char</td>
+     <td>21</td>
+     <td>1</td>
+</tr><tr>
+     <th scope="row">32</th>
+     <td>hola</td>
+     <td>Identificador</td>
+     <td>21</td>
+     <td>7</td>
+</tr><tr>
+     <th scope="row">33</th>
+     <td>}</td>
+     <td>S_Llave_Derecha</td>
+     <td>23</td>
+     <td>0</td>
+</tr><tr>
+     <th scope="row">34</th>
+     <td>;</td>
+     <td>S_Punto_y_Coma</td>
+     <td>23</td>
+     <td>1</td>
+</tr><tr>
+     <th scope="row">35</th>
+     <td>/*Hola
+Xd*/</td>
+     <td>ComentarioMultiLinea</td>
+     <td>26</td>
+     <td>-7</td>
+</tr><tr>
+     <th scope="row">36</th>
+     <td>//dasda</td>
+     <td>ComentarioLinea</td>
+     <td>27</td>
+     <td>2</td>
+</tr><tr>
+     <th scope="row">37</th>
+     <td>//dasdasdas</td>
+     <td>ComentarioLinea</td>
+     <td>28</td>
+     <td>2</td>
+</tr><tr>
+     <th scope="row">38</th>
+     <td>}</td>
+     <td>S_Llave_Derecha</td>
+     <td>29</td>
+     <td>0</td>
+</tr>    </tbody>
+    </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>
+    // Write on keyup event of keyword input element
+    $(document).ready(function(){
+    $("#search").keyup(function(){
+    _this = this;
+    // Show only matching TR, hide rest of them
+    $.each($("#mytable tbody tr"), function() {
+    if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+    $(this).hide();
+    else
+    $(this).show();
+    });
+    });
+    });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
