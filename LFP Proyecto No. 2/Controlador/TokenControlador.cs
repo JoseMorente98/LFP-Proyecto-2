@@ -30,33 +30,26 @@ namespace LFP_Proyecto_No._2.Controlador
         public void agregarToken(int fila, int columna, string lexema, string descripcion)
         {
             Token token = new Token(idToken, lexema, descripcion, columna, fila);
-            arrayListTokens.Add(token);
+            ArrayListTokens.Add(token);
             idToken++;
         }
 
         public void agregarError(int fila, int columna, string lexema, string descripcion)
         {
             Token token = new Token(idTokenError, lexema, descripcion, columna, fila);
-            arrayListErrors.Add(token);
+            ArrayListErrors.Add(token);
             idTokenError++;
-        }
-
-        public ArrayList getArrayListTokens()
-        {
-            return arrayListTokens;
-        }
-
-        public ArrayList getArrayListErrors()
-        {
-            return arrayListErrors;
         }
 
         public void resetClass()
         {
-            arrayListErrors.Clear();
-            arrayListTokens.Clear();
+            ArrayListErrors.Clear();
+            ArrayListTokens.Clear();
             idToken = 1;
             idTokenError = 1;
         }
+
+        public ArrayList ArrayListTokens { get => arrayListTokens; set => arrayListTokens = value; }
+        public ArrayList ArrayListErrors { get => arrayListErrors; set => arrayListErrors = value; }
     }
 }

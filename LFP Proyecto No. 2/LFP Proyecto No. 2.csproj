@@ -71,6 +71,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modelo\CadenaTraducida.cs" />
     <Compile Include="Modelo\Simbolo.cs" />
     <Compile Include="Modelo\Sintactico.cs" />
     <Compile Include="Modelo\TablaTraduccion.cs" />

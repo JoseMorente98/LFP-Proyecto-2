@@ -27,7 +27,7 @@ namespace LFP_Proyecto_No._2.Controlador
         {
             string tbody = "";
             string content = "";
-            foreach (Token t in TokenControlador.Instancia.getArrayListTokens())
+            foreach (Token t in TokenControlador.Instancia.ArrayListTokens)
             {
                 content = "<tr>\n" +
                     "     <th scope=\"row\">" + t.IdToken + "</th>\n" +
@@ -50,7 +50,7 @@ namespace LFP_Proyecto_No._2.Controlador
         {
             string tbody = "";
             string content = "";
-            foreach (Token t in TokenControlador.Instancia.getArrayListErrors())
+            foreach (Token t in TokenControlador.Instancia.ArrayListErrors)
             {
                 content = "<tr>\n" +
                     "     <th scope=\"row\">" + t.IdToken + "</th>\n" +

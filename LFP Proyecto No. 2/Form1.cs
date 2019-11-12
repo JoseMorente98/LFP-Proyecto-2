@@ -33,13 +33,13 @@ namespace LFP_Proyecto_No._2
             SimboloControlador.Instancia.clearArrayListSimbolo();
             SintacticoControlador.Instancia.clearArrayListSintactico();
             AnalizadorLexico.Instancia.analizador_Lexico(editorTexto.Text);
-            foreach (Token item in TokenControlador.Instancia.getArrayListTokens())
+            foreach (Token item in TokenControlador.Instancia.ArrayListTokens)
             {
                 Console.WriteLine(item.Descripcion);
             }
-            if (TokenControlador.Instancia.getArrayListErrors().Count == 0)
+            if (TokenControlador.Instancia.ArrayListErrors.Count == 0)
             {
-                NuevoAnalizador.Instancia.obtenerLista(TokenControlador.Instancia.getArrayListTokens());
+                NuevoAnalizador.Instancia.obtenerLista(TokenControlador.Instancia.ArrayListTokens);
                 this.consola.Text = "";
                 consola.AppendText(NuevoAnalizador.Instancia.returnT());
 
