@@ -35,8 +35,6 @@ namespace LFP_Proyecto_No._2.Analizador
         //Variables console
         string print = "";
 
-        //Variables if
-        string condicionIf = "";
         //Variables switch
         string tipoInicio = "";
         string variableSwitch = "";
@@ -247,8 +245,16 @@ namespace LFP_Proyecto_No._2.Analizador
         {
             if (preAnalisis.Descripcion.Equals("S_Punto_y_Coma"))
             {
-                Parea("S_Punto_y_Coma");
-                ListaDeclaracion();
+                Parea(preAnalisis.Descripcion);
+                if (preAnalisis.Descripcion.Equals("PR_switch"))
+                {
+                    this.variableSwitch = this.lexemaAuxiliar;
+                    InicioSwitch();
+                }
+                else
+                {
+                    ListaDeclaracion();
+                }
             }
             else if (preAnalisis.Descripcion.Equals("S_Coma"))
             {
@@ -261,8 +267,8 @@ namespace LFP_Proyecto_No._2.Analizador
             {
                 this.lex = ">>Error sintactico: Se esperaba [ punto y coma  ] al final de [" + preAnalisis.Descripcion + ", " + preAnalisis.Lexema + "]";
                 SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
-                this.errorSintactico = true;
-                Console.WriteLine(">>Error sintactico: Se esperaba [ punto y coma  ] al final de [" + preAnalisis.Descripcion + ", " + preAnalisis.Lexema + "]");
+                this.tok = "";
+                errorSintactico = true;
             }
         }
         #endregion
@@ -961,8 +967,181 @@ namespace LFP_Proyecto_No._2.Analizador
 
         #endregion
 
-        #region SWITCH
+        #region
         public void InicioSwitch()
+        {
+            this.tipoInicioAux = tipoInicio;
+            Parea("PR_switch");
+            Parea("S_Parentesis_Izquierdo");
+            //ASIGNACION
+            AsignacionSwitch();
+            Parea("S_Parentesis_Derecho");
+            Parea("S_Llave_Izquierda");
+            //CUERPO SWITCH
+            CuerpoSwitch();
+            Parea("S_Llave_Derecha");
+            ListaDeclaracion();
+        }
+
+        public void AsignacionSwitch()
+        {
+            if (preAnalisis.Lexema.Equals(variableSwitch))
+            {
+                Parea(preAnalisis.Descripcion);
+            }
+            else
+            {
+                this.lex = ">>Error sintactico: La variable [" + preAnalisis.Lexema + "] no esta declarada";
+                SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
+                this.tok = "";
+                errorSintactico = true;
+            }
+        }
+
+        public void CuerpoSwitch()
+        {
+            if (preAnalisis.Descripcion.Equals("PR_case"))
+            {
+                //va armando la traduccion del switch
+                if (iteracionesSwitch == 0) { cuerpoSwitch = cuerpoCase + " if " + variableSwitch; iteracionesSwitch = 1; }
+                else { cuerpoSwitch = cuerpoCase + "else if " + variableSwitch; }
+
+
+                Parea(preAnalisis.Descripcion);
+                //verifica si concuerdan los tipos, es decir que el caso a analizar concuerde con el tipo de variable
+                //
+                //  String texto = ""; ----> como la variable declarada es string
+                //
+                //  switch(texto){
+                //      case "":  ---> la variable del case debe ser igual a string   
+                //
+                if ((preAnalisis.Descripcion.Equals("Cadena") && (tipoInicio.Equals("PR_string") || tipoInicio.Equals("PR_char"))) ||
+                    (preAnalisis.Descripcion.Equals("Digito") && (tipoInicio.Equals("PR_int") || tipoInicio.Equals("PR_float"))))
+                {
+                    cuerpoSwitch = cuerpoSwitch + " == " + preAnalisis.Lexema;
+                    Parea(preAnalisis.Descripcion);
+                    if (preAnalisis.Descripcion.Equals("S_Dos_puntos"))
+                    {
+                        cuerpoSwitch = cuerpoSwitch + ":";
+                        Parea(preAnalisis.Descripcion);
+                        CuerpoCase();
+
+
+                        //envia a la traduccion
+                        //  traduccion(cuerpoSwitch  + "\n" + cuerpoCase);
+                        if (errorSintactico == false)
+                        {
+                            if (preAnalisis.Descripcion.Equals("PR_break"))
+                            {
+                                Parea(preAnalisis.Descripcion);
+                                if (preAnalisis.Descripcion.Equals("S_Punto_y_Coma"))
+                                {
+                                    Parea(preAnalisis.Descripcion);
+                                    CuerpoSwitch();
+                                }
+                                else
+                                {
+                                    this.lex = ">>Error Sintactico: Se esperaban punto y coma en lugar de [" + preAnalisis.Descripcion + " ]";
+                                    SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
+                                    this.tok = "";
+                                    errorSintactico = true;
+                                }
+                            }
+                            else
+                            {
+                                this.lex = ">>Error Sintactico: Se esperaban palabra reservada BREAK en lugar de [" + preAnalisis.Descripcion + " ]";
+                                SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
+                                this.tok = "";
+                                errorSintactico = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        this.lex = ">>Error Sintactico: Se esperaban dos puntos el lugar de [" + preAnalisis.Descripcion + " ]";
+                        SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
+                        this.tok = "";
+                        errorSintactico = true;
+                    }
+                }
+                else
+                {
+                    this.lex = ">>Error Sintactico: El tipo de variable [ " + tipoInicio + "] no concuerda con el tipo de evaluacion [ " + preAnalisis.Descripcion + " ] del case";
+                    SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
+                    this.tok = "";
+                    errorSintactico = true;
+                }
+            }
+            else if (preAnalisis.Descripcion.Equals("PR_default"))
+            {
+                Parea(preAnalisis.Descripcion);
+
+                if (preAnalisis.Descripcion.Equals("S_Dos_puntos"))
+                {
+                    cuerpoSwitch = "else" + ":";
+                    Parea(preAnalisis.Descripcion);
+                    ListaDeclaracion();
+                    //envia a la traduccion
+                    //traduccion(cuerpoSwitch + "\n" + cuerpoCase);
+                    if (errorSintactico == false)
+                    {
+                        if (preAnalisis.Descripcion.Equals("PR_break"))
+                        {
+                            Parea(preAnalisis.Descripcion);
+                            if (preAnalisis.Descripcion.Equals("S_Punto_y_Coma"))
+                            {
+                                Parea(preAnalisis.Descripcion);
+                                CuerpoSwitch();
+                            }
+                            else
+                            {
+                                this.lex = ">>Error Sintactico: Se esperaban punto y coma en lugar de [" + preAnalisis.Descripcion + " ]";
+                                SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
+                                this.tok = "";
+                                errorSintactico = true;
+                            }
+                        }
+                        else
+                        {
+                            this.lex = ">>Error Sintactico: Se esperaban palabra reservada BREAK en lugar de [" + preAnalisis.Descripcion + " ]";
+                            SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
+                            this.tok = "";
+                            errorSintactico = true;
+                        }
+                    }
+                }
+                else
+                {
+                    this.lex = ">>Error Sintactico: Se esperaban dos puntos el lugar de [" + preAnalisis.Descripcion + " ]";
+                    SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
+                    this.tok = "";
+                    errorSintactico = true;
+                }
+
+            }
+            else if (preAnalisis.Descripcion.Equals("S_Llave_Derecha"))
+            {
+
+            }
+            else
+            {
+                this.lex = ">>Error Sintactico: Se esperaba palabra reservada CASE en lugar de [ " + preAnalisis.Lexema + " ]";
+                SintacticoControlador.Instancia.agregarError(preAnalisis.Descripcion, this.lex, preAnalisis.Fila, preAnalisis.Columna);
+                this.tok = "";
+                errorSintactico = true;
+            }
+        }
+
+        public void CuerpoCase()
+        {
+            ListaDeclaracion();
+
+        }
+        #endregion
+
+
+        #region SWITCH
+        /*public void InicioSwitch()
         {
             Parea("PR_switch");
             Parea("S_Parentesis_Izquierdo");
@@ -1026,7 +1205,7 @@ namespace LFP_Proyecto_No._2.Analizador
             {
                 //EPSILON
             }
-        }
+        }*/
         #endregion
 
         #region ASIGNACION SIN TIPO
