@@ -884,16 +884,32 @@ namespace LFP_Proyecto_No._2.Analizador
         {
             if (preAnalisis.Descripcion.Equals("PR_int"))
             {
+                String variable, tipo, igual;
+                tipo = preAnalisis.Lexema;
                 Parea("PR_int");
+                variable = preAnalisis.Lexema;
                 Parea("Identificador");
                 Parea("S_Igual");
+                igual = preAnalisis.Lexema;
                 Parea("Digito");
+                SimboloControlador.Instancia.agregarSimbolo(variable, igual, tipo);
             }
             else if (preAnalisis.Descripcion.Equals("Identificador"))
             {
+                String variable, igual;
+                variable = preAnalisis.Lexema;
                 Parea("Identificador");
                 Parea("S_Igual");
+                igual = preAnalisis.Lexema;
                 Parea("Digito");
+                if (SimboloControlador.Instancia.buscar(variable))
+                {
+                    SimboloControlador.Instancia.editarSimbolo(variable, igual);
+                }
+                else
+                {
+                    SimboloControlador.Instancia.agregarSimbolo(variable, igual, "0");
+                }
             }
         }
 
