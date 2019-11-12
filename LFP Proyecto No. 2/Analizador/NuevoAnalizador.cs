@@ -223,14 +223,17 @@ namespace LFP_Proyecto_No._2.Analizador
         {
             if (preAnalisis.Descripcion.Equals("Digito") && (tokenInicio.Equals("PR_int") || tokenInicio.Equals("PR_float")))
             {
+                SimboloControlador.Instancia.agregarSimbolo(this.lexemaAuxiliar, preAnalisis.Lexema, tokenInicio.Replace("PR_", ""));
                 Parea("Digito");
             }
             else if (preAnalisis.Descripcion.Equals("Cadena") && (tokenInicio.Equals("PR_char") || tokenInicio.Equals("PR_string")))
             {
+                SimboloControlador.Instancia.agregarSimbolo(this.lexemaAuxiliar, preAnalisis.Lexema, tokenInicio.Replace("PR_", ""));
                 Parea("Cadena");
             }
             else if (preAnalisis.Descripcion.Equals("Identificador") && (tokenInicio.Equals("PR_bool") || tokenInicio.Equals("PR_boolean")))
             {
+                SimboloControlador.Instancia.agregarSimbolo(this.lexemaAuxiliar, preAnalisis.Lexema, tokenInicio.Replace("PR_", ""));
                 Parea("Identificador");
             }
             else
