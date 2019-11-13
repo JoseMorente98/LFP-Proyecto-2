@@ -65,7 +65,7 @@ namespace LFP_Proyecto_No._2
 
         private void ReporteDeErroresToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            ReporteControlador.Instancia.getReportTokensError();
         }
 
         private void SalirToolStripMenuItem_Click(object sender, EventArgs e)

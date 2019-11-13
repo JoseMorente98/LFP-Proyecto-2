@@ -206,6 +206,14 @@ namespace LFP_Proyecto_No._2.Analizador
                                 {
                                     TokenControlador.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Excl");
                                 }
+                                else if (c.Equals('\''))
+                                {
+                                    //TokenControlador.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Comilla_Simple");
+                                    columna++;
+                                    opcion = 19;
+                                    i--;
+                                    columna--;
+                                }
                                 else
                                 {
                                     //Console.WriteLine("ULTIMO ELSE PUNTUACION");
@@ -442,6 +450,45 @@ namespace LFP_Proyecto_No._2.Analizador
                             {
                                 auxiliar += c;
                                 TokenControlador.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar, "ComentarioMultiLinea");
+                                opcion = 0;
+                                auxiliar = "";
+                            }
+                            break;
+                        case 19:
+                            if (c == '\'')
+                            {
+                                auxiliar += c;
+                                opcion = 20;
+                                columna++;
+                            }
+                            break;
+                        case 20:
+                            if (!c.Equals('\''))
+                            {
+                                auxiliar += c;
+                                opcion = 20;
+                                columna++;
+                            }
+                            else
+                            {
+                                opcion = 21;
+                                columna--;
+                                i--;
+                            }
+                            break;
+                        case 21:
+                            if (c == '\'')
+                            {
+                                auxiliar += c;
+                                columna++;
+                                if (auxiliar.Length == 3)
+                                {
+                                    TokenControlador.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar, "Character");
+                                }
+                                else
+                                {
+                                    TokenControlador.Instancia.agregarError(fila, (columna - auxiliar.Length), auxiliar, "Desconocido");
+                                }
                                 opcion = 0;
                                 auxiliar = "";
                             }
