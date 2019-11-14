@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace LFP_Proyecto_No._2.Controlador
 {
-    class TokenControlador
+    class ControladorToken
     {
-        private readonly static TokenControlador instancia = new TokenControlador();
+        private readonly static ControladorToken instancia = new ControladorToken();
         private ArrayList arrayListTokens = new ArrayList();
         private ArrayList arrayListErrors = new ArrayList();
         private int idToken = 1;
         private int idTokenError = 1;
-        private TokenControlador()
+        private ControladorToken()
         {
         }
 
-        public static TokenControlador Instancia
+        public static ControladorToken Instancia
         {
             get
             {
@@ -27,6 +27,9 @@ namespace LFP_Proyecto_No._2.Controlador
             }
         }
 
+        /**
+         * AGREGAR TOKEN
+         */
         public void agregarToken(int fila, int columna, string lexema, string descripcion)
         {
             Token token = new Token(idToken, lexema, descripcion, columna, fila);
@@ -34,6 +37,9 @@ namespace LFP_Proyecto_No._2.Controlador
             idToken++;
         }
 
+        /**
+         * AGREGAR TOKEN ERROR
+         */
         public void agregarError(int fila, int columna, string lexema, string descripcion)
         {
             Token token = new Token(idTokenError, lexema, descripcion, columna, fila);
@@ -41,7 +47,10 @@ namespace LFP_Proyecto_No._2.Controlador
             idTokenError++;
         }
 
-        public void resetClass()
+        /**
+         * LIMPIAR ARRAY LIST
+         */
+        public void clearArrayList()
         {
             ArrayListErrors.Clear();
             ArrayListTokens.Clear();

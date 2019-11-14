@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace LFP_Proyecto_No._2.Controlador
 {
-    class ReporteControlador
+    class ControladorReporte
     {
-        private readonly static ReporteControlador instancia = new ReporteControlador();
-        private ReporteControlador()
+        private readonly static ControladorReporte instancia = new ControladorReporte();
+        private ControladorReporte()
         {
         }
 
-        public static ReporteControlador Instancia
+        public static ControladorReporte Instancia
         {
             get
             {
@@ -23,11 +23,15 @@ namespace LFP_Proyecto_No._2.Controlador
             }
         }
 
+        /**
+         * REPORTE DE TOKEN 
+         */
+        #region REPORTE DE TOKEN
         public void getReportTokens()
         {
             string tbody = "";
             string content = "";
-            foreach (Token t in TokenControlador.Instancia.ArrayListTokens)
+            foreach (Token t in ControladorToken.Instancia.ArrayListTokens)
             {
                 content = "<tr>\n" +
                     "     <th scope=\"row\">" + t.IdToken + "</th>\n" +
@@ -45,12 +49,17 @@ namespace LFP_Proyecto_No._2.Controlador
             "<th scope=\"col\">Columna</th>";
             getHTML("Tokens", thead, tbody);
         }
+        #endregion
 
+        /**
+         * REPORTE DE TOKEN ERROR
+         */
+        #region REPORTE DE TOKEN ERROR
         public void getReportTokensError()
         {
             string tbody = "";
             string content = "";
-            foreach (Token t in TokenControlador.Instancia.ArrayListErrors)
+            foreach (Token t in ControladorToken.Instancia.ArrayListErrors)
             {
                 content = "<tr>\n" +
                     "     <th scope=\"row\">" + t.IdToken + "</th>\n" +
@@ -68,12 +77,17 @@ namespace LFP_Proyecto_No._2.Controlador
             "<th scope=\"col\">Columna</th>";
             getHTML("Tokens Error", thead, tbody);
         }
+        #endregion
 
+        /**
+         * REPORTE DE TOKEN SINTACTICO
+         */
+        #region ERRORES SINTACTICOS
         public void getReporteError()
         {
             string tbody = "";
             string content = "";
-            foreach (Sintactico t in SintacticoControlador.Instancia.ArrayListSintactico)
+            foreach (Sintactico t in ControladorSintactico.Instancia.ArrayListSintactico)
             {
                 content = "<tr>\n" +
                     "     <th scope=\"row\">" + t.IdSintactico + "</th>\n" +
@@ -91,12 +105,17 @@ namespace LFP_Proyecto_No._2.Controlador
             "<th scope=\"col\">Columna</th>";
             getHTML("Errores Sintacticos", thead, tbody);
         }
+        #endregion
 
+        /**
+         * REPORTE DE SIMBOLOS
+         */
+        #region TABLA DE SIMBOLOS
         public void getTablaSimbolos()
         {
             string tbody = "";
             string content = "";
-            foreach (Simbolo s in SimboloControlador.Instancia.ArrayListSimbolo)
+            foreach (Simbolo s in ControladorSimbolo.Instancia.ArrayListSimbolo)
             {
                 content = "<tr>\n" +
                     "     <th scope=\"row\">" + s.IdSimbolo + "</th>\n" +
@@ -112,7 +131,12 @@ namespace LFP_Proyecto_No._2.Controlador
             "<th scope=\"col\">Valor</th>\n";
             getHTML("Tabla de Simbolos", thead, tbody);
         }
+        #endregion
 
+        /**
+         * CUERPO HTML
+         */
+        #region CUERPO HTML
         public void getHTML(string title, string thead, string tbody)
         {
             string html = "<html lang=\"en\">\n" +
@@ -176,5 +200,6 @@ namespace LFP_Proyecto_No._2.Controlador
             File.WriteAllText("Reporte de " + title + ".html", html);
             System.Diagnostics.Process.Start("Reporte de " + title + ".html");
         }
+        #endregion
     }
 }

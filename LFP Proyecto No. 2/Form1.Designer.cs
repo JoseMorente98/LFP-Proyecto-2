@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AbrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,16 +40,17 @@
             this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reporteTokensToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reporteDeErroresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteDeSimbolosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteDeErroresSintacticosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
             this.metroButton1 = new MetroFramework.Controls.MetroButton();
-            this.editorTexto = new System.Windows.Forms.RichTextBox();
             this.traduccion = new System.Windows.Forms.RichTextBox();
             this.consola = new System.Windows.Forms.RichTextBox();
-            this.reporteDeSimbolosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reporteDeErroresSintacticosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editorTexto = new FastColoredTextBoxNS.FastColoredTextBox();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.editorTexto)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -123,22 +126,36 @@
             this.reporteDeSimbolosToolStripMenuItem,
             this.reporteDeErroresSintacticosToolStripMenuItem});
             this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
-            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(220, 26);
             this.reportesToolStripMenuItem.Text = "Reportes";
             // 
             // reporteTokensToolStripMenuItem
             // 
             this.reporteTokensToolStripMenuItem.Name = "reporteTokensToolStripMenuItem";
-            this.reporteTokensToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.reporteTokensToolStripMenuItem.Size = new System.Drawing.Size(291, 26);
             this.reporteTokensToolStripMenuItem.Text = "Reporte de Tokens";
             this.reporteTokensToolStripMenuItem.Click += new System.EventHandler(this.ReporteTokensToolStripMenuItem_Click);
             // 
             // reporteDeErroresToolStripMenuItem
             // 
             this.reporteDeErroresToolStripMenuItem.Name = "reporteDeErroresToolStripMenuItem";
-            this.reporteDeErroresToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.reporteDeErroresToolStripMenuItem.Size = new System.Drawing.Size(291, 26);
             this.reporteDeErroresToolStripMenuItem.Text = "Reporte de Errores";
             this.reporteDeErroresToolStripMenuItem.Click += new System.EventHandler(this.ReporteDeErroresToolStripMenuItem_Click);
+            // 
+            // reporteDeSimbolosToolStripMenuItem
+            // 
+            this.reporteDeSimbolosToolStripMenuItem.Name = "reporteDeSimbolosToolStripMenuItem";
+            this.reporteDeSimbolosToolStripMenuItem.Size = new System.Drawing.Size(291, 26);
+            this.reporteDeSimbolosToolStripMenuItem.Text = "Reporte de Simbolos";
+            this.reporteDeSimbolosToolStripMenuItem.Click += new System.EventHandler(this.ReporteDeSimbolosToolStripMenuItem_Click);
+            // 
+            // reporteDeErroresSintacticosToolStripMenuItem
+            // 
+            this.reporteDeErroresSintacticosToolStripMenuItem.Name = "reporteDeErroresSintacticosToolStripMenuItem";
+            this.reporteDeErroresSintacticosToolStripMenuItem.Size = new System.Drawing.Size(291, 26);
+            this.reporteDeErroresSintacticosToolStripMenuItem.Text = "Reporte de Errores Sintacticos";
+            this.reporteDeErroresSintacticosToolStripMenuItem.Click += new System.EventHandler(this.ReporteDeErroresSintacticosToolStripMenuItem_Click);
             // 
             // metroLabel1
             // 
@@ -180,18 +197,6 @@
             this.metroButton1.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroButton1.Click += new System.EventHandler(this.MetroButton1_Click);
             // 
-            // editorTexto
-            // 
-            this.editorTexto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.editorTexto.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.editorTexto.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.editorTexto.ForeColor = System.Drawing.Color.White;
-            this.editorTexto.Location = new System.Drawing.Point(23, 115);
-            this.editorTexto.Name = "editorTexto";
-            this.editorTexto.Size = new System.Drawing.Size(600, 400);
-            this.editorTexto.TabIndex = 8;
-            this.editorTexto.Text = "";
-            // 
             // traduccion
             // 
             this.traduccion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
@@ -216,28 +221,47 @@
             this.consola.TabIndex = 10;
             this.consola.Text = "";
             // 
-            // reporteDeSimbolosToolStripMenuItem
+            // editorTexto
             // 
-            this.reporteDeSimbolosToolStripMenuItem.Name = "reporteDeSimbolosToolStripMenuItem";
-            this.reporteDeSimbolosToolStripMenuItem.Size = new System.Drawing.Size(232, 26);
-            this.reporteDeSimbolosToolStripMenuItem.Text = "Reporte de Simbolos";
-            this.reporteDeSimbolosToolStripMenuItem.Click += new System.EventHandler(this.ReporteDeSimbolosToolStripMenuItem_Click);
-            // 
-            // reporteDeErroresSintacticosToolStripMenuItem
-            // 
-            this.reporteDeErroresSintacticosToolStripMenuItem.Name = "reporteDeErroresSintacticosToolStripMenuItem";
-            this.reporteDeErroresSintacticosToolStripMenuItem.Size = new System.Drawing.Size(291, 26);
-            this.reporteDeErroresSintacticosToolStripMenuItem.Text = "Reporte de Errores Sintacticos";
-            this.reporteDeErroresSintacticosToolStripMenuItem.Click += new System.EventHandler(this.ReporteDeErroresSintacticosToolStripMenuItem_Click);
+            this.editorTexto.AutoCompleteBracketsList = new char[] {
+        '(',
+        ')',
+        '{',
+        '}',
+        '[',
+        ']',
+        '\"',
+        '\"',
+        '\'',
+        '\''};
+            this.editorTexto.AutoScrollMinSize = new System.Drawing.Size(29, 19);
+            this.editorTexto.BackBrush = null;
+            this.editorTexto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.editorTexto.CharHeight = 19;
+            this.editorTexto.CharWidth = 9;
+            this.editorTexto.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.editorTexto.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.editorTexto.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.editorTexto.ForeColor = System.Drawing.Color.White;
+            this.editorTexto.IndentBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.editorTexto.IsReplaceMode = false;
+            this.editorTexto.Location = new System.Drawing.Point(23, 115);
+            this.editorTexto.Name = "editorTexto";
+            this.editorTexto.Paddings = new System.Windows.Forms.Padding(0);
+            this.editorTexto.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.editorTexto.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("editorTexto.ServiceColors")));
+            this.editorTexto.Size = new System.Drawing.Size(600, 399);
+            this.editorTexto.TabIndex = 11;
+            this.editorTexto.Zoom = 100;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1280, 720);
+            this.Controls.Add(this.editorTexto);
             this.Controls.Add(this.consola);
             this.Controls.Add(this.traduccion);
-            this.Controls.Add(this.editorTexto);
             this.Controls.Add(this.metroButton1);
             this.Controls.Add(this.metroLabel3);
             this.Controls.Add(this.metroLabel2);
@@ -251,6 +275,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.editorTexto)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -274,9 +299,9 @@
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.RichTextBox traduccion;
         private System.Windows.Forms.RichTextBox consola;
-        private System.Windows.Forms.RichTextBox editorTexto;
         private System.Windows.Forms.ToolStripMenuItem reporteDeSimbolosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reporteDeErroresSintacticosToolStripMenuItem;
+        private FastColoredTextBoxNS.FastColoredTextBox editorTexto;
     }
 }
 

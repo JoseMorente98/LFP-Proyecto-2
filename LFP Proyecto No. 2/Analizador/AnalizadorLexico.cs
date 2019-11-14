@@ -12,7 +12,9 @@ namespace LFP_Proyecto_No._2.Analizador
     class AnalizadorLexico
     {
         private readonly static AnalizadorLexico instancia = new AnalizadorLexico();
-        //VARIABLES GLOBALES
+        /**
+         * VARIABLES GLOBALES
+         **/
         string auxiliar = "";
 
         private AnalizadorLexico()
@@ -27,21 +29,22 @@ namespace LFP_Proyecto_No._2.Analizador
             }
         }
 
+        
         /**
-         * ANALIZADOR LEXICO 
-         */
-        public async void analizador_Lexico(String totalTexto)
+         * ANALIZADOR LEXICO
+         **/
+        public async void analizador_Lexico(String entradaTexto)
         {
             ////
-            int opcion = 0;
+            int estado = 0;
             int columna = -1;
             int fila = 1;
-            totalTexto = totalTexto + " ";
+            entradaTexto = entradaTexto + " ";
 
-            char[] charsRead = new char[totalTexto.Length];
-            using (StringReader reader = new StringReader(totalTexto))
+            char[] charsRead = new char[entradaTexto.Length];
+            using (StringReader reader = new StringReader(entradaTexto))
             {
-                await reader.ReadAsync(charsRead, 0, totalTexto.Length);
+                await reader.ReadAsync(charsRead, 0, entradaTexto.Length);
             }
 
             StringBuilder reformattedText = new StringBuilder();
@@ -50,191 +53,171 @@ namespace LFP_Proyecto_No._2.Analizador
                 for (int i = 0; i < charsRead.Length; i++)
                 {
                     columna++;
-                    Char c = totalTexto[i];
-                    switch (opcion)
+                    Char c = entradaTexto[i];
+                    switch (estado)
                     {
                         case 0:
-                            //VERIFICA SI LO QUE VIENE ES LETRA
+                            //LETRAS
                             if (char.IsLetter(c))
                             {
-                                opcion = 1;
+                                estado = 1;
                                 auxiliar += c;
                             }
-
-                            //VERIFICA SI ES ESPACIO EN BLANCO O SALTO DE LINEA
+                            //SALTO DE LINEA
                             else if (c.Equals('\n'))
                             {
-                                opcion = 0;
-                                columna = 0;//COLUMNA 0
-                                fila++; //FILA INCREMENTA
-
+                                estado = 0;
+                                columna = 0;
+                                fila++;
                             }
-                            //VERIFICA SI ES ESPACIO EN BLANCO O SALTO DE LINEA
+                            //ESPACIO EN BLANCO
                             else if (char.IsWhiteSpace(c))
                             {
                                 columna++;
-                                opcion = 0;
+                                estado = 0;
                             }
-                            //VERIFICA SI LO QUE VIENE ES DIGITO
+                            //DIGITO
                             else if (char.IsDigit(c))
                             {
-                                opcion = 2;
+                                estado = 2;
                                 auxiliar += c;
                             }
-                            //VERIFICA SI ES SIMBOLO
+                            //SIMBOLOS
                             else if (char.IsSymbol(c))
                             {
                                 if (c.Equals('<'))
                                 {
                                     columna++;
-                                    TokenControlador.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Menor_Que");
+                                    ControladorToken.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Menor_Que");
                                 }
                                 else if (c.Equals('>'))
                                 {
                                     columna++;
-                                    TokenControlador.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Mayor_Que");
+                                    ControladorToken.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Mayor_Que");
 
                                 }
                                 else if (c.Equals('='))
                                 {
                                     columna++;
-                                    TokenControlador.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Igual");
+                                    ControladorToken.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Igual");
                                 }
                                 else if (c.Equals('+'))
                                 {
                                     columna++;
-                                    TokenControlador.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Suma");
+                                    ControladorToken.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Suma");
                                 }
 
                                 else
                                 {
-                                    //Console.WriteLine("esta entrando al ultimo else");
                                     columna++;
-                                    TokenControlador.Instancia.agregarError(fila, (columna - 1), c.ToString(), "Simb_Desconocido_" + c);
-                                    opcion = 10;
-                                    i--;
+                                    ControladorToken.Instancia.agregarError(fila, (columna - 1), c.ToString(), "Simb_Desconocido_" + c);
+                                    estado = 0;
+                                    auxiliar = "";
                                 }
                             }
-                            //VERIFICA SI LO QUE VIENE ES SIGNO DE PUNTUACION
+                            //PUNTUACIÓN
                             else if (char.IsPunctuation(c))
                             {
-                                //Console.WriteLine("esta entrando a puntuacion");
                                 if (c.Equals('"'))
                                 {
                                     columna++;
-                                    opcion = 3;
+                                    estado = 3;
                                     i--;
                                     columna--;
                                 }
-                                /*if (c.Equals("'"))
-                                {
-                                    Console.WriteLine("entro");
-                                    columna++;
-                                    opcion = 11;
-                                    i--;
-                                    columna--;
-                                }*/
                                 else if (c.Equals(','))
                                 {
-                                    TokenControlador.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Coma");
-                                    /*opcion = 5;
-                                    i--;
-                                    columna--;*/
+                                    ControladorToken.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Coma");
                                 }
                                 else if (c.Equals('{'))
                                 {
-                                    TokenControlador.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Llave_Izquierda");
+                                    ControladorToken.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Llave_Izquierda");
                                 }
                                 else if (c.Equals('}'))
                                 {
-                                    TokenControlador.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Llave_Derecha");
+                                    ControladorToken.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Llave_Derecha");
                                 }
                                 else if (c.Equals(';'))
                                 {
-                                    TokenControlador.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Punto_y_Coma");
-
+                                    ControladorToken.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Punto_y_Coma");
                                 }
                                 else if (c.Equals(':'))
                                 {
-                                    TokenControlador.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Dos_puntos");
+                                    ControladorToken.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Dos_puntos");
                                 }
                                 else if (c.Equals('.'))
                                 {
-                                    TokenControlador.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Punto");
+                                    ControladorToken.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Punto");
                                 }
                                 else if (c.Equals('_'))
                                 {
-                                    TokenControlador.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Guion_Bajo");
+                                    ControladorToken.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Guion_Bajo");
                                 }
                                 else if (c.Equals('('))
                                 {
-                                    TokenControlador.Instancia.agregarToken(fila, columna, c.ToString(), "S_Parentesis_Izquierdo");
+                                    ControladorToken.Instancia.agregarToken(fila, columna, c.ToString(), "S_Parentesis_Izquierdo");
                                 }
                                 else if (c.Equals(')'))
                                 {
-                                    TokenControlador.Instancia.agregarToken(fila, columna, c.ToString(), "S_Parentesis_Derecho");
+                                    ControladorToken.Instancia.agregarToken(fila, columna, c.ToString(), "S_Parentesis_Derecho");
                                 }
                                 else if (c.Equals('['))
                                 {
-                                    TokenControlador.Instancia.agregarToken(fila, columna, c.ToString(), "S_Corchete_Izquierdo");
+                                    ControladorToken.Instancia.agregarToken(fila, columna, c.ToString(), "S_Corchete_Izquierdo");
                                 }
                                 else if (c.Equals(']'))
                                 {
-                                    TokenControlador.Instancia.agregarToken(fila, columna, c.ToString(), "S_Corchete_Derecho");
+                                    ControladorToken.Instancia.agregarToken(fila, columna, c.ToString(), "S_Corchete_Derecho");
                                 }
                                 else if (c.Equals('%'))
                                 {
-                                    TokenControlador.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Porcentaje");
+                                    ControladorToken.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Porcentaje");
                                 }
                                 else if (c.Equals('-'))
                                 {
-                                    TokenControlador.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Resta");
+                                    ControladorToken.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Resta");
                                 }
                                 else if (c.Equals('/'))
                                 {
-                                    //TokenControlador.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Division");
                                     columna++;
-                                    opcion = 14;
+                                    estado = 8;
                                     i--;
                                     columna--;
                                 }
                                 else if (c.Equals('*'))
                                 {
-                                    TokenControlador.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Mult");
+                                    ControladorToken.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Mult");
                                 }
                                 else if (c.Equals('!'))
                                 {
-                                    TokenControlador.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Excl");
+                                    ControladorToken.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Excl");
                                 }
                                 else if (c.Equals('\''))
                                 {
-                                    //TokenControlador.Instancia.agregarToken(fila, (columna - 1), c.ToString(), "S_Comilla_Simple");
                                     columna++;
-                                    opcion = 19;
+                                    estado = 13;
                                     i--;
                                     columna--;
                                 }
                                 else
                                 {
-                                    //Console.WriteLine("ULTIMO ELSE PUNTUACION");
                                     columna++;
-                                    TokenControlador.Instancia.agregarError(fila, (columna - 1), c.ToString(), "Simb_Desconocido_" + c);
+                                    ControladorToken.Instancia.agregarError(fila, (columna - 1), c.ToString(), "Simb_Desconocido_" + c);
                                     alertMessage("Se detectó un error en la fila " + fila + ", columna " + (columna - 1));
-                                    opcion = 10;
-                                    i--;
+                                    estado = 0;
+                                    auxiliar = "";
                                     columna--;
                                 }
 
                             }
-                            //LO MANDA A SIGNOS DESCONOCIDOS
+                            //SIMBOLOS DESCONOCIDOS
                             else
                             {
                                 columna++;
-                                //Console.WriteLine("esta entrando al ultimo else");
-                                TokenControlador.Instancia.agregarError(fila, (columna - 1), c.ToString(), "Simb_Desconocido_" + c);
+                                ControladorToken.Instancia.agregarError(fila, (columna - 1), c.ToString(), "Simb_Desconocido_" + c);
                                 alertMessage("Se detectó un error en la fila " + fila + ", columna " + (columna - 1));
-                                opcion = 10;
-                                i--;
+                                estado = 0;
+                                auxiliar = "";
                                 columna--;
                             }
                             break;
@@ -242,7 +225,7 @@ namespace LFP_Proyecto_No._2.Analizador
                             if (Char.IsLetterOrDigit(c) || c == '_')
                             {
                                 auxiliar += c;
-                                opcion = 1;
+                                estado = 1;
                             }
                             else
                             {
@@ -255,52 +238,49 @@ namespace LFP_Proyecto_No._2.Analizador
                                 if (Array.Exists(reservadasC, element => element.Equals(auxiliar.ToLower())))
                                 {
                                     int lex = Array.IndexOf(reservadasC, auxiliar.ToLower());
-                                    TokenControlador.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar.ToLower(), "PR_" + reservadasC[lex]);
+                                    ControladorToken.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar.ToLower(), "PR_" + reservadasC[lex]);
 
                                 }
                                 else if (Array.Exists(reservadasMayus, element => element.Equals(auxiliar)))
                                 {
                                     int lex = Array.IndexOf(reservadasMayus, auxiliar);
-                                    TokenControlador.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar, "PR_" + reservadasMayus[lex]);
+                                    ControladorToken.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar, "PR_" + reservadasMayus[lex]);
                                 }
                                 else
                                 {
-                                    TokenControlador.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar, "Identificador");
-                                    //alertMessage("Se detecto un error, Linea" + fila + " , columna " + columna);
+                                    ControladorToken.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar, "Identificador");
                                 }
-
-
                                 auxiliar = "";
                                 i--;
                                 columna--;
-                                opcion = 0;
+                                estado = 0;
                             }
                             break;
                         case 2:
                             if (Char.IsDigit(c))
                             {
                                 auxiliar += c;
-                                opcion = 2;
+                                estado = 2;
                             }
                             else if (c == '.')
                             {
-                                opcion = 8;
+                                estado = 6;
                                 auxiliar += c;
                             }
                             else
                             {
-                                TokenControlador.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar, "Digito");
+                                ControladorToken.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar, "Digito");
                                 auxiliar = "";
                                 i--;
                                 columna--;
-                                opcion = 0;
+                                estado = 0;
                             }
                             break;
                         case 3:
                             if (c == '"')
                             {
                                 auxiliar += c;
-                                opcion = 4;
+                                estado = 4;
                             }
                             break;
                         case 4:
@@ -308,11 +288,11 @@ namespace LFP_Proyecto_No._2.Analizador
                             {
                                 if (c.Equals('\n')) { fila++; columna = 0; }
                                 auxiliar += c;
-                                opcion = 4;
+                                estado = 4;
                             }
                             else
                             {
-                                opcion = 5;
+                                estado = 5;
                                 i--;
                                 columna--;
                             }
@@ -321,175 +301,139 @@ namespace LFP_Proyecto_No._2.Analizador
                             if (c == '"')
                             {
                                 auxiliar += c;
-                                TokenControlador.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar, "Cadena");
-                                opcion = 0;
+                                ControladorToken.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar, "Cadena");
+                                estado = 0;
                                 auxiliar = "";
                             }
                             break;
-                        case 8:
+                        case 6:
                             if (char.IsDigit(c))
                             {
-                                opcion = 9;
+                                estado = 7;
                                 auxiliar += c;
                             }
                             else
                             {
-                                opcion = 0;
+                                estado = 0;
                                 auxiliar = "";
                             }
                             break;
-                        case 9:
+                        case 7:
                             if (Char.IsDigit(c))
                             {
-                                opcion = 9;
+                                estado = 7;
                                 auxiliar += c;
                             }
                             else
                             {
-                                TokenControlador.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar, "Digito");
+                                ControladorToken.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar, "Digito");
                                 auxiliar = "";
                                 i--;
                                 columna--;
-                                opcion = 0;
-                            }
-
-                            break;
-                        case 10:
-                            auxiliar += c;
-                            //TokenControlador.Instancia.error(auxiliar, "Desconocido");
-                            opcion = 0;
-                            auxiliar = "";
-                            break;
-                        case 11:
-                            if (c.Equals("'"))
-                            {
-                                auxiliar += c;
-                                opcion = 12;
-                            }
-                            break;
-                        case 12:
-                            if (!c.Equals("'"))
-                            {
-                                if (c.Equals('\n')) { fila++; columna = 0; }
-                                auxiliar += c;
-                                opcion = 12;
-                            }
-                            else
-                            {
-                                opcion = 13;
-                                i--;
-                                columna--;
-                            }
-                            break;
-                        case 13:
-                            if (c.Equals("'"))
-                            {
-                                auxiliar += c;
-                                TokenControlador.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar, "Cadena");
-                                opcion = 0;
-                                auxiliar = "";
+                                estado = 0;
                             }
                             break;
                         //COMENTARIO
-                        case 14:
+                        case 8:
                             if (c == '/')
                             {
                                 auxiliar += c;
-                                opcion = 15;
+                                estado = 9;
                             }
                             break;
-                        case 15:
+                        case 9:
                             if (c == '/')
                             {
                                 auxiliar += c;
-                                opcion = 16;
+                                estado = 10;
                             }
                             else if (c == '*')
                             {
                                 auxiliar += c;
-                                opcion = 17;
+                                estado = 11;
                             }
                             else
                             {
-                                TokenControlador.Instancia.agregarToken(fila, (columna - 1), auxiliar.ToString(), "S_Division");
+                                ControladorToken.Instancia.agregarToken(fila, (columna - 1), auxiliar.ToString(), "S_Division");
                                 auxiliar = "";
                                 columna--;
                                 i--;
-                                opcion = 0;
+                                estado = 0;
                             }
                             break;
-                        case 16:
+                        case 10:
                             if (!c.Equals('\n'))
                             {
                                 auxiliar += c;
-                                opcion = 16;
+                                estado = 10;
                             }
                             else
                             {
-                                TokenControlador.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar, "ComentarioLinea");
+                                ControladorToken.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar, "ComentarioLinea");
                                 fila++; columna = 0;
-                                opcion = 0;
+                                estado = 0;
                                 auxiliar = "";
                             }
                             break;
-                        case 17:
+                        case 11:
                             if (c != '*')
                             {
                                 if (c.Equals('\n')) { fila++; columna = 0; }
                                 auxiliar += c;
-                                opcion = 17;
+                                estado = 11;
                             }
                             else
                             {
                                 auxiliar += c;
-                                opcion = 18;
+                                estado = 12;
                             }
                             break;
-                        case 18:
+                        case 12:
                             if (c == '/')
                             {
                                 auxiliar += c;
-                                TokenControlador.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar, "ComentarioMultiLinea");
-                                opcion = 0;
+                                ControladorToken.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar, "ComentarioMultiLinea");
+                                estado = 0;
                                 auxiliar = "";
                             }
                             break;
-                        case 19:
+                         //CARACTER
+                        case 13:
                             if (c == '\'')
                             {
                                 auxiliar += c;
-                                opcion = 20;
+                                estado = 14;
                                 columna++;
                             }
                             break;
-                        case 20:
+                        case 14:
                             if (!c.Equals('\''))
                             {
                                 auxiliar += c;
-                                opcion = 20;
+                                estado = 14;
                                 columna++;
                             }
                             else
                             {
-                                opcion = 21;
+                                estado = 15;
                                 columna--;
                                 i--;
                             }
                             break;
-                        case 21:
+                        case 15:
                             if (c == '\'')
                             {
                                 auxiliar += c;
                                 columna++;
                                 if (auxiliar.Length == 3)
                                 {
-                                    TokenControlador.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar, "Character");
+                                    ControladorToken.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar, "Character");
                                 }
                                 else
                                 {
-                                    TokenControlador.Instancia.agregarError(fila, (columna - auxiliar.Length), auxiliar, "Desconocido");
+                                    ControladorToken.Instancia.agregarError(fila, (columna - auxiliar.Length), auxiliar, "Desconocido");
                                 }
-                                opcion = 0;
+                                estado = 0;
                                 auxiliar = "";
                             }
                             break;
@@ -498,6 +442,10 @@ namespace LFP_Proyecto_No._2.Analizador
             }
 
         }
+
+        /**
+         * MENSAJE DE ALERTA
+         **/
         public void alertMessage(String mensaje)
         {
             MessageBox.Show(mensaje, "Error",

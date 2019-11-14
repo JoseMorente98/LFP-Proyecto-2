@@ -10,17 +10,17 @@ using System.Windows.Forms;
 
 namespace LFP_Proyecto_No._2.Controlador
 {
-    class SintacticoControlador
+    class ControladorSintactico
     {
-        private readonly static SintacticoControlador instancia = new SintacticoControlador();
+        private readonly static ControladorSintactico instancia = new ControladorSintactico();
         private ArrayList arrayListSintactico = new ArrayList();
         private int idSintactico = 1;
 
-        private SintacticoControlador()
+        private ControladorSintactico()
         {
         }
 
-        public static SintacticoControlador Instancia
+        public static ControladorSintactico Instancia
         {
             get
             {
@@ -28,19 +28,25 @@ namespace LFP_Proyecto_No._2.Controlador
             }
         }
 
-        public ArrayList ArrayListSintactico { get => arrayListSintactico; set => arrayListSintactico = value; }
-
+        /**
+         * AGREGAR ERROR SINTACTICO
+         */
         public void agregarError(string lexema, string descripcion, int fila, int columna)
         {
             Sintactico token = new Sintactico(idSintactico, lexema, descripcion, columna, fila);
             arrayListSintactico.Add(token);
             idSintactico++;
         }
-        
+
+        /**
+         * LIMPIAR ERRORES
+         */
         public void clearArrayListSintactico()
         {
             this.idSintactico = 1;
             this.ArrayListSintactico.Clear();
         }
+
+        public ArrayList ArrayListSintactico { get => arrayListSintactico; set => arrayListSintactico = value; }
     }
 }

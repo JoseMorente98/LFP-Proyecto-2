@@ -9,17 +9,17 @@ using System.Windows.Forms;
 
 namespace LFP_Proyecto_No._2.Controlador
 {
-    class SimboloControlador
+    class ControladorSimbolo
     {
-        private readonly static SimboloControlador instancia = new SimboloControlador();
+        private readonly static ControladorSimbolo instancia = new ControladorSimbolo();
         private ArrayList arrayListSimbolo = new ArrayList();
         private int idSimbolo = 1;
 
-        private SimboloControlador()
+        private ControladorSimbolo()
         {
         }
 
-        public static SimboloControlador Instancia
+        public static ControladorSimbolo Instancia
         {
             get
             {
@@ -27,8 +27,9 @@ namespace LFP_Proyecto_No._2.Controlador
             }
         }
 
-        public ArrayList ArrayListSimbolo { get => arrayListSimbolo; set => arrayListSimbolo = value; }
-
+        /**
+         * AGREGAR SIMBOLOS
+         */
         public void agregarSimbolo(string nombre, string valor, string tipo)
         {
             Simbolo simbolo = new Simbolo(idSimbolo, nombre, valor, tipo);
@@ -36,6 +37,9 @@ namespace LFP_Proyecto_No._2.Controlador
             idSimbolo++;
         }
 
+        /**
+         * BUSCAR SIMBOLO
+         */
         public Simbolo buscarSimbolo(string nombre)
         {
             foreach (Simbolo s in ArrayListSimbolo)
@@ -48,6 +52,9 @@ namespace LFP_Proyecto_No._2.Controlador
             return null;
         }
 
+        /**
+         * BUSCAR SIMBOLO
+         */
         public Boolean buscar(string nombre)
         {
             foreach (Simbolo s in ArrayListSimbolo)
@@ -60,6 +67,9 @@ namespace LFP_Proyecto_No._2.Controlador
             return false;
         }
 
+        /**
+         * EDITAR SIMBOLO
+         */
         public void editarSimbolo(string nombre, string valor)
         {
             foreach (Simbolo s in ArrayListSimbolo)
@@ -77,15 +87,13 @@ namespace LFP_Proyecto_No._2.Controlador
             MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        public void recorrerTokens(ArrayList arrayList)
-        {
-            
-        }
-
         public void clearArrayListSimbolo()
         {
             this.idSimbolo = 1;
             this.arrayListSimbolo.Clear();
         }
+
+        public ArrayList ArrayListSimbolo { get => arrayListSimbolo; set => arrayListSimbolo = value; }
+
     }
 }

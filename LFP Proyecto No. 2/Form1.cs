@@ -1,16 +1,8 @@
 ﻿using LFP_Proyecto_No._2.Analizador;
 using LFP_Proyecto_No._2.Controlador;
 using LFP_Proyecto_No._2.Modelo;
-using LFP_Proyecto_No.Controlador;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LFP_Proyecto_No._2
@@ -29,30 +21,31 @@ namespace LFP_Proyecto_No._2
 
         private void MetroButton1_Click(object sender, EventArgs e)
         {
-            TokenControlador.Instancia.resetClass();
-            SimboloControlador.Instancia.clearArrayListSimbolo();
-            SintacticoControlador.Instancia.clearArrayListSintactico();
+            LimpiarAnalizar();
             AnalizadorLexico.Instancia.analizador_Lexico(editorTexto.Text);
-            foreach (Token item in TokenControlador.Instancia.ArrayListTokens)
+            if (ControladorToken.Instancia.ArrayListErrors.Count == 0)
             {
-                Console.WriteLine(item.Descripcion);
-            }
-            if (TokenControlador.Instancia.ArrayListErrors.Count == 0)
-            {
-                NuevoAnalizador.Instancia.obtenerLista(TokenControlador.Instancia.ArrayListTokens);
-                this.consola.Text = "";
-                consola.AppendText(NuevoAnalizador.Instancia.returnT());
+                AnalizadorSintactico.Instancia.obtenerLista(ControladorToken.Instancia.ArrayListTokens);
+                consola.AppendText(AnalizadorSintactico.Instancia.returnT());
+                Console.WriteLine("SINTACTICO" + ControladorSintactico.Instancia.ArrayListSintactico.Count);
+                if(ControladorSintactico.Instancia.ArrayListSintactico.Count == 0)
+                {
+                    ControladorTraductor.Instancia.obtenerLista(ControladorToken.Instancia.ArrayListTokens);
+                    Console.WriteLine("el arreglo traduccion es " + ControladorTraduccion.Instancia.ArrayListTraduccion.Count);
+                    
+                    foreach (Traduccion t in ControladorTraduccion.Instancia.ArrayListTraduccion)
+                    {
+                        Console.WriteLine(t.Cadena);
+                        traduccion.AppendText(t.Cadena + "\n");
+                    }
+                } else
+                {
 
-                /*AnalizadorSintactico.Instancia.obtenerLista(TokenControlador.Instancia.getArrayListTokens());
-                this.consola.Text = "";
-                this.consola.AppendText(AnalizadorSintactico.Instancia.returnT());*/
-                //TraductorControlador.Instancia.obtenerLista(TokenControlador.Instancia.getArrayListTokens());
-                //this.traduccion.Text = "";
-                //traduccion.AppendText(TraductorControlador.Instancia.getTokensTraducidos());
+                }
             }
             else
             {
-                this.consola.AppendText("Existen errores lexicos.");
+                this.consola.AppendText("Verifica los errores lexicos D:");
             }
 
             
@@ -60,17 +53,30 @@ namespace LFP_Proyecto_No._2
 
         private void ReporteTokensToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ReporteControlador.Instancia.getReportTokens();
+            ControladorReporte.Instancia.getReportTokens();
         }
 
         private void ReporteDeErroresToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ReporteControlador.Instancia.getReportTokensError();
+            ControladorReporte.Instancia.getReportTokensError();
         }
 
         private void SalirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        /**
+         * LIMPIAR VARIABLES 
+         */
+         public void LimpiarAnalizar()
+        {
+            traduccion.Text = "";
+            consola.Text = "";
+            ControladorToken.Instancia.clearArrayList();
+            ControladorSimbolo.Instancia.clearArrayListSimbolo();
+            ControladorSintactico.Instancia.clearArrayListSintactico();
+            ControladorTraduccion.Instancia.clearArrayListTraduccion();
         }
 
         private void AbrirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -115,12 +121,12 @@ namespace LFP_Proyecto_No._2
 
         private void ReporteDeSimbolosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ReporteControlador.Instancia.getTablaSimbolos();
+            ControladorReporte.Instancia.getTablaSimbolos();
         }
 
         private void ReporteDeErroresSintacticosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ReporteControlador.Instancia.getReporteError();
+            ControladorReporte.Instancia.getReporteError();
         }
     }
 }
