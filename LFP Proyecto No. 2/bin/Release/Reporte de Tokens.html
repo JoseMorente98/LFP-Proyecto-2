@@ -1,0 +1,712 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Tokens</title>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+        <img src="https://www.usac.edu.gt/g/escudo10.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        Lenguajes Formales y de Programación
+    </a>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search">
+    </form>
+    </nav>
+    <div class="container">
+    <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-2">Tokens</h1>
+        <p class="lead">Listado de Tokens detectados por el analizador</p>
+        <p class="lead"><strong>14/11/2019 23:56:39</strong></p>
+    </div>
+    </div>
+    <table class="table" id="mytable">
+    <thead class="thead-dark">
+        <tr>
+<th scope="col">ID Token</th>
+<th scope="col">Token</th>
+<th scope="col">Descripcion</th><th scope="col">Fila</th>
+<th scope="col">Columna</th>        </tr>
+    </thead>
+    <tbody>
+<tr>
+     <th scope="row">1</th>
+     <td>class</td>
+     <td>TK_class</td>
+     <td>1</td>
+     <td>0</td>
+</tr><tr>
+     <th scope="row">2</th>
+     <td>MyProgram</td>
+     <td>Identificador</td>
+     <td>1</td>
+     <td>7</td>
+</tr><tr>
+     <th scope="row">3</th>
+     <td>{</td>
+     <td>S_Llave_Izquierda</td>
+     <td>2</td>
+     <td>0</td>
+</tr><tr>
+     <th scope="row">4</th>
+     <td>static</td>
+     <td>TK_static</td>
+     <td>3</td>
+     <td>9</td>
+</tr><tr>
+     <th scope="row">5</th>
+     <td>void</td>
+     <td>TK_void</td>
+     <td>3</td>
+     <td>17</td>
+</tr><tr>
+     <th scope="row">6</th>
+     <td>Main</td>
+     <td>TK_Main</td>
+     <td>3</td>
+     <td>23</td>
+</tr><tr>
+     <th scope="row">7</th>
+     <td>(</td>
+     <td>S_Parentesis_Izquierdo</td>
+     <td>3</td>
+     <td>27</td>
+</tr><tr>
+     <th scope="row">8</th>
+     <td>)</td>
+     <td>S_Parentesis_Derecho</td>
+     <td>3</td>
+     <td>28</td>
+</tr><tr>
+     <th scope="row">9</th>
+     <td>{</td>
+     <td>S_Llave_Izquierda</td>
+     <td>4</td>
+     <td>8</td>
+</tr><tr>
+     <th scope="row">10</th>
+     <td>/*
+        #################### Ejemplo comentario multiples lineas #################
+        ####### Linea 1
+        ####### Linea 2
+        ####### Linea 3
+        */</td>
+     <td>ComentarioMultiLinea</td>
+     <td>10</td>
+     <td>-163</td>
+</tr><tr>
+     <th scope="row">11</th>
+     <td>int</td>
+     <td>TK_int</td>
+     <td>11</td>
+     <td>17</td>
+</tr><tr>
+     <th scope="row">12</th>
+     <td>x</td>
+     <td>Identificador</td>
+     <td>11</td>
+     <td>22</td>
+</tr><tr>
+     <th scope="row">13</th>
+     <td>,</td>
+     <td>S_Coma</td>
+     <td>11</td>
+     <td>22</td>
+</tr><tr>
+     <th scope="row">14</th>
+     <td>y</td>
+     <td>Identificador</td>
+     <td>11</td>
+     <td>26</td>
+</tr><tr>
+     <th scope="row">15</th>
+     <td>;</td>
+     <td>S_Punto_y_Coma</td>
+     <td>11</td>
+     <td>26</td>
+</tr><tr>
+     <th scope="row">16</th>
+     <td>//Solo declaracion de dos variables enteras</td>
+     <td>ComentarioLinea</td>
+     <td>11</td>
+     <td>31</td>
+</tr><tr>
+     <th scope="row">17</th>
+     <td>//Deberia ser 0</td>
+     <td>ComentarioLinea</td>
+     <td>12</td>
+     <td>18</td>
+</tr><tr>
+     <th scope="row">18</th>
+     <td>Console</td>
+     <td>TK_Console</td>
+     <td>13</td>
+     <td>17</td>
+</tr><tr>
+     <th scope="row">19</th>
+     <td>.</td>
+     <td>S_Punto</td>
+     <td>13</td>
+     <td>23</td>
+</tr><tr>
+     <th scope="row">20</th>
+     <td>WriteLine</td>
+     <td>TK_WriteLine</td>
+     <td>13</td>
+     <td>25</td>
+</tr><tr>
+     <th scope="row">21</th>
+     <td>(</td>
+     <td>S_Parentesis_Izquierdo</td>
+     <td>13</td>
+     <td>34</td>
+</tr><tr>
+     <th scope="row">22</th>
+     <td>x</td>
+     <td>Identificador</td>
+     <td>13</td>
+     <td>35</td>
+</tr><tr>
+     <th scope="row">23</th>
+     <td>)</td>
+     <td>S_Parentesis_Derecho</td>
+     <td>13</td>
+     <td>36</td>
+</tr><tr>
+     <th scope="row">24</th>
+     <td>;</td>
+     <td>S_Punto_y_Coma</td>
+     <td>13</td>
+     <td>36</td>
+</tr><tr>
+     <th scope="row">25</th>
+     <td>//Deberia ser 0</td>
+     <td>ComentarioLinea</td>
+     <td>14</td>
+     <td>18</td>
+</tr><tr>
+     <th scope="row">26</th>
+     <td>Console</td>
+     <td>TK_Console</td>
+     <td>15</td>
+     <td>17</td>
+</tr><tr>
+     <th scope="row">27</th>
+     <td>.</td>
+     <td>S_Punto</td>
+     <td>15</td>
+     <td>23</td>
+</tr><tr>
+     <th scope="row">28</th>
+     <td>WriteLine</td>
+     <td>TK_WriteLine</td>
+     <td>15</td>
+     <td>25</td>
+</tr><tr>
+     <th scope="row">29</th>
+     <td>(</td>
+     <td>S_Parentesis_Izquierdo</td>
+     <td>15</td>
+     <td>34</td>
+</tr><tr>
+     <th scope="row">30</th>
+     <td>y</td>
+     <td>Identificador</td>
+     <td>15</td>
+     <td>35</td>
+</tr><tr>
+     <th scope="row">31</th>
+     <td>)</td>
+     <td>S_Parentesis_Derecho</td>
+     <td>15</td>
+     <td>36</td>
+</tr><tr>
+     <th scope="row">32</th>
+     <td>;</td>
+     <td>S_Punto_y_Coma</td>
+     <td>15</td>
+     <td>36</td>
+</tr><tr>
+     <th scope="row">33</th>
+     <td>if</td>
+     <td>TK_if</td>
+     <td>16</td>
+     <td>17</td>
+</tr><tr>
+     <th scope="row">34</th>
+     <td>(</td>
+     <td>S_Parentesis_Izquierdo</td>
+     <td>16</td>
+     <td>19</td>
+</tr><tr>
+     <th scope="row">35</th>
+     <td>x</td>
+     <td>Identificador</td>
+     <td>16</td>
+     <td>20</td>
+</tr><tr>
+     <th scope="row">36</th>
+     <td>=</td>
+     <td>S_Igual</td>
+     <td>16</td>
+     <td>21</td>
+</tr><tr>
+     <th scope="row">37</th>
+     <td>=</td>
+     <td>S_Igual</td>
+     <td>16</td>
+     <td>23</td>
+</tr><tr>
+     <th scope="row">38</th>
+     <td>0</td>
+     <td>Digito</td>
+     <td>16</td>
+     <td>25</td>
+</tr><tr>
+     <th scope="row">39</th>
+     <td>)</td>
+     <td>S_Parentesis_Derecho</td>
+     <td>16</td>
+     <td>26</td>
+</tr><tr>
+     <th scope="row">40</th>
+     <td>{</td>
+     <td>S_Llave_Izquierda</td>
+     <td>16</td>
+     <td>26</td>
+</tr><tr>
+     <th scope="row">41</th>
+     <td>if</td>
+     <td>TK_if</td>
+     <td>17</td>
+     <td>27</td>
+</tr><tr>
+     <th scope="row">42</th>
+     <td>(</td>
+     <td>S_Parentesis_Izquierdo</td>
+     <td>17</td>
+     <td>29</td>
+</tr><tr>
+     <th scope="row">43</th>
+     <td>y</td>
+     <td>Identificador</td>
+     <td>17</td>
+     <td>30</td>
+</tr><tr>
+     <th scope="row">44</th>
+     <td>=</td>
+     <td>S_Igual</td>
+     <td>17</td>
+     <td>31</td>
+</tr><tr>
+     <th scope="row">45</th>
+     <td>=</td>
+     <td>S_Igual</td>
+     <td>17</td>
+     <td>33</td>
+</tr><tr>
+     <th scope="row">46</th>
+     <td>0</td>
+     <td>Digito</td>
+     <td>17</td>
+     <td>35</td>
+</tr><tr>
+     <th scope="row">47</th>
+     <td>)</td>
+     <td>S_Parentesis_Derecho</td>
+     <td>17</td>
+     <td>36</td>
+</tr><tr>
+     <th scope="row">48</th>
+     <td>{</td>
+     <td>S_Llave_Izquierda</td>
+     <td>17</td>
+     <td>36</td>
+</tr><tr>
+     <th scope="row">49</th>
+     <td>Console</td>
+     <td>TK_Console</td>
+     <td>18</td>
+     <td>35</td>
+</tr><tr>
+     <th scope="row">50</th>
+     <td>.</td>
+     <td>S_Punto</td>
+     <td>18</td>
+     <td>41</td>
+</tr><tr>
+     <th scope="row">51</th>
+     <td>WriteLine</td>
+     <td>TK_WriteLine</td>
+     <td>18</td>
+     <td>43</td>
+</tr><tr>
+     <th scope="row">52</th>
+     <td>(</td>
+     <td>S_Parentesis_Izquierdo</td>
+     <td>18</td>
+     <td>52</td>
+</tr><tr>
+     <th scope="row">53</th>
+     <td>"EUREKA!!"</td>
+     <td>Cadena</td>
+     <td>18</td>
+     <td>53</td>
+</tr><tr>
+     <th scope="row">54</th>
+     <td>)</td>
+     <td>S_Parentesis_Derecho</td>
+     <td>18</td>
+     <td>64</td>
+</tr><tr>
+     <th scope="row">55</th>
+     <td>;</td>
+     <td>S_Punto_y_Coma</td>
+     <td>18</td>
+     <td>64</td>
+</tr><tr>
+     <th scope="row">56</th>
+     <td>x</td>
+     <td>Identificador</td>
+     <td>19</td>
+     <td>35</td>
+</tr><tr>
+     <th scope="row">57</th>
+     <td>=</td>
+     <td>S_Igual</td>
+     <td>19</td>
+     <td>36</td>
+</tr><tr>
+     <th scope="row">58</th>
+     <td>50</td>
+     <td>Digito</td>
+     <td>19</td>
+     <td>38</td>
+</tr><tr>
+     <th scope="row">59</th>
+     <td>;</td>
+     <td>S_Punto_y_Coma</td>
+     <td>19</td>
+     <td>39</td>
+</tr><tr>
+     <th scope="row">60</th>
+     <td>y</td>
+     <td>Identificador</td>
+     <td>20</td>
+     <td>35</td>
+</tr><tr>
+     <th scope="row">61</th>
+     <td>=</td>
+     <td>S_Igual</td>
+     <td>20</td>
+     <td>36</td>
+</tr><tr>
+     <th scope="row">62</th>
+     <td>100</td>
+     <td>Digito</td>
+     <td>20</td>
+     <td>38</td>
+</tr><tr>
+     <th scope="row">63</th>
+     <td>;</td>
+     <td>S_Punto_y_Coma</td>
+     <td>20</td>
+     <td>40</td>
+</tr><tr>
+     <th scope="row">64</th>
+     <td>}</td>
+     <td>S_Llave_Derecha</td>
+     <td>21</td>
+     <td>24</td>
+</tr><tr>
+     <th scope="row">65</th>
+     <td>else</td>
+     <td>TK_else</td>
+     <td>21</td>
+     <td>26</td>
+</tr><tr>
+     <th scope="row">66</th>
+     <td>{</td>
+     <td>S_Llave_Izquierda</td>
+     <td>21</td>
+     <td>29</td>
+</tr><tr>
+     <th scope="row">67</th>
+     <td>Console</td>
+     <td>TK_Console</td>
+     <td>22</td>
+     <td>25</td>
+</tr><tr>
+     <th scope="row">68</th>
+     <td>.</td>
+     <td>S_Punto</td>
+     <td>22</td>
+     <td>31</td>
+</tr><tr>
+     <th scope="row">69</th>
+     <td>WriteLine</td>
+     <td>TK_WriteLine</td>
+     <td>22</td>
+     <td>33</td>
+</tr><tr>
+     <th scope="row">70</th>
+     <td>(</td>
+     <td>S_Parentesis_Izquierdo</td>
+     <td>22</td>
+     <td>42</td>
+</tr><tr>
+     <th scope="row">71</th>
+     <td>"Y Esta mal :(, no deberia de ser: "</td>
+     <td>Cadena</td>
+     <td>22</td>
+     <td>43</td>
+</tr><tr>
+     <th scope="row">72</th>
+     <td>+</td>
+     <td>S_Suma</td>
+     <td>22</td>
+     <td>80</td>
+</tr><tr>
+     <th scope="row">73</th>
+     <td>y</td>
+     <td>Identificador</td>
+     <td>22</td>
+     <td>82</td>
+</tr><tr>
+     <th scope="row">74</th>
+     <td>)</td>
+     <td>S_Parentesis_Derecho</td>
+     <td>22</td>
+     <td>83</td>
+</tr><tr>
+     <th scope="row">75</th>
+     <td>;</td>
+     <td>S_Punto_y_Coma</td>
+     <td>22</td>
+     <td>83</td>
+</tr><tr>
+     <th scope="row">76</th>
+     <td>}</td>
+     <td>S_Llave_Derecha</td>
+     <td>23</td>
+     <td>24</td>
+</tr><tr>
+     <th scope="row">77</th>
+     <td>}</td>
+     <td>S_Llave_Derecha</td>
+     <td>25</td>
+     <td>16</td>
+</tr><tr>
+     <th scope="row">78</th>
+     <td>else</td>
+     <td>TK_else</td>
+     <td>25</td>
+     <td>18</td>
+</tr><tr>
+     <th scope="row">79</th>
+     <td>{</td>
+     <td>S_Llave_Izquierda</td>
+     <td>25</td>
+     <td>21</td>
+</tr><tr>
+     <th scope="row">80</th>
+     <td>Console</td>
+     <td>TK_Console</td>
+     <td>26</td>
+     <td>25</td>
+</tr><tr>
+     <th scope="row">81</th>
+     <td>.</td>
+     <td>S_Punto</td>
+     <td>26</td>
+     <td>31</td>
+</tr><tr>
+     <th scope="row">82</th>
+     <td>WriteLine</td>
+     <td>TK_WriteLine</td>
+     <td>26</td>
+     <td>33</td>
+</tr><tr>
+     <th scope="row">83</th>
+     <td>(</td>
+     <td>S_Parentesis_Izquierdo</td>
+     <td>26</td>
+     <td>42</td>
+</tr><tr>
+     <th scope="row">84</th>
+     <td>"X Esta mal :(, no deberia de ser: "</td>
+     <td>Cadena</td>
+     <td>26</td>
+     <td>43</td>
+</tr><tr>
+     <th scope="row">85</th>
+     <td>+</td>
+     <td>S_Suma</td>
+     <td>26</td>
+     <td>80</td>
+</tr><tr>
+     <th scope="row">86</th>
+     <td>x</td>
+     <td>Identificador</td>
+     <td>26</td>
+     <td>82</td>
+</tr><tr>
+     <th scope="row">87</th>
+     <td>)</td>
+     <td>S_Parentesis_Derecho</td>
+     <td>26</td>
+     <td>83</td>
+</tr><tr>
+     <th scope="row">88</th>
+     <td>;</td>
+     <td>S_Punto_y_Coma</td>
+     <td>26</td>
+     <td>83</td>
+</tr><tr>
+     <th scope="row">89</th>
+     <td>}</td>
+     <td>S_Llave_Derecha</td>
+     <td>27</td>
+     <td>16</td>
+</tr><tr>
+     <th scope="row">90</th>
+     <td>//Deberia ser 50</td>
+     <td>ComentarioLinea</td>
+     <td>28</td>
+     <td>18</td>
+</tr><tr>
+     <th scope="row">91</th>
+     <td>Console</td>
+     <td>TK_Console</td>
+     <td>29</td>
+     <td>17</td>
+</tr><tr>
+     <th scope="row">92</th>
+     <td>.</td>
+     <td>S_Punto</td>
+     <td>29</td>
+     <td>23</td>
+</tr><tr>
+     <th scope="row">93</th>
+     <td>WriteLine</td>
+     <td>TK_WriteLine</td>
+     <td>29</td>
+     <td>25</td>
+</tr><tr>
+     <th scope="row">94</th>
+     <td>(</td>
+     <td>S_Parentesis_Izquierdo</td>
+     <td>29</td>
+     <td>34</td>
+</tr><tr>
+     <th scope="row">95</th>
+     <td>x</td>
+     <td>Identificador</td>
+     <td>29</td>
+     <td>35</td>
+</tr><tr>
+     <th scope="row">96</th>
+     <td>)</td>
+     <td>S_Parentesis_Derecho</td>
+     <td>29</td>
+     <td>36</td>
+</tr><tr>
+     <th scope="row">97</th>
+     <td>;</td>
+     <td>S_Punto_y_Coma</td>
+     <td>29</td>
+     <td>36</td>
+</tr><tr>
+     <th scope="row">98</th>
+     <td>//Deberia ser 100</td>
+     <td>ComentarioLinea</td>
+     <td>30</td>
+     <td>18</td>
+</tr><tr>
+     <th scope="row">99</th>
+     <td>Console</td>
+     <td>TK_Console</td>
+     <td>31</td>
+     <td>17</td>
+</tr><tr>
+     <th scope="row">100</th>
+     <td>.</td>
+     <td>S_Punto</td>
+     <td>31</td>
+     <td>23</td>
+</tr><tr>
+     <th scope="row">101</th>
+     <td>WriteLine</td>
+     <td>TK_WriteLine</td>
+     <td>31</td>
+     <td>25</td>
+</tr><tr>
+     <th scope="row">102</th>
+     <td>(</td>
+     <td>S_Parentesis_Izquierdo</td>
+     <td>31</td>
+     <td>34</td>
+</tr><tr>
+     <th scope="row">103</th>
+     <td>y</td>
+     <td>Identificador</td>
+     <td>31</td>
+     <td>35</td>
+</tr><tr>
+     <th scope="row">104</th>
+     <td>)</td>
+     <td>S_Parentesis_Derecho</td>
+     <td>31</td>
+     <td>36</td>
+</tr><tr>
+     <th scope="row">105</th>
+     <td>;</td>
+     <td>S_Punto_y_Coma</td>
+     <td>31</td>
+     <td>36</td>
+</tr><tr>
+     <th scope="row">106</th>
+     <td>//Deberia de ser 190</td>
+     <td>ComentarioLinea</td>
+     <td>32</td>
+     <td>18</td>
+</tr><tr>
+     <th scope="row">107</th>
+     <td>}</td>
+     <td>S_Llave_Derecha</td>
+     <td>34</td>
+     <td>8</td>
+</tr><tr>
+     <th scope="row">108</th>
+     <td>}</td>
+     <td>S_Llave_Derecha</td>
+     <td>35</td>
+     <td>0</td>
+</tr>    </tbody>
+    </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>
+    // Write on keyup event of keyword input element
+    $(document).ready(function(){
+    $("#search").keyup(function(){
+    _this = this;
+    // Show only matching TR, hide rest of them
+    $.each($("#mytable tbody tr"), function() {
+    if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+    $(this).hide();
+    else
+    $(this).show();
+    });
+    });
+    });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

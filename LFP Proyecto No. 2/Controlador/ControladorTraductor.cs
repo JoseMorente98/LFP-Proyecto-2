@@ -66,7 +66,7 @@ namespace LFP_Proyecto_No._2.Controlador
         {
             InicializarVariables();
             
-            string[] reservadasVariable = { "PR_int", "PR_float", "PR_char", "PR_bool", "PR_boolean", "PR_double",  "PR_string"};
+            string[] reservadasVariable = { "TK_int", "TK_float", "TK_char", "TK_bool", "TK_boolean", "TK_double",  "TK_string"};
             tipoVariable = "";
             for (int i = 0; i < listaTokens.Count; i++)
             {
@@ -77,7 +77,7 @@ namespace LFP_Proyecto_No._2.Controlador
                  * TRADUCCION DE SENTENCIA FOR
                  */
                 #region TRADUCCION SENTENCIA FOR
-                if (tokenAnalizado.Descripcion.Equals("PR_static"))
+                if (tokenAnalizado.Descripcion.Equals("TK_static"))
                 {
                     Token t = (Token)listaTokens[i + 3];
                     //Console.WriteLine("PREDECIR PARENTESIS" + t.Lexema);
@@ -94,7 +94,7 @@ namespace LFP_Proyecto_No._2.Controlador
                         }
                     }
                 }
-                else if (tokenAnalizado.Descripcion.Equals("PR_for"))
+                else if (tokenAnalizado.Descripcion.Equals("TK_for"))
                 {
                     inicioDeclaracion = tokenAnalizado.Descripcion;
                     declaracionFor = "";
@@ -385,7 +385,7 @@ namespace LFP_Proyecto_No._2.Controlador
                             Token temp = (Token)listaTokens[j];
                             if (temp.Lexema.Equals(";"))
                             {
-                                if (((Token)listaTokens[j - 1]).Descripcion.Equals("Identificador") && ((Token)listaTokens[j - 2]).Descripcion.Contains("PR_"))
+                                if (((Token)listaTokens[j - 1]).Descripcion.Equals("Identificador") && ((Token)listaTokens[j - 2]).Descripcion.Contains("TK_"))
                                 {
                                     EnviarTablaSimbolo(tabulaciones + ((Token)listaTokens[j - 1]).Lexema, tipoVariable, "");
                                 }
@@ -441,7 +441,7 @@ namespace LFP_Proyecto_No._2.Controlador
                             }
                             else
                             {
-                                if (temp.Descripcion.Contains("PR_"))
+                                if (temp.Descripcion.Contains("TK_"))
                                 {
                                 }
                                 else
@@ -459,7 +459,7 @@ namespace LFP_Proyecto_No._2.Controlador
                  * TRADUCCION SENTENCIA IF 
                  */
                 #region TRADUCCION SENTENCIA IF
-                else if (tokenAnalizado.Descripcion.Equals("PR_if"))
+                else if (tokenAnalizado.Descripcion.Equals("TK_if"))
                 {
                     tokenInicio = "if ";
                     anticiparFor = false;
@@ -480,7 +480,7 @@ namespace LFP_Proyecto_No._2.Controlador
                         }
                     }
                 }
-                else if (tokenAnalizado.Descripcion.Equals("PR_else"))
+                else if (tokenAnalizado.Descripcion.Equals("TK_else"))
                 {
                     anticiparFor = false;
                     ControladorTraduccion.Instancia.agregar(tabulaciones + "else:", "else");
@@ -492,7 +492,7 @@ namespace LFP_Proyecto_No._2.Controlador
                  * TRADUCCION SENTENCIA WHILE
                  */
                 #region TRADUCCION SENTENCIA WHILE
-                else if (tokenAnalizado.Descripcion.Equals("PR_while"))
+                else if (tokenAnalizado.Descripcion.Equals("TK_while"))
                 {
                     tokenInicio = "while ";
                     anticiparFor = false;
@@ -537,7 +537,7 @@ namespace LFP_Proyecto_No._2.Controlador
                  * TRADUCCION DE CONSOLE PENDIENTE
                  */
                 #region TRADUCCION CONSOLE WRITELINE
-                if (tokenAnalizado.Descripcion.Equals("PR_Console"))
+                if (tokenAnalizado.Descripcion.Equals("TK_Console"))
                 {
                     tokenInicio = "print(";
                     anticiparFor = false;
@@ -563,14 +563,14 @@ namespace LFP_Proyecto_No._2.Controlador
                  * TRADUCCION DE SWITCH
                  */
                 #region TRADUCCION SWITCH
-                if (tokenAnalizado.Descripcion.Equals("PR_switch"))
+                if (tokenAnalizado.Descripcion.Equals("TK_switch"))
                 {
                     iteracionesSwitch = 0;
                     contadorTabulacion--;
                     tabularEspacio(contadorTabulacion);
                     variableSwitch = ((Token)listaTokens[i+2]).Lexema;
                 }
-                else if (tokenAnalizado.Descripcion.Equals("PR_case"))
+                else if (tokenAnalizado.Descripcion.Equals("TK_case"))
                 {
                     tokenInicio = "";
                     for (int m = i+1; m < listaTokens.Count; m++)
@@ -599,12 +599,12 @@ namespace LFP_Proyecto_No._2.Controlador
                     }
                     iteracionesSwitch++;
                 }
-                else if (tokenAnalizado.Descripcion.Equals("PR_break"))
+                else if (tokenAnalizado.Descripcion.Equals("TK_break"))
                 {
                     contadorTabulacion--;
                     tabularEspacio(contadorTabulacion);
                 }
-                else if (tokenAnalizado.Descripcion.Equals("PR_default"))
+                else if (tokenAnalizado.Descripcion.Equals("TK_default"))
                 {
                     ControladorTraduccion.Instancia.agregar(tabulaciones + "else:", "switch");
                     contadorTabulacion++;
@@ -662,7 +662,7 @@ namespace LFP_Proyecto_No._2.Controlador
                 else if (tokenAnalizado.Descripcion.Equals("S_Llave_Derecha"))
                 {
                     //Envia hasta el final el aumento del for
-                    /*if (inicioDeclaracion.Equals("PR_for") )
+                    /*if (inicioDeclaracion.Equals("TK_for") )
                     {
                         Console.WriteLine(incrementoFor);
                         if (incrementoFor.Contains("++"))

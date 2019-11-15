@@ -238,13 +238,13 @@ namespace LFP_Proyecto_No._2.Analizador
                                 if (Array.Exists(reservadasC, element => element.Equals(auxiliar.ToLower())))
                                 {
                                     int lex = Array.IndexOf(reservadasC, auxiliar.ToLower());
-                                    ControladorToken.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar.ToLower(), "PR_" + reservadasC[lex]);
+                                    ControladorToken.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar.ToLower(), "TK_" + reservadasC[lex]);
 
                                 }
                                 else if (Array.Exists(reservadasMayus, element => element.Equals(auxiliar)))
                                 {
                                     int lex = Array.IndexOf(reservadasMayus, auxiliar);
-                                    ControladorToken.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar, "PR_" + reservadasMayus[lex]);
+                                    ControladorToken.Instancia.agregarToken(fila, (columna - auxiliar.Length), auxiliar, "TK_" + reservadasMayus[lex]);
                                 }
                                 else
                                 {

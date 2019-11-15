@@ -69,7 +69,7 @@ namespace LFP_Proyecto_No._2.Analizador
         #region LISTA DE DECLARACION
         public void ListaDeclaracion()
         {
-            string[] reservadasVariable = { "PR_int", "PR_float", "PR_char", "PR_bool", "PR_boolean", "PR_string" };
+            string[] reservadasVariable = { "TK_int", "TK_float", "TK_char", "TK_bool", "TK_boolean", "TK_string" };
 
             if (tokenActual.Descripcion != null)
             {
@@ -77,27 +77,27 @@ namespace LFP_Proyecto_No._2.Analizador
                 {
                     InicioVariable();
                 }
-                else if (tokenActual.Descripcion.Equals("PR_class"))
+                else if (tokenActual.Descripcion.Equals("TK_class"))
                 {
                     Clase();
                 }
-                else if (tokenActual.Descripcion.Equals("PR_if"))
+                else if (tokenActual.Descripcion.Equals("TK_if"))
                 {
                     InicioIf();
                 }
-                else if (tokenActual.Descripcion.Equals("PR_switch"))
+                else if (tokenActual.Descripcion.Equals("TK_switch"))
                 {
                     InicioSwitch();
                 }
-                else if (tokenActual.Descripcion.Equals("PR_while"))
+                else if (tokenActual.Descripcion.Equals("TK_while"))
                 {
                     InicioWhile();
                 }
-                else if (tokenActual.Descripcion.Equals("PR_for"))
+                else if (tokenActual.Descripcion.Equals("TK_for"))
                 {
                     InicioFor();
                 }
-                else if (tokenActual.Descripcion.Equals("PR_static"))
+                else if (tokenActual.Descripcion.Equals("TK_static"))
                 {
                     MetodoPrincipal();
                 }
@@ -109,7 +109,7 @@ namespace LFP_Proyecto_No._2.Analizador
                 {
                     ComentarioMultiLinea();
                 }
-                else if (tokenActual.Descripcion.Equals("PR_Console"))
+                else if (tokenActual.Descripcion.Equals("TK_Console"))
                 {
                     InicioConsole();
                 }
@@ -141,7 +141,7 @@ namespace LFP_Proyecto_No._2.Analizador
 
         public void ListaDeclaracionVariable()
         {
-            string[] reservadasVariable = { "PR_int", "PR_float", "PR_char", "PR_bool", "PR_boolean", "PR_string" };
+            string[] reservadasVariable = { "TK_int", "TK_float", "TK_char", "TK_bool", "TK_boolean", "TK_string" };
 
             if (Array.Exists(reservadasVariable, element => element == tokenActual.Descripcion))
             {
@@ -163,7 +163,7 @@ namespace LFP_Proyecto_No._2.Analizador
 
         public void Tipo()
         {
-            string[] reservadasVariable = { "PR_int", "PR_float", "PR_char", "PR_bool", "PR_boolean", "PR_string" };
+            string[] reservadasVariable = { "TK_int", "TK_float", "TK_char", "TK_bool", "TK_boolean", "TK_string" };
 
             if (Array.Exists(reservadasVariable, element => element == tokenActual.Descripcion))
             {
@@ -219,24 +219,24 @@ namespace LFP_Proyecto_No._2.Analizador
         }
         public void ValorVariable()
         {
-            if (tokenActual.Descripcion.Equals("Digito") && (tokenInicio.Equals("PR_int") || tokenInicio.Equals("PR_float")))
+            if (tokenActual.Descripcion.Equals("Digito") && (tokenInicio.Equals("TK_int") || tokenInicio.Equals("TK_float")))
             {
-                ControladorSimbolo.Instancia.agregarSimbolo(this.lexemaAuxiliar, tokenActual.Lexema, tokenInicio.Replace("PR_", ""));
+                ControladorSimbolo.Instancia.agregarSimbolo(this.lexemaAuxiliar, tokenActual.Lexema, tokenInicio.Replace("TK_", ""));
                 Match("Digito");
             }
-            else if (tokenActual.Descripcion.Equals("Cadena") && tokenInicio.Equals("PR_string"))
+            else if (tokenActual.Descripcion.Equals("Cadena") && tokenInicio.Equals("TK_string"))
             {
-                ControladorSimbolo.Instancia.agregarSimbolo(this.lexemaAuxiliar, tokenActual.Lexema, tokenInicio.Replace("PR_", ""));
+                ControladorSimbolo.Instancia.agregarSimbolo(this.lexemaAuxiliar, tokenActual.Lexema, tokenInicio.Replace("TK_", ""));
                 Match("Cadena");
             }
-            else if (tokenActual.Descripcion.Equals("Character") && (tokenInicio.Equals("PR_char")))
+            else if (tokenActual.Descripcion.Equals("Character") && (tokenInicio.Equals("TK_char")))
             {
-                ControladorSimbolo.Instancia.agregarSimbolo(this.lexemaAuxiliar, tokenActual.Lexema, tokenInicio.Replace("PR_", ""));
+                ControladorSimbolo.Instancia.agregarSimbolo(this.lexemaAuxiliar, tokenActual.Lexema, tokenInicio.Replace("TK_", ""));
                 Match("Character");
             }
-            else if (tokenActual.Descripcion.Equals("Identificador") && (tokenInicio.Equals("PR_bool") || tokenInicio.Equals("PR_boolean")))
+            else if (tokenActual.Descripcion.Equals("Identificador") && (tokenInicio.Equals("TK_bool") || tokenInicio.Equals("TK_boolean")))
             {
-                ControladorSimbolo.Instancia.agregarSimbolo(this.lexemaAuxiliar, tokenActual.Lexema, tokenInicio.Replace("PR_", ""));
+                ControladorSimbolo.Instancia.agregarSimbolo(this.lexemaAuxiliar, tokenActual.Lexema, tokenInicio.Replace("TK_", ""));
                 Match("Identificador");
             }
             else
@@ -254,7 +254,7 @@ namespace LFP_Proyecto_No._2.Analizador
             if (tokenActual.Descripcion.Equals("S_Punto_y_Coma"))
             {
                 Match(tokenActual.Descripcion);
-                if (tokenActual.Descripcion.Equals("PR_switch"))
+                if (tokenActual.Descripcion.Equals("TK_switch"))
                 {
                     this.variableSwitch = this.lexemaAuxiliar;
                     InicioSwitch();
@@ -318,7 +318,7 @@ namespace LFP_Proyecto_No._2.Analizador
                 ListaValor();
                 Match("S_Llave_Derecha");
             }
-            else if (tokenActual.Descripcion.Equals("PR_new"))
+            else if (tokenActual.Descripcion.Equals("TK_new"))
             {
                 this.ExpresionArreglo2();
             }
@@ -381,8 +381,8 @@ namespace LFP_Proyecto_No._2.Analizador
         //ARREGLO NUEVO new tipo[]
         public void ExpresionArreglo2()
         {
-            Match("PR_new");
-            string[] reservadasVariable = { "PR_int", "PR_float", "PR_char", "PR_bool", "PR_boolean", "PR_string" };
+            Match("TK_new");
+            string[] reservadasVariable = { "TK_int", "TK_float", "TK_char", "TK_bool", "TK_boolean", "TK_string" };
             if (Array.Exists(reservadasVariable, element => element == tokenActual.Descripcion))
             {
                 if (tokenActual.Descripcion.Equals(tokenInicio))
@@ -472,7 +472,7 @@ namespace LFP_Proyecto_No._2.Analizador
         #region CLASE
         public void Clase()
         {
-            Match("PR_class");
+            Match("TK_class");
             Match("Identificador");
             Match("S_Llave_Izquierda");
             Comentario();
@@ -482,9 +482,9 @@ namespace LFP_Proyecto_No._2.Analizador
 
         public void MetodoPrincipal()
         {
-            Match("PR_static");
-            Match("PR_void");
-            Match("PR_Main");
+            Match("TK_static");
+            Match("TK_void");
+            Match("TK_Main");
             Match("S_Parentesis_Izquierdo");
             ParametroMain();
             Match("S_Parentesis_Derecho");
@@ -496,9 +496,9 @@ namespace LFP_Proyecto_No._2.Analizador
 
         public void ParametroMain()
         {
-            if (tokenActual.Descripcion.Equals("PR_string"))
+            if (tokenActual.Descripcion.Equals("TK_string"))
             {
-                Match("PR_string");
+                Match("TK_string");
                 Match("S_Corchete_Izquierdo");
                 Match("S_Corchete_Derecho");
                 Match("Identificador");
@@ -516,9 +516,9 @@ namespace LFP_Proyecto_No._2.Analizador
         #region CONSOLE WRITELINE
         public void InicioConsole()
         {
-            Match("PR_Console");
+            Match("TK_Console");
             Match("S_Punto");
-            Match("PR_WriteLine");
+            Match("TK_WriteLine");
             Match("S_Parentesis_Izquierdo");
             Expresion();
             Match("S_Parentesis_Derecho");
@@ -598,7 +598,7 @@ namespace LFP_Proyecto_No._2.Analizador
         #region SENTENCIA IF
         public void InicioIf()
         {
-            Match("PR_if");
+            Match("TK_if");
             Match("S_Parentesis_Izquierdo");
             //CONDICION
             IdentificadorIf();
@@ -677,9 +677,9 @@ namespace LFP_Proyecto_No._2.Analizador
 
         public void ElseIf()
         {
-            if (tokenActual.Descripcion.Equals("PR_else"))
+            if (tokenActual.Descripcion.Equals("TK_else"))
             {
-                Match("PR_else");
+                Match("TK_else");
                 Match("S_Llave_Izquierda");
                 //LISTA DECLARACION
                 ListaDeclaracion();
@@ -698,7 +698,7 @@ namespace LFP_Proyecto_No._2.Analizador
         #region SENTENCIA WHILE
         public void InicioWhile()
         {
-            Match("PR_while");
+            Match("TK_while");
             Match("S_Parentesis_Izquierdo");
             //CONDICION
             IdentificadorWhile();
@@ -779,7 +779,7 @@ namespace LFP_Proyecto_No._2.Analizador
         #region SENTENCIA FOR 
         public void InicioFor()
         {
-            Match("PR_for");
+            Match("TK_for");
             Match("S_Parentesis_Izquierdo");
             DeclaracionFor();
             Match("S_Punto_y_Coma");
@@ -797,11 +797,11 @@ namespace LFP_Proyecto_No._2.Analizador
 
         public void DeclaracionFor()
         {
-            if (tokenActual.Descripcion.Equals("PR_int"))
+            if (tokenActual.Descripcion.Equals("TK_int"))
             {
                 String variable, tipo, igual;
                 tipo = tokenActual.Lexema;
-                Match("PR_int");
+                Match("TK_int");
                 variable = tokenActual.Lexema;
                 Match("Identificador");
                 Match("S_Igual");
@@ -922,7 +922,7 @@ namespace LFP_Proyecto_No._2.Analizador
         public void InicioSwitch()
         {
             this.tipoInicioAux = tipoInicio;
-            Match("PR_switch");
+            Match("TK_switch");
             Match("S_Parentesis_Izquierdo");
             //ASIGNACION
             AsignacionSwitch();
@@ -951,7 +951,7 @@ namespace LFP_Proyecto_No._2.Analizador
 
         public void CuerpoSwitch()
         {
-            if (tokenActual.Descripcion.Equals("PR_case"))
+            if (tokenActual.Descripcion.Equals("TK_case"))
             {
                 //va armando la traduccion del switch
                 if (iteracionesSwitch == 0) { cuerpoSwitch = cuerpoCase + " if " + variableSwitch; iteracionesSwitch = 1; }
@@ -959,9 +959,9 @@ namespace LFP_Proyecto_No._2.Analizador
 
 
                 Match(tokenActual.Descripcion);
-                if ((tokenActual.Descripcion.Equals("Cadena") && (tipoInicio.Equals("PR_string"))) ||
-                    (tokenActual.Descripcion.Equals("Character") && (tipoInicio.Equals("PR_char"))) ||
-                    (tokenActual.Descripcion.Equals("Digito") && (tipoInicio.Equals("PR_int") || tipoInicio.Equals("PR_float"))))
+                if ((tokenActual.Descripcion.Equals("Cadena") && (tipoInicio.Equals("TK_string"))) ||
+                    (tokenActual.Descripcion.Equals("Character") && (tipoInicio.Equals("TK_char"))) ||
+                    (tokenActual.Descripcion.Equals("Digito") && (tipoInicio.Equals("TK_int") || tipoInicio.Equals("TK_float"))))
                 {
                     cuerpoSwitch = cuerpoSwitch + " == " + tokenActual.Lexema;
                     Match(tokenActual.Descripcion);
@@ -972,7 +972,7 @@ namespace LFP_Proyecto_No._2.Analizador
                         CuerpoCase();
                         if (errorSintactico == false)
                         {
-                            if (tokenActual.Descripcion.Equals("PR_break"))
+                            if (tokenActual.Descripcion.Equals("TK_break"))
                             {
                                 Match(tokenActual.Descripcion);
                                 if (tokenActual.Descripcion.Equals("S_Punto_y_Coma"))
@@ -1013,7 +1013,7 @@ namespace LFP_Proyecto_No._2.Analizador
                     errorSintactico = true;
                 }
             }
-            else if (tokenActual.Descripcion.Equals("PR_default"))
+            else if (tokenActual.Descripcion.Equals("TK_default"))
             {
                 Match(tokenActual.Descripcion);
 
@@ -1024,7 +1024,7 @@ namespace LFP_Proyecto_No._2.Analizador
                     ListaDeclaracion();
                     if (errorSintactico == false)
                     {
-                        if (tokenActual.Descripcion.Equals("PR_break"))
+                        if (tokenActual.Descripcion.Equals("TK_break"))
                         {
                             Match(tokenActual.Descripcion);
                             if (tokenActual.Descripcion.Equals("S_Punto_y_Coma"))
