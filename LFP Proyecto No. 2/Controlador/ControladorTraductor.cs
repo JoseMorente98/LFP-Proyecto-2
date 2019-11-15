@@ -7,18 +7,26 @@ namespace LFP_Proyecto_No._2.Controlador
     class ControladorTraductor
     {
         private readonly static ControladorTraductor instancia = new ControladorTraductor();
-        ArrayList listaTokens = new ArrayList();
-        int indice = 0;
-        Token preAnalisis = null;
-        Boolean errorSintactico = false;
+        /**
+        * VARIABLES GLOBALES 
+        */
+        string cadenaVariable = "";
+        string variableActual = "";
+        string tabulaciones = "";
+        string declaracionFor = "";
+        string condicionFor = "";
+        string incrementoFor = "";
+        string tokenAnterior = "";
+        string inicioDeclaracion = "";
+        int secuenciaSwitch = 0;
+        Boolean anticiparFor = false;
+        Token tokenAnalizado = null;
         String tokenInicio = "";
         string tipoVariable = "";
-        //VARIABLES QUE SIRVEN PARA PONER TABS
-        int ambito= 0;
-        
-        //Variables switch
         string variableSwitch = "";
         int iteracionesSwitch = 0;
+        int contadorTabInicial = 0;
+        int contadorTabulacion = 0;
 
         private ControladorTraductor()
         {
@@ -33,183 +41,401 @@ namespace LFP_Proyecto_No._2.Controlador
             }
         }
 
-
-
-        /**
-        * Sintactico 
-        * Este meteodo es el constructor de la clase, recibe la lista de tokens, lo hace publico y comienza el analisis
-        * sintactico llamando a la produccion inicial.
-        * La variable indice funcionara como iterador para recorrer la lista de tokens
-        * La variable preanalisis es el token actual segun el indice.
-        * */
-
-        
-        /// <summary>
-        /// NECESARIAS
-        /// </summary>
-        string cadenaVariable = "";
-        string bandera= "";
-        string tabs = "";
-        string declFor = "";
-        string condFor = "";
-        string finalFor = "";
-        string tokenAnterior = "";
-        string inicioDeclaracion = "";
-        int interacionSwitch = 0;
-
-         Boolean vieneFor = false;
-
-        Token flagToken = null;
+        public void InicializarVariables()
+        {
+            anticiparFor = false;
+            tokenAnalizado = null;
+            contadorTabInicial = 0;
+            cadenaVariable = "";
+            variableActual = "";
+            tabulaciones = "";
+            declaracionFor = "";
+            condicionFor = "";
+            incrementoFor = "";
+            tokenAnterior = "";
+            inicioDeclaracion = "";
+            tokenInicio = "";
+            tipoVariable = "";
+            contadorTabulacion = 0;
+            variableSwitch = "";
+            secuenciaSwitch = 0;
+            iteracionesSwitch = 0;
+        }
 
         public void obtenerLista(ArrayList listaTokens)
         {
+            InicializarVariables();
+            
             string[] reservadasVariable = { "PR_int", "PR_float", "PR_char", "PR_bool", "PR_boolean", "PR_double",  "PR_string"};
             tipoVariable = "";
             for (int i = 0; i < listaTokens.Count; i++)
             {
-                flagToken = (Token)listaTokens[i];
+                tokenAnalizado = (Token)listaTokens[i];
+                //Console.WriteLine("SIGUIENTE" + tokenAnalizado.Lexema + " LEXEMA " + tokenAnalizado.Descripcion);
 
-                #region TRADUCCION FOR
-                if (flagToken.Descripcion.Equals("PR_for"))
+                /**
+                 * TRADUCCION DE SENTENCIA FOR
+                 */
+                #region TRADUCCION SENTENCIA FOR
+                if (tokenAnalizado.Descripcion.Equals("PR_static"))
                 {
-                    inicioDeclaracion = flagToken.Descripcion;
-                    Parea(flagToken.Descripcion);
-                    declFor = "";
-                    condFor = "";
-                    finalFor = "";
-                    vieneFor = true;
-                    Parea(flagToken.Descripcion);
+                    Token t = (Token)listaTokens[i + 3];
+                    //Console.WriteLine("PREDECIR PARENTESIS" + t.Lexema);
+                    if (t.Lexema.Equals("("))
+                    {
+                        Token t2 = (Token)listaTokens[i + 4];
+                       // Console.WriteLine("PREDECIR PARENTESIS" + t2.Lexema);
+                        if (t2.Lexema.Equals(")"))
+                        {
+                            i += 4;
+                        } else
+                        {
+                            i += 8;
+                        }
+                    }
+                }
+                else if (tokenAnalizado.Descripcion.Equals("PR_for"))
+                {
+                    inicioDeclaracion = tokenAnalizado.Descripcion;
+                    declaracionFor = "";
+                    condicionFor = "";
+                    incrementoFor = "";
+                    declaracionFor = "for ";
+                    anticiparFor = true;
+                    //AsignarVariable("for");
                     for (int j = i + 3; j < listaTokens.Count; j++)
                     {
-                        flagToken = (Token)listaTokens[j];
-                        if (flagToken.Lexema.Equals(";"))
+                        tokenAnalizado = (Token)listaTokens[j];
+                        if (tokenAnalizado.Lexema.Equals(";"))
                         {
-                            Parea(flagToken.Descripcion);
-                            ControladorTraduccion.Instancia.agregar(tabs + declFor, "for");
                             tokenInicio = "";
                             break;
                         }
                         else
                         {
-                            declFor = declFor + " " + flagToken.Lexema;
-                            Parea(flagToken.Descripcion);
+                            declaracionFor = declaracionFor + tokenAnalizado.Lexema;
+                            Console.WriteLine("DECLARACION FOR" + declaracionFor);
                         }
                     }
-
-                    for (int j = i+7; j < listaTokens.Count; j++)
+                    for (int j = i + 7; j < listaTokens.Count; j++)
                     {
-                        flagToken = (Token)listaTokens[j];
-                        if (flagToken.Lexema.Equals(";"))
+                        tokenAnalizado = (Token)listaTokens[j];
+                        Console.WriteLine("BANDERA " + tokenAnalizado.Lexema);
+                        if(tokenAnalizado.Descripcion.Equals("S_Mayor_Que"))
                         {
-                            Parea(flagToken.Descripcion);
-                            ControladorTraduccion.Instancia.agregar(tabs + "while "+condFor + ":", "for");
+                            Console.WriteLine("SI ENTRA A MAYOR");
+                            Token t3 = (Token)listaTokens[j + 1];
+                            Console.WriteLine("QUE TIENE" +t3.Descripcion);
+                            if (t3.Descripcion.Equals("S_Igual"))
+                            {
+                                Token t2 = (Token)listaTokens[j + 2];
+                                if (t2.Descripcion.Equals("Identificador"))
+                                {
+                                    condicionFor = condicionFor + t2.Lexema;
+                                    Console.WriteLine("CONDICION FOR" + condicionFor);
+                                }
+                                else if (t2.Descripcion.Equals("Digito"))
+                                {
+                                    condicionFor = condicionFor + t2.Lexema;
+                                    Console.WriteLine("CONDICION FOR" + condicionFor);
+                                }
+                            }
+                            else
+                            {
+                                if (t3.Descripcion.Equals("Identificador"))
+                                {
+                                    condicionFor = condicionFor + t3.Lexema;
+                                    Console.WriteLine("CONDICION FOR" + condicionFor);
+                                }
+                                else if (t3.Descripcion.Equals("Digito"))
+                                {
+                                    condicionFor = condicionFor + t3.Lexema;
+                                    Console.WriteLine("CONDICION FOR" + condicionFor);
+                                }
+                            }
                             break;
-                        }
-                        else
+                        } else if (tokenAnalizado.Descripcion.Equals("S_Menor_Que"))
                         {
-                            condFor = condFor + " " + flagToken.Lexema;
-                            Parea(flagToken.Descripcion);
+                            Console.WriteLine("SI ENTRA A MAYOR");
+                            Token t3 = (Token)listaTokens[j + 1];
+                            Console.WriteLine("QUE TIENE" + t3.Descripcion);
+                            if (t3.Descripcion.Equals("S_Igual"))
+                            {
+                                Token t2 = (Token)listaTokens[j + 2];
+                                if (t2.Descripcion.Equals("Identificador"))
+                                {
+                                    condicionFor = condicionFor + t2.Lexema;
+                                    Console.WriteLine("CONDICION FOR" + condicionFor);
+                                }
+                                else if (t2.Descripcion.Equals("Digito"))
+                                {
+                                    condicionFor = condicionFor + t2.Lexema;
+                                    Console.WriteLine("CONDICION FOR" + condicionFor);
+                                }
+                            }
+                            else
+                            {
+                                if (t3.Descripcion.Equals("Identificador"))
+                                {
+                                    condicionFor = condicionFor + t3.Lexema;
+                                    Console.WriteLine("CONDICION FOR" + condicionFor);
+                                }
+                                else if (t3.Descripcion.Equals("Digito"))
+                                {
+                                    condicionFor = condicionFor + t3.Lexema;
+                                    Console.WriteLine("CONDICION FOR" + condicionFor);
+                                }
+                            }
+                            break;
+                        } else if(tokenAnalizado.Descripcion.Equals("S_Igual"))
+                        {
+                            Token t = (Token)listaTokens[j + 1];
+                            if (t.Descripcion.Equals("S_Igual"))
+                            {
+                                Token t2 = (Token)listaTokens[i + 2];
+                                if (t2.Descripcion.Equals("Identificador"))
+                                {
+                                    condicionFor = condicionFor + t2.Lexema;
+                                    Console.WriteLine("CONDICION FOR" + condicionFor);
+                                }
+                                else if (t2.Descripcion.Equals("Digito"))
+                                {
+                                    condicionFor = condicionFor + t2.Lexema;
+                                    Console.WriteLine("CONDICION FOR" + condicionFor);
+                                }
+                                break;
+                            }
                         }
+                        else if (tokenAnalizado.Descripcion.Equals("S_Excl"))
+                        {
+                            Token t3 = (Token)listaTokens[j + 1];
+                            if (t3.Descripcion.Equals("S_Igual"))
+                            {
+                                Token t2 = (Token)listaTokens[j + 2];
+                                if (t2.Descripcion.Equals("Identificador"))
+                                {
+                                    condicionFor = condicionFor + t2.Lexema;
+                                    Console.WriteLine("CONDICION FOR" + condicionFor);
+                                }
+                                else if (t2.Descripcion.Equals("Digito"))
+                                {
+                                    condicionFor = condicionFor + t2.Lexema;
+                                    Console.WriteLine("CONDICION FOR" + condicionFor);
+                                }
+                                break;
+                            }
+                        }
+                        /*switch (tokenAnalizado.Descripcion)
+                        {
+                            case "S_Igual":
+                                Token t = (Token)listaTokens[i + 1];
+                                if(t.Descripcion.Equals("S_Igual"))
+                                {
+                                    Token t2 = (Token)listaTokens[i + 2];
+                                    if (t2.Descripcion.Equals("Identificador"))
+                                    {
+                                        condicionFor = condicionFor + t2.Lexema;
+                                        Console.WriteLine("CONDICION FOR" + condicionFor);
+                                        break;
+                                    } else if (t2.Descripcion.Equals("Digito"))
+                                    {
+                                        condicionFor = condicionFor + t2.Lexema;
+                                        Console.WriteLine("CONDICION FOR" + condicionFor);
+                                        break;
+                                    }
+                                }
+                                break;
+                            case "S_Mayor_Que":
+                                Console.WriteLine("SI ENTRA A MAYOR");
+                                Token t3 = (Token)listaTokens[i + 1];
+                                if (t3.Descripcion.Equals("S_Igual"))
+                                {
+                                    Token t2 = (Token)listaTokens[i + 2];
+                                    if (t2.Descripcion.Equals("Identificador"))
+                                    {
+                                        condicionFor = condicionFor + t2.Lexema;
+                                        Console.WriteLine("CONDICION FOR" + condicionFor);
+                                        break;
+                                    }
+                                    else if (t2.Descripcion.Equals("Digito"))
+                                    {
+                                        condicionFor = condicionFor + t2.Lexema;
+                                        Console.WriteLine("CONDICION FOR" + condicionFor);
+                                        break;
+                                    }
+                                } else
+                                {
+                                    if (t3.Descripcion.Equals("Identificador"))
+                                    {
+                                        condicionFor = condicionFor + t3.Lexema;
+                                        Console.WriteLine("CONDICION FOR" + condicionFor);
+                                        break;
+                                    }
+                                    else if (t3.Descripcion.Equals("Digito"))
+                                    {
+                                        condicionFor = condicionFor + t3.Lexema;
+                                        Console.WriteLine("CONDICION FOR" + condicionFor);
+                                        break;
+                                    }
+                                }
+                                break;
+                            case "S_Menor_Que":
+                                Token t4 = (Token)listaTokens[i + 1];
+                                if (t4.Descripcion.Equals("S_Igual"))
+                                {
+                                    Token t2 = (Token)listaTokens[i + 2];
+                                    if (t2.Descripcion.Equals("Identificador"))
+                                    {
+                                        condicionFor = condicionFor + t2.Lexema;
+                                        Console.WriteLine("CONDICION FOR" + condicionFor);
+                                        break;
+                                    }
+                                    else if (t2.Descripcion.Equals("Digito"))
+                                    {
+                                        condicionFor = condicionFor + t2.Lexema;
+                                        Console.WriteLine("CONDICION FOR" + condicionFor);
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    if (t4.Descripcion.Equals("Identificador"))
+                                    {
+                                        condicionFor = condicionFor + t4.Lexema;
+                                        Console.WriteLine("CONDICION FOR" + condicionFor);
+                                        break;
+                                    }
+                                    else if (t4.Descripcion.Equals("Digito"))
+                                    {
+                                        condicionFor = condicionFor + t4.Lexema;
+                                        Console.WriteLine("CONDICION FOR" + condicionFor);
+                                        break;
+                                    }
+                                }
+                                break;
+                            case "S_Excl":
+                                Token t5 = (Token)listaTokens[i + 1];
+                                if (t5.Descripcion.Equals("S_Igual"))
+                                {
+                                    Token t2 = (Token)listaTokens[i + 2];
+                                    if (t2.Descripcion.Equals("Identificador"))
+                                    {
+                                        condicionFor = condicionFor + t2.Lexema;
+                                        Console.WriteLine("CONDICION FOR" + condicionFor);
+                                        break;
+                                    }
+                                    else if (t2.Descripcion.Equals("Digito"))
+                                    {
+                                        condicionFor = condicionFor + t2.Lexema;
+                                        Console.WriteLine("CONDICION FOR" + condicionFor);
+                                        break;
+                                    }
+                                }
+                                break;
+                        }*/
                     }
-
                     for (int j = i + 11; j < listaTokens.Count; j++)
                     {
-                        flagToken = (Token)listaTokens[j];
-                        if (flagToken.Lexema.Equals(")"))
+                        tokenAnalizado = (Token)listaTokens[j];
+                        Console.WriteLine("final token" + tokenAnalizado.Lexema);
+
+                        if (tokenAnalizado.Lexema.Equals(")"))
                         {
-                            Parea(flagToken.Descripcion);
-                            i = i + 11;
+                            Console.WriteLine("final " + tokenAnalizado.Lexema);
+                            i = i + 10;
+                            Console.WriteLine(" token" + tokenAnalizado.Lexema);
                             break;
                         }
                         else
                         {
-                            finalFor = finalFor + flagToken.Lexema;
-                            Parea(flagToken.Descripcion);
+                            //incrementoFor = incrementoFor + tokenAnalizado.Lexema;
                         }
                     }
+                    string[] cont = declaracionFor.Split('=');
+                    Console.WriteLine(declaracionFor);
+                    Console.WriteLine(cont[0]);
+                    Console.WriteLine(cont[1]);
+                    ControladorTraduccion.Instancia.agregar(tabulaciones + cont[0] + " in range(" + cont[1] + "," + condicionFor + "):", "for");
+                    if (incrementoFor.Contains("++"))
+                        {
+                            //incrementoFor = incrementoFor.Replace("++", "+=1");
+                        }
+                        else
+                        {
+                            ///incrementoFor = incrementoFor.Replace("--", "-=1");
+                        }
+                    //ControladorTraduccion.Instancia.agregar(tabulaciones + ""+incrementoFor, "for");
                 }
                 #endregion
 
-                #region TRADUCCION DE VARIABLES Y ARREGLOS
-                else if (Array.Exists(reservadasVariable, element => element == flagToken.Descripcion) || bandera.Equals("variable"))
+                /**
+                 * TRADUCCION DE VARIABLES
+                 */
+                #region TRADUCCION DE VARIABLES
+                else if (Array.Exists(reservadasVariable, element => element == tokenAnalizado.Descripcion) || variableActual.Equals("variable"))
                 {
+                    AsignarVariable("variable");
+                    if (tipoVariable.Equals("")){tipoVariable = tokenAnalizado.Lexema; }
 
-                    Parea(flagToken.Descripcion);
-                    llenarBandera("variable");
-                    if (tipoVariable.Equals("")){tipoVariable = flagToken.Lexema; }
-                    
-                    //SE VA A VARIABLE
-
-                    if (flagToken.Descripcion.Equals("Identificador"))
+                    //VARIABLES
+                    if (tokenAnalizado.Descripcion.Equals("Identificador"))
                     {
-                        Parea(flagToken.Descripcion);
                         for (int j = i; j < listaTokens.Count; j++)
                         {
                             Token temp = (Token)listaTokens[j];
                             if (temp.Lexema.Equals(";"))
                             {
-                                Parea(temp.Descripcion);
                                 if (((Token)listaTokens[j - 1]).Descripcion.Equals("Identificador") && ((Token)listaTokens[j - 2]).Descripcion.Contains("PR_"))
                                 {
-                                    EnviarTablaSimbolo(tabs + ((Token)listaTokens[j - 1]).Lexema, tipoVariable, "");
-                                }else if (cadenaVariable.Contains(","))
+                                    EnviarTablaSimbolo(tabulaciones + ((Token)listaTokens[j - 1]).Lexema, tipoVariable, "");
+                                }
+                                else if (cadenaVariable.Contains(","))
                                 {
                                     string[] words = cadenaVariable.Split(',');
                                     for (int n = 0; n < words.Length; n++)
                                     {
                                         if (!words[n].Contains("="))
                                         {
-                                            EnviarTablaSimbolo(tabs + words[n], tipoVariable, "");
-                                            
+                                            EnviarTablaSimbolo(tabulaciones + words[n], tipoVariable, "");
+
                                         }
                                         else
                                         {
-                                            ControladorTraduccion.Instancia.agregar(tabs + words[n], "variable");
+                                            ControladorTraduccion.Instancia.agregar(tabulaciones + words[n], "variable");
                                         }
                                     }
                                     tipoVariable = "";
                                 }
                                 else
                                 {
-                                    ControladorTraduccion.Instancia.agregar(tabs + cadenaVariable, "variable");
+                                    ControladorTraduccion.Instancia.agregar(tabulaciones + cadenaVariable, "variable");
                                 }
                                 i = j;
-                                bandera = "";
+                                variableActual = "";
                                 cadenaVariable = "";
                                 break;
                             }
                             else
                             {
                                 cadenaVariable = cadenaVariable + temp.Lexema;
-                                Parea(temp.Descripcion);
-
                             }
                         }
-
                     }
-                    //SE VA A ARREGLO
-                    else if (flagToken.Lexema.Equals("["))
+                    //ARREGLOS
+                    else if (tokenAnalizado.Lexema.Equals("["))
                     {
-
-                        #region TABLA SIMBOLO 
-
-
-                        #endregion
-
-                        Parea(flagToken.Descripcion);
-                        for (int j = i+2; j < listaTokens.Count; j++)
+                        for (int j = i + 2; j < listaTokens.Count; j++)
                         {
                             Token temp = (Token)listaTokens[j];
                             if (temp.Lexema.Equals(";"))
                             {
-                                Parea(temp.Descripcion);
                                 cadenaVariable = cadenaVariable.Replace("{", "[");
                                 cadenaVariable = cadenaVariable.Replace("}", "]");
-                                ControladorTraduccion.Instancia.agregar(tabs + cadenaVariable, "array");
+                                ControladorTraduccion.Instancia.agregar(tabulaciones + cadenaVariable, "array");
                                 string[] partesArreglo = cadenaVariable.Split('=');
                                 EnviarTablaSimbolo(partesArreglo[0], "array", partesArreglo[1]);
                                 i = j;
-                                bandera = "";
+                                variableActual = "";
                                 cadenaVariable = "";
                                 break;
                             }
@@ -217,12 +443,10 @@ namespace LFP_Proyecto_No._2.Controlador
                             {
                                 if (temp.Descripcion.Contains("PR_"))
                                 {
-                                    Parea(temp.Descripcion);
                                 }
                                 else
                                 {
                                     cadenaVariable = cadenaVariable + temp.Lexema;
-                                    Parea(temp.Descripcion);
                                 }
                             }
                         }
@@ -231,292 +455,252 @@ namespace LFP_Proyecto_No._2.Controlador
                 }
                 #endregion
 
-                #region TRADUCCION IF
-                #region CONDICION IF
-                else if (flagToken.Descripcion.Equals("PR_if"))
+                /**
+                 * TRADUCCION SENTENCIA IF 
+                 */
+                #region TRADUCCION SENTENCIA IF
+                else if (tokenAnalizado.Descripcion.Equals("PR_if"))
                 {
                     tokenInicio = "if ";
-                    vieneFor = false;
-                    Parea(flagToken.Descripcion);
+                    anticiparFor = false;
                     for (int j = i+2; j < listaTokens.Count; j++)
                     {
-                        flagToken = (Token)listaTokens[j];
-                        if (flagToken.Lexema.Equals(")"))
+                        tokenAnalizado = (Token)listaTokens[j];
+                        if (tokenAnalizado.Lexema.Equals(")"))
                         {
-                            Parea(flagToken.Descripcion);
-                            ControladorTraduccion.Instancia.agregar(tabs + tokenInicio, " if");
+                            tokenInicio = tokenInicio + ":";
+                            ControladorTraduccion.Instancia.agregar(tabulaciones + tokenInicio, " if");
                             tokenInicio = "";
                             i = j;
                             break;
                         }
                         else
                         {
-                            tokenInicio = tokenInicio +  flagToken.Lexema;
-                            Parea(flagToken.Descripcion);
+                            tokenInicio = tokenInicio +  tokenAnalizado.Lexema;
                         }
                     }
                 }
-                #endregion
-
-                #region TRADUCCION DE ELSE
-                else if (flagToken.Descripcion.Equals("PR_else"))
+                else if (tokenAnalizado.Descripcion.Equals("PR_else"))
                 {
-                    Parea(flagToken.Descripcion);
-                    vieneFor = false;
-                    ControladorTraduccion.Instancia.agregar(tabs + " else:", "else");
-                    vieneFor = true;
-
+                    anticiparFor = false;
+                    ControladorTraduccion.Instancia.agregar(tabulaciones + "else:", "else");
+                    anticiparFor = true;
                 }
                 #endregion
-                #endregion
 
-                #region TRADUCCION WHILE
-                else if (flagToken.Descripcion.Equals("PR_while"))
+                /**
+                 * TRADUCCION SENTENCIA WHILE
+                 */
+                #region TRADUCCION SENTENCIA WHILE
+                else if (tokenAnalizado.Descripcion.Equals("PR_while"))
                 {
-                    tokenInicio = " while";
-                    vieneFor = false;
-                    Parea(flagToken.Descripcion);
+                    tokenInicio = "while ";
+                    anticiparFor = false;
                     for (int j = i + 2; j < listaTokens.Count; j++)
                     {
-                        flagToken = (Token)listaTokens[j];
-                        if (flagToken.Lexema.Equals(")"))
+                        tokenAnalizado = (Token)listaTokens[j];
+                        if (tokenAnalizado.Lexema.Equals(")"))
                         {
-                            Parea(flagToken.Descripcion);
-                            ControladorTraduccion.Instancia.agregar(tabs + tokenInicio+":", "while");
+                            ControladorTraduccion.Instancia.agregar(tabulaciones + tokenInicio+":", "while");
                             tokenInicio = "";
                             i = j;
                             break;
                         }
                         else
                         {
-                            tokenInicio = tokenInicio + " " + flagToken.Lexema;
-                            Parea(flagToken.Descripcion);
+                            tokenInicio = tokenInicio + "" + tokenAnalizado.Lexema;
                         }
                     }
                 }
                 #endregion
 
+                /**
+                 * TRADUCCION DE COMENTARIO
+                 */
                 #region TRADUCCION COMENTARIO
-
-                //Comentario de Linea
-                else if (flagToken.Descripcion.Equals("ComentarioLinea"))
+                else if (tokenAnalizado.Descripcion.Equals("ComentarioLinea"))
                 {
-                    string comment = flagToken.Lexema;
+                    string comment = tokenAnalizado.Lexema;
                     comment = comment.Replace("//", "#");
-                    Parea(flagToken.Descripcion);
-                    ControladorTraduccion.Instancia.agregar(tabs + comment, "comentario");
+                    ControladorTraduccion.Instancia.agregar(tabulaciones + comment, "comentario");
                 }
-                //Comentario Multi linea
-                else if (flagToken.Descripcion.Equals("ComentarioMultiLinea"))
+                else if (tokenAnalizado.Descripcion.Equals("ComentarioMultiLinea"))
                 {
-                    string comment = flagToken.Lexema;
-                    comment = comment.Replace("/*", "' ' ' ");
-                    comment = comment.Replace("*/", " ' ' '");
-                    Parea(flagToken.Descripcion);
-                    ControladorTraduccion.Instancia.agregar(tabs + comment, "comentario");
+                    string comment = tokenAnalizado.Lexema;
+                    comment = comment.Replace("/*", "\'\'\'");
+                    comment = comment.Replace("*/", "\'\'\'");
+                    ControladorTraduccion.Instancia.agregar(tabulaciones + comment, "comentario");
                 }
-
                 #endregion
 
+                /**
+                 * TRADUCCION DE CONSOLE PENDIENTE
+                 */
                 #region TRADUCCION CONSOLE WRITELINE
-                if (flagToken.Descripcion.Equals("PR_Console"))
+                if (tokenAnalizado.Descripcion.Equals("PR_Console"))
                 {
                     tokenInicio = "print(";
-                    vieneFor = false;
-                    Parea(flagToken.Descripcion);
+                    anticiparFor = false;
                     for (int j = i + 4; j < listaTokens.Count; j++)
                     {
-                        flagToken = (Token)listaTokens[j];
-                        if (flagToken.Lexema.Equals(")"))
+                        tokenAnalizado = (Token)listaTokens[j];
+                        if (tokenAnalizado.Lexema.Equals(";"))
                         {
-                            Parea(flagToken.Descripcion);
-                            ControladorTraduccion.Instancia.agregar(tabs + tokenInicio + ")", "console");
+                            ControladorTraduccion.Instancia.agregar(tabulaciones + tokenInicio + "", "console");
                             tokenInicio = "";
                             i = j;
                             break;
                         }
                         else
                         {
-                            tokenInicio = tokenInicio + flagToken.Lexema;
-                            Parea(flagToken.Descripcion);
+                            tokenInicio = tokenInicio + tokenAnalizado.Lexema;
                         }
                     }
                 }
                 #endregion
 
+                /**
+                 * TRADUCCION DE SWITCH
+                 */
                 #region TRADUCCION SWITCH
-                if (flagToken.Descripcion.Equals("PR_switch"))
+                if (tokenAnalizado.Descripcion.Equals("PR_switch"))
                 {
                     iteracionesSwitch = 0;
-                    ambito--;
-                    agregarTabulaciones(ambito);
-                    Parea(flagToken.Descripcion);
+                    contadorTabulacion--;
+                    tabularEspacio(contadorTabulacion);
                     variableSwitch = ((Token)listaTokens[i+2]).Lexema;
                 }
-                else if (flagToken.Descripcion.Equals("PR_case"))
+                else if (tokenAnalizado.Descripcion.Equals("PR_case"))
                 {
                     tokenInicio = "";
-                    Parea(flagToken.Descripcion);
                     for (int m = i+1; m < listaTokens.Count; m++)
                     {
-                        flagToken = (Token)listaTokens[m];
-                        if (flagToken.Lexema.Equals(":"))
+                        tokenAnalizado = (Token)listaTokens[m];
+                        if (tokenAnalizado.Lexema.Equals(":"))
                         {
-                            Parea(flagToken.Descripcion);
                             if (iteracionesSwitch == 0)
                             {
-                                ControladorTraduccion.Instancia.agregar(tabs + "if " + variableSwitch + "=="  + tokenInicio+":", "switch");
+                                ControladorTraduccion.Instancia.agregar(tabulaciones + "if " + variableSwitch + "=="  + tokenInicio+":", "switch");
                             }
                             else
                             {
-                                ControladorTraduccion.Instancia.agregar(tabs + "elif " + variableSwitch + "=="+ tokenInicio + ":", "switch");
+                                ControladorTraduccion.Instancia.agregar(tabulaciones + "elif " + variableSwitch + "=="+ tokenInicio + ":", "switch");
                             }
-                            ambito++;
+                            contadorTabulacion++;
                             i = m;
-                            agregarTabulaciones(ambito);
+                            tabularEspacio(contadorTabulacion);
                             tokenInicio = "";
                             break;
                         }
                         else
                         {
-                            tokenInicio = tokenInicio + " " + flagToken.Lexema;
+                            tokenInicio = tokenInicio + "" + tokenAnalizado.Lexema;
                         }
                     }
                     iteracionesSwitch++;
                 }
-                else if (flagToken.Descripcion.Equals("PR_break"))
+                else if (tokenAnalizado.Descripcion.Equals("PR_break"))
                 {
-                    ambito--;
-                    agregarTabulaciones(ambito);
+                    contadorTabulacion--;
+                    tabularEspacio(contadorTabulacion);
                 }
-                else if (flagToken.Descripcion.Equals("PR_default"))
+                else if (tokenAnalizado.Descripcion.Equals("PR_default"))
                 {
-                    ControladorTraduccion.Instancia.agregar(tabs + "else: ", "switch");
-                    ambito++;
-                    agregarTabulaciones(ambito);
+                    ControladorTraduccion.Instancia.agregar(tabulaciones + "else:", "switch");
+                    contadorTabulacion++;
+                    tabularEspacio(contadorTabulacion);
                 }
-
                 #endregion
 
+                /**
+                 * TRADUCCIONES DE VARIABLES SIN TIPO 
+                 */
                 #region TRADUCCION SIN TIPO
-                else if (flagToken.Descripcion.Equals("Identificador") && tokenAnterior.Equals("{"))
+                else if (tokenAnalizado.Descripcion.Equals("Identificador") && tokenAnterior.Equals("{"))
                 {
                     tokenInicio = "";
-                    Parea(flagToken.Descripcion);
                     for (int m = i; m < listaTokens.Count; m++)
                     {
-                        flagToken = (Token)listaTokens[m];
-                        if (flagToken.Lexema.Equals(";"))
+                        tokenAnalizado = (Token)listaTokens[m];
+                        if (tokenAnalizado.Lexema.Equals(";"))
                         {
-                            Parea(flagToken.Descripcion);
-                            ControladorTraduccion.Instancia.agregar(tabs + tokenInicio, "declaracion");
+                            ControladorTraduccion.Instancia.agregar(tabulaciones + tokenInicio, "declaracion");
                             i = m;
                             tokenInicio = "";
                             break;
                         }
                         else
                         {
-                            tokenInicio = tokenInicio + " " + flagToken.Lexema;
-                            Parea(flagToken.Descripcion);
+                            tokenInicio = tokenInicio + "" + tokenAnalizado.Lexema;
                         }
                     }
                 }
                 #endregion
 
-                #region DELIMITADORES DE DECLARACION
-                else if (flagToken.Descripcion.Equals("S_Llave_Izquierda"))
+                /***
+                 * LLAVE IZQUIERDA 
+                 */
+                #region LLAVE IZQUIERDA
+                else if (tokenAnalizado.Descripcion.Equals("S_Llave_Izquierda"))
                 {
-                    ambito++;
-                    tokenAnterior = flagToken.Lexema;
-                    agregarTabulaciones(ambito);
-
+                    if(contadorTabInicial > 1)
+                    {
+                        contadorTabulacion++;
+                        tokenAnterior = tokenAnalizado.Lexema;
+                        tabularEspacio(contadorTabulacion);
+                    } else
+                    {
+                        contadorTabInicial++;
+                    }
                 }
-                else if (flagToken.Descripcion.Equals("S_Llave_Derecha"))
+                #endregion
+
+                /***
+                 * LLAVE DERECHA 
+                 */
+                #region LLAVE DERECHA
+                else if (tokenAnalizado.Descripcion.Equals("S_Llave_Derecha"))
                 {
                     //Envia hasta el final el aumento del for
-                    if (inicioDeclaracion.Equals("PR_for") )
+                    /*if (inicioDeclaracion.Equals("PR_for") )
                     {
-                        Console.WriteLine(finalFor);
-                        if (finalFor.Contains("++"))
+                        Console.WriteLine(incrementoFor);
+                        if (incrementoFor.Contains("++"))
                         {
 
-                            finalFor = finalFor.Replace("++", "+=1");
+                            incrementoFor = incrementoFor.Replace("++", "+=1");
                         }
                         else
                         {
-                            finalFor = finalFor.Replace("--", "-= 1");
+                            incrementoFor = incrementoFor.Replace("--", "-= 1");
                         }
-                        ControladorTraduccion.Instancia.agregar(tabs + " "+finalFor, "for");
-                    }
+                        ControladorTraduccion.Instancia.agregar(tabulaciones + ""+incrementoFor, "for");
+                    }*/
                     variableSwitch = "";
                     tokenAnterior = "";
-                    ambito--;
-                    agregarTabulaciones(ambito);
-
+                    //contadorTabInicial++;
+                    if (contadorTabInicial > 1)
+                    {
+                        contadorTabulacion--;
+                        tabularEspacio(contadorTabulacion);
+                    }
                 }
                 #endregion                
             }
         }
 
-
-        /**
-    *   Parea
-    *  Este metodo lo que hace es comparar si el token de preanalisis tiene le tipo que le indicamos, 
-    *  en caso no sean iguales maraca error.
-    * */
-        public void Parea(String tipoToken)
+        public void tabularEspacio(int contador)
         {
-            if (errorSintactico)
-            {
-                if (indice < listaTokens.Count - 1)
-                {
-                    indice++;
-                    preAnalisis = (Token)listaTokens[indice];
-                    if (preAnalisis.Descripcion.Equals("S_Punto_y_Coma"))
-                    {
-                        errorSintactico = false;
-                    }
-                }
-            }
-            else
-            {
-                if (indice < listaTokens.Count - 1)
-                {
-                    if (preAnalisis.Descripcion.Equals(tipoToken))
-                    {
-                        indice++;
-                        preAnalisis = (Token)listaTokens[indice];
-                    }
-                    else
-                    {
-                        errorSintactico = true;
-                    }
-                }
-            }
-        }
-
-        public void agregarTabulaciones(int contador)
-        {
-            tabs = "";
+            tabulaciones = "";
             for (int i = 0; i < contador; i++)
             {
-                tabs = tabs + "\t"; 
+                tabulaciones = tabulaciones + "\t"; 
             }
         }
 
-        public void llenarBandera(string cadena)
+        public void AsignarVariable(string cadena)
         {
-            this.bandera = cadena;
-        }
-
-        public string getTokensTraducidos()
-        {
-            return this.tokenInicio;
-        }
-
-        public void clearTokensTraducidos()
-        {
-            this.tokenInicio = "";
+            this.variableActual = cadena;
         }
 
         public void EnviarTablaSimbolo(string nombre, string tipo, string valor)
@@ -528,7 +712,7 @@ namespace LFP_Proyecto_No._2.Controlador
             }
             else if (tipo.ToLower().Equals("string"))
             {
-                ControladorTraduccion.Instancia.agregar(nombre + " = " + "\" " + "\"", "variable");
+                ControladorTraduccion.Instancia.agregar(nombre + " = " + "\"" + "\"", "variable");
                 ControladorSimbolo.Instancia.agregarSimbolo(nombre, "\"" + "\"", "String");
             }
             else if (tipo.ToLower().Equals("float") || tipo.ToLower().Equals("double"))

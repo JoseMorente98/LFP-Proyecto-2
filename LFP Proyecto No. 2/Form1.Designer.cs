@@ -46,11 +46,17 @@
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
             this.metroButton1 = new MetroFramework.Controls.MetroButton();
-            this.traduccion = new System.Windows.Forms.RichTextBox();
             this.consola = new System.Windows.Forms.RichTextBox();
             this.editorTexto = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.traduccion = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.generarGraficaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.manualTecnicoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.manualDeUsuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.acercaDeProyectoNo2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editorTexto)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.traduccion)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -59,7 +65,8 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.archivoToolStripMenuItem,
-            this.documentoToolStripMenuItem});
+            this.documentoToolStripMenuItem,
+            this.ayudaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(20, 60);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1240, 28);
@@ -92,8 +99,9 @@
             this.abrirArchivoToolStripMenuItem.BackColor = System.Drawing.Color.Transparent;
             this.abrirArchivoToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.abrirArchivoToolStripMenuItem.Name = "abrirArchivoToolStripMenuItem";
-            this.abrirArchivoToolStripMenuItem.Size = new System.Drawing.Size(189, 26);
+            this.abrirArchivoToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.abrirArchivoToolStripMenuItem.Text = "Guardar Como";
+            this.abrirArchivoToolStripMenuItem.Click += new System.EventHandler(this.AbrirArchivoToolStripMenuItem_Click);
             // 
             // salirToolStripMenuItem
             // 
@@ -115,8 +123,9 @@
             // generarTraducciónToolStripMenuItem
             // 
             this.generarTraducciónToolStripMenuItem.Name = "generarTraducciónToolStripMenuItem";
-            this.generarTraducciónToolStripMenuItem.Size = new System.Drawing.Size(220, 26);
+            this.generarTraducciónToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.generarTraducciónToolStripMenuItem.Text = "Generar Traducción";
+            this.generarTraducciónToolStripMenuItem.Click += new System.EventHandler(this.GenerarTraducciónToolStripMenuItem_Click);
             // 
             // reportesToolStripMenuItem
             // 
@@ -124,9 +133,10 @@
             this.reporteTokensToolStripMenuItem,
             this.reporteDeErroresToolStripMenuItem,
             this.reporteDeSimbolosToolStripMenuItem,
-            this.reporteDeErroresSintacticosToolStripMenuItem});
+            this.reporteDeErroresSintacticosToolStripMenuItem,
+            this.generarGraficaToolStripMenuItem});
             this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
-            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(220, 26);
+            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.reportesToolStripMenuItem.Text = "Reportes";
             // 
             // reporteTokensToolStripMenuItem
@@ -197,18 +207,6 @@
             this.metroButton1.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroButton1.Click += new System.EventHandler(this.MetroButton1_Click);
             // 
-            // traduccion
-            // 
-            this.traduccion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.traduccion.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.traduccion.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.traduccion.ForeColor = System.Drawing.Color.White;
-            this.traduccion.Location = new System.Drawing.Point(710, 115);
-            this.traduccion.Name = "traduccion";
-            this.traduccion.Size = new System.Drawing.Size(550, 582);
-            this.traduccion.TabIndex = 9;
-            this.traduccion.Text = "";
-            // 
             // consola
             // 
             this.consola.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
@@ -254,14 +252,86 @@
             this.editorTexto.TabIndex = 11;
             this.editorTexto.Zoom = 100;
             // 
+            // traduccion
+            // 
+            this.traduccion.AutoCompleteBracketsList = new char[] {
+        '(',
+        ')',
+        '{',
+        '}',
+        '[',
+        ']',
+        '\"',
+        '\"',
+        '\'',
+        '\''};
+            this.traduccion.AutoScrollMinSize = new System.Drawing.Size(29, 19);
+            this.traduccion.BackBrush = null;
+            this.traduccion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.traduccion.CharHeight = 19;
+            this.traduccion.CharWidth = 9;
+            this.traduccion.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.traduccion.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.traduccion.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.traduccion.ForeColor = System.Drawing.Color.White;
+            this.traduccion.IndentBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.traduccion.IsReplaceMode = false;
+            this.traduccion.Location = new System.Drawing.Point(710, 115);
+            this.traduccion.Name = "traduccion";
+            this.traduccion.Paddings = new System.Windows.Forms.Padding(0);
+            this.traduccion.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.traduccion.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("traduccion.ServiceColors")));
+            this.traduccion.Size = new System.Drawing.Size(550, 582);
+            this.traduccion.TabIndex = 12;
+            this.traduccion.Zoom = 100;
+            // 
+            // generarGraficaToolStripMenuItem
+            // 
+            this.generarGraficaToolStripMenuItem.Name = "generarGraficaToolStripMenuItem";
+            this.generarGraficaToolStripMenuItem.Size = new System.Drawing.Size(291, 26);
+            this.generarGraficaToolStripMenuItem.Text = "Generar Grafica";
+            this.generarGraficaToolStripMenuItem.Click += new System.EventHandler(this.GenerarGraficaToolStripMenuItem_Click);
+            // 
+            // ayudaToolStripMenuItem
+            // 
+            this.ayudaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.manualTecnicoToolStripMenuItem,
+            this.manualDeUsuarioToolStripMenuItem,
+            this.acercaDeProyectoNo2ToolStripMenuItem});
+            this.ayudaToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
+            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(65, 24);
+            this.ayudaToolStripMenuItem.Text = "Ayuda";
+            // 
+            // manualTecnicoToolStripMenuItem
+            // 
+            this.manualTecnicoToolStripMenuItem.Name = "manualTecnicoToolStripMenuItem";
+            this.manualTecnicoToolStripMenuItem.Size = new System.Drawing.Size(259, 26);
+            this.manualTecnicoToolStripMenuItem.Text = "Manual Tecnico";
+            this.manualTecnicoToolStripMenuItem.Click += new System.EventHandler(this.ManualTecnicoToolStripMenuItem_Click);
+            // 
+            // manualDeUsuarioToolStripMenuItem
+            // 
+            this.manualDeUsuarioToolStripMenuItem.Name = "manualDeUsuarioToolStripMenuItem";
+            this.manualDeUsuarioToolStripMenuItem.Size = new System.Drawing.Size(259, 26);
+            this.manualDeUsuarioToolStripMenuItem.Text = "Manual de Usuario";
+            this.manualDeUsuarioToolStripMenuItem.Click += new System.EventHandler(this.ManualDeUsuarioToolStripMenuItem_Click);
+            // 
+            // acercaDeProyectoNo2ToolStripMenuItem
+            // 
+            this.acercaDeProyectoNo2ToolStripMenuItem.Name = "acercaDeProyectoNo2ToolStripMenuItem";
+            this.acercaDeProyectoNo2ToolStripMenuItem.Size = new System.Drawing.Size(259, 26);
+            this.acercaDeProyectoNo2ToolStripMenuItem.Text = "Acerca de Proyecto No. 2";
+            this.acercaDeProyectoNo2ToolStripMenuItem.Click += new System.EventHandler(this.AcercaDeProyectoNo2ToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1280, 720);
+            this.Controls.Add(this.traduccion);
             this.Controls.Add(this.editorTexto);
             this.Controls.Add(this.consola);
-            this.Controls.Add(this.traduccion);
             this.Controls.Add(this.metroButton1);
             this.Controls.Add(this.metroLabel3);
             this.Controls.Add(this.metroLabel2);
@@ -276,6 +346,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editorTexto)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.traduccion)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -297,11 +368,16 @@
         private System.Windows.Forms.ToolStripMenuItem reporteTokensToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reporteDeErroresToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
-        private System.Windows.Forms.RichTextBox traduccion;
         private System.Windows.Forms.RichTextBox consola;
         private System.Windows.Forms.ToolStripMenuItem reporteDeSimbolosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reporteDeErroresSintacticosToolStripMenuItem;
         private FastColoredTextBoxNS.FastColoredTextBox editorTexto;
+        private FastColoredTextBoxNS.FastColoredTextBox traduccion;
+        private System.Windows.Forms.ToolStripMenuItem generarGraficaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem manualTecnicoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem manualDeUsuarioToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem acercaDeProyectoNo2ToolStripMenuItem;
     }
 }
 

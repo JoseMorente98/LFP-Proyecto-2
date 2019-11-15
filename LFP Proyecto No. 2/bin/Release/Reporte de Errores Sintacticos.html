@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Tokens</title>
+    <title>Errores Sintacticos</title>
 </head>
 <body>
     <nav class="navbar navbar-dark bg-dark">
@@ -19,9 +19,9 @@
     <div class="container">
     <div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <h1 class="display-2">Tokens</h1>
-        <p class="lead">Listado de Tokens detectados por el analizador</p>
-        <p class="lead"><strong>12/11/2019 15:27:14</strong></p>
+        <h1 class="display-2">Errores Sintacticos</h1>
+        <p class="lead">Listado de Errores Sintacticos detectados por el analizador</p>
+        <p class="lead"><strong>14/11/2019 23:12:17</strong></p>
     </div>
     </div>
     <table class="table" id="mytable">
@@ -29,100 +29,95 @@
         <tr>
 <th scope="col">ID Token</th>
 <th scope="col">Token</th>
-<th scope="col">Descripcion</th><th scope="col">Fila</th>
+<th scope="col">Descripcion</th>
+<th scope="col">Fila</th>
 <th scope="col">Columna</th>        </tr>
     </thead>
     <tbody>
 <tr>
      <th scope="row">1</th>
-     <td>char</td>
-     <td>PR_char</td>
-     <td>1</td>
-     <td>0</td>
+     <td>S_Suma</td>
+     <td>>> Error sintactico se esperaba [S_Igual] en lugar de [S_Suma, +]</td>
+     <td>87</td>
+     <td>34</td>
 </tr><tr>
      <th scope="row">2</th>
-     <td>var</td>
-     <td>Identificador</td>
-     <td>1</td>
-     <td>6</td>
+     <td>S_Suma</td>
+     <td>>>1 Error sintactico se esperaba [ Cadena, Digito o Identificador ] </td>
+     <td>87</td>
+     <td>34</td>
 </tr><tr>
      <th scope="row">3</th>
-     <td>=</td>
-     <td>S_Igual</td>
-     <td>1</td>
-     <td>11</td>
+     <td>S_Suma</td>
+     <td>>>1 Error sintactico se esperaba [ Cadena, Digito o Identificador ] </td>
+     <td>87</td>
+     <td>36</td>
 </tr><tr>
      <th scope="row">4</th>
-     <td>'a'</td>
-     <td>Character</td>
-     <td>1</td>
-     <td>18</td>
+     <td>S_Punto_y_Coma</td>
+     <td>>>1 Error sintactico se esperaba [ Cadena, Digito o Identificador ] </td>
+     <td>87</td>
+     <td>37</td>
 </tr><tr>
      <th scope="row">5</th>
-     <td>;</td>
-     <td>S_Punto_y_Coma</td>
-     <td>1</td>
-     <td>21</td>
+     <td>S_Suma</td>
+     <td>>>1 Error sintactico se esperaba [ Cadena, Digito o Identificador ] </td>
+     <td>89</td>
+     <td>28</td>
 </tr><tr>
      <th scope="row">6</th>
-     <td>char</td>
-     <td>PR_char</td>
-     <td>3</td>
-     <td>1</td>
+     <td>S_Punto_y_Coma</td>
+     <td>>>1 Error sintactico se esperaba [ Cadena, Digito o Identificador ] </td>
+     <td>89</td>
+     <td>29</td>
 </tr><tr>
      <th scope="row">7</th>
-     <td>hola</td>
-     <td>Identificador</td>
-     <td>3</td>
-     <td>7</td>
+     <td>S_Suma</td>
+     <td>>> Error sintactico se esperaba [S_Igual] en lugar de [S_Suma, +]</td>
+     <td>104</td>
+     <td>34</td>
 </tr><tr>
      <th scope="row">8</th>
-     <td>=</td>
-     <td>S_Igual</td>
-     <td>3</td>
-     <td>13</td>
+     <td>S_Suma</td>
+     <td>>>1 Error sintactico se esperaba [ Cadena, Digito o Identificador ] </td>
+     <td>104</td>
+     <td>34</td>
 </tr><tr>
      <th scope="row">9</th>
-     <td>'h'</td>
-     <td>Character</td>
-     <td>3</td>
-     <td>20</td>
+     <td>S_Suma</td>
+     <td>>>1 Error sintactico se esperaba [ Cadena, Digito o Identificador ] </td>
+     <td>104</td>
+     <td>36</td>
 </tr><tr>
      <th scope="row">10</th>
-     <td>;</td>
      <td>S_Punto_y_Coma</td>
-     <td>3</td>
-     <td>23</td>
+     <td>>>1 Error sintactico se esperaba [ Cadena, Digito o Identificador ] </td>
+     <td>104</td>
+     <td>37</td>
 </tr><tr>
      <th scope="row">11</th>
-     <td>char</td>
-     <td>PR_char</td>
-     <td>5</td>
-     <td>1</td>
+     <td>S_Suma</td>
+     <td>>>1 Error sintactico se esperaba [ Cadena, Digito o Identificador ] </td>
+     <td>106</td>
+     <td>28</td>
 </tr><tr>
      <th scope="row">12</th>
-     <td>numero</td>
-     <td>Identificador</td>
-     <td>5</td>
-     <td>7</td>
+     <td>S_Punto_y_Coma</td>
+     <td>>>1 Error sintactico se esperaba [ Cadena, Digito o Identificador ] </td>
+     <td>106</td>
+     <td>29</td>
 </tr><tr>
      <th scope="row">13</th>
-     <td>=</td>
-     <td>S_Igual</td>
-     <td>5</td>
-     <td>15</td>
+     <td>Identificador</td>
+     <td>>>Error sintactico: La variable [a] no esta declarada</td>
+     <td>112</td>
+     <td>16</td>
 </tr><tr>
      <th scope="row">14</th>
-     <td>'4'</td>
-     <td>Character</td>
-     <td>5</td>
-     <td>22</td>
-</tr><tr>
-     <th scope="row">15</th>
-     <td>;</td>
-     <td>S_Punto_y_Coma</td>
-     <td>5</td>
-     <td>25</td>
+     <td>S_Llave_Izquierda</td>
+     <td>>>Error Sintactico: Se esperaba palabra reservada CASE en lugar de [ { ]</td>
+     <td>113</td>
+     <td>8</td>
 </tr>    </tbody>
     </table>
     </div>

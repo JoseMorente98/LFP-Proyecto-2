@@ -33,7 +33,7 @@ namespace LFP_Proyecto_No._2.Analizador
         /**
          * ANALIZADOR LEXICO
          **/
-        public async void analizador_Lexico(String entradaTexto)
+        public async void Analizador(String entradaTexto)
         {
             ////
             int estado = 0;

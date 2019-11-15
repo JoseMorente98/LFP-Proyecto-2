@@ -241,7 +241,7 @@ namespace LFP_Proyecto_No._2.Analizador
             }
             else
             {
-                this.lex = ">>Error sintactico: el tipo de variable " + this.tokenInicio + " no coincide con el valor de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
+                this.lex = "ERROR!  el tipo de variable " + this.tokenInicio + " no coincide con el valor de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
                 ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
 
                 Match(tokenActual.Descripcion);
@@ -273,7 +273,7 @@ namespace LFP_Proyecto_No._2.Analizador
             }
             else
             {
-                this.lex = ">>Error sintactico: Se esperaba [ punto y coma  ] al final de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
+                this.lex = "ERROR!  Se esperaba [ punto y coma  ] al final de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
                 ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                 this.tok = "";
                 errorSintactico = true;
@@ -394,7 +394,7 @@ namespace LFP_Proyecto_No._2.Analizador
                 }
                 else
                 {
-                    this.lex = ">>Error Sintactico: el tipo del Arreglo debe ser el mismo que el de su asignacion, " + tokenInicio + "[] = new " + tokenInicio + "[] en lugar de " + tokenActual.Descripcion + "[]";
+                    this.lex = "ERROR! el tipo del Arreglo debe ser el mismo que el de su asignacion, " + tokenInicio + "[] = new " + tokenInicio + "[] en lugar de " + tokenActual.Descripcion + "[]";
                     ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                     this.errorSintactico = true;
 
@@ -576,7 +576,7 @@ namespace LFP_Proyecto_No._2.Analizador
             }
             else
             {
-                this.lex = ">> Error sintactico se esperaba [ identificador o digito ] en lugar de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
+                this.lex = "ERROR!  se esperaba [ identificador o digito ] en lugar de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
                 ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                 this.errorSintactico = true;
             }
@@ -627,7 +627,7 @@ namespace LFP_Proyecto_No._2.Analizador
             }
             else
             {
-                this.lex = ">> Error sintactico se esperaba [ identificador o digito ] en lugar de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
+                this.lex = "ERROR!  se esperaba [ identificador o digito ] en lugar de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
                 ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                 this.errorSintactico = true;
             }
@@ -668,7 +668,7 @@ namespace LFP_Proyecto_No._2.Analizador
                     Match("S_Igual");
                     break;
                 default:
-                    this.lex = ">> Error sintactico se esperaba [ operador ] en lugar de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
+                    this.lex = "ERROR!  se esperaba [ operador ] en lugar de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
                     ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                     this.errorSintactico = true;
                     break;
@@ -724,7 +724,7 @@ namespace LFP_Proyecto_No._2.Analizador
             }
             else
             {
-                this.lex = ">> Error sintactico se esperaba [ identificador o digito ] en lugar de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
+                this.lex = "ERROR!  se esperaba [ identificador o digito ] en lugar de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
                 ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                 this.errorSintactico = true;
             }
@@ -765,7 +765,7 @@ namespace LFP_Proyecto_No._2.Analizador
                     Match("S_Igual");
                     break;
                 default:
-                    this.lex = ">> Error sintactico se esperaba [ operador ] en lugar de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
+                    this.lex = "ERROR!  se esperaba [ operador ] en lugar de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
                     ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                     this.errorSintactico = true;
                     break;
@@ -847,7 +847,7 @@ namespace LFP_Proyecto_No._2.Analizador
             }
             else
             {
-                this.lex = ">> Error sintactico se esperaba [ identificador o digito ] en lugar de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
+                this.lex = "ERROR!  se esperaba [ identificador o digito ] en lugar de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
                 ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                 this.errorSintactico = true;
             }
@@ -888,7 +888,7 @@ namespace LFP_Proyecto_No._2.Analizador
                     Match("S_Igual");
                     break;
                 default:
-                    this.lex = ">> Error sintactico se esperaba [ operador ] en lugar de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
+                    this.lex = "ERROR!  se esperaba [ operador ] en lugar de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
                     ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                     this.errorSintactico = true;
                     break;
@@ -942,7 +942,7 @@ namespace LFP_Proyecto_No._2.Analizador
             }
             else
             {
-                this.lex = ">>Error sintactico: La variable [" + tokenActual.Lexema + "] no esta declarada";
+                this.lex = "ERROR!  La variable [" + tokenActual.Lexema + "] no esta declarada";
                 ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                 this.tok = "";
                 errorSintactico = true;
@@ -982,7 +982,7 @@ namespace LFP_Proyecto_No._2.Analizador
                                 }
                                 else
                                 {
-                                    this.lex = ">>Error Sintactico: Se esperaban punto y coma en lugar de [" + tokenActual.Descripcion + " ]";
+                                    this.lex = "ERROR! Se esperaban punto y coma en lugar de [" + tokenActual.Descripcion + " ]";
                                     ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                                     this.tok = "";
                                     errorSintactico = true;
@@ -990,7 +990,7 @@ namespace LFP_Proyecto_No._2.Analizador
                             }
                             else
                             {
-                                this.lex = ">>Error Sintactico: Se esperaban palabra reservada BREAK en lugar de [" + tokenActual.Descripcion + " ]";
+                                this.lex = "ERROR! Se esperaban palabra reservada BREAK en lugar de [" + tokenActual.Descripcion + " ]";
                                 ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                                 this.tok = "";
                                 errorSintactico = true;
@@ -999,7 +999,7 @@ namespace LFP_Proyecto_No._2.Analizador
                     }
                     else
                     {
-                        this.lex = ">>Error Sintactico: Se esperaban dos puntos el lugar de [" + tokenActual.Descripcion + " ]";
+                        this.lex = "ERROR! Se esperaban dos puntos el lugar de [" + tokenActual.Descripcion + " ]";
                         ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                         this.tok = "";
                         errorSintactico = true;
@@ -1007,7 +1007,7 @@ namespace LFP_Proyecto_No._2.Analizador
                 }
                 else
                 {
-                    this.lex = ">>Error Sintactico: El tipo de variable [ " + tipoInicio + "] no concuerda con el tipo de evaluacion [ " + tokenActual.Descripcion + " ] del case";
+                    this.lex = "ERROR! El tipo de variable [ " + tipoInicio + "] no concuerda con el tipo de evaluacion [ " + tokenActual.Descripcion + " ] del case";
                     ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                     this.tok = "";
                     errorSintactico = true;
@@ -1034,7 +1034,7 @@ namespace LFP_Proyecto_No._2.Analizador
                             }
                             else
                             {
-                                this.lex = ">>Error Sintactico: Se esperaban punto y coma en lugar de [" + tokenActual.Descripcion + " ]";
+                                this.lex = "ERROR! Se esperaban punto y coma en lugar de [" + tokenActual.Descripcion + " ]";
                                 ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                                 this.tok = "";
                                 errorSintactico = true;
@@ -1042,7 +1042,7 @@ namespace LFP_Proyecto_No._2.Analizador
                         }
                         else
                         {
-                            this.lex = ">>Error Sintactico: Se esperaban palabra reservada BREAK en lugar de [" + tokenActual.Descripcion + " ]";
+                            this.lex = "ERROR! Se esperaban palabra reservada BREAK en lugar de [" + tokenActual.Descripcion + " ]";
                             ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                             this.tok = "";
                             errorSintactico = true;
@@ -1051,7 +1051,7 @@ namespace LFP_Proyecto_No._2.Analizador
                 }
                 else
                 {
-                    this.lex = ">>Error Sintactico: Se esperaban dos puntos el lugar de [" + tokenActual.Descripcion + " ]";
+                    this.lex = "ERROR! Se esperaban dos puntos el lugar de [" + tokenActual.Descripcion + " ]";
                     ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                     this.tok = "";
                     errorSintactico = true;
@@ -1064,7 +1064,7 @@ namespace LFP_Proyecto_No._2.Analizador
             }
             else
             {
-                this.lex = ">>Error Sintactico: Se esperaba palabra reservada CASE en lugar de [ " + tokenActual.Lexema + " ]";
+                this.lex = "ERROR! Se esperaba palabra reservada CASE en lugar de [ " + tokenActual.Lexema + " ]";
                 ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                 this.tok = "";
                 errorSintactico = true;
@@ -1086,10 +1086,11 @@ namespace LFP_Proyecto_No._2.Analizador
         {
             if (tokenActual.Descripcion.Equals("Identificador"))
             {
+                this.lexemaAuxiliar = tokenActual.Lexema;
                 Match("Identificador");
                 Match("S_Igual");
                 Expresion();
-                Match("S_Punto_y_Coma");
+                PuntoYComa();
                 ListaDeclaracion();
             }
         }
@@ -1132,7 +1133,7 @@ namespace LFP_Proyecto_No._2.Analizador
             }
             else
             {
-                this.lex = ">>1 Error sintactico se esperaba [ Cadena, Digito o Identificador ] ";
+                this.lex = "ERROR!  se esperaba [ Cadena, Digito o Identificador ] ";
                 ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                 this.errorSintactico = true;
             }
@@ -1170,7 +1171,7 @@ namespace LFP_Proyecto_No._2.Analizador
             }
             else
             {
-                this.lex = ">>1 Error sintactico se esperaba [ Cadena, Digito o Identificador ] ";
+                this.lex = "ERROR!  se esperaba [ Cadena, Digito o Identificador ] ";
                 ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                 this.errorSintactico = true;
             }
@@ -1201,7 +1202,7 @@ namespace LFP_Proyecto_No._2.Analizador
                     }
                     else
                     {
-                        this.lex = ">> Error sintactico se esperaba [ Identificador ] en lugar de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
+                        this.lex = "ERROR!  se esperaba [ Identificador ] en lugar de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
                         ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                         this.errorSintactico = true;
                     }
@@ -1213,7 +1214,7 @@ namespace LFP_Proyecto_No._2.Analizador
             }
             else
             {
-                this.lex = ">>1 Error sintactico se esperaba [ Cadena, Digito o Identificador ] ";
+                this.lex = "ERROR!  se esperaba [ Cadena, Digito o Identificador ] ";
                 ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                 this.errorSintactico = true;
             }
@@ -1250,18 +1251,13 @@ namespace LFP_Proyecto_No._2.Analizador
                     }
                     else
                     {
-                        this.lex = ">> Error sintactico se esperaba [" + tipoToken + "] en lugar de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
+                        this.lex = "ERROR!  se esperaba [" + tipoToken + "] en lugar de [" + tokenActual.Descripcion + ", " + tokenActual.Lexema + "]";
                         ControladorSintactico.Instancia.agregarError(tokenActual.Descripcion, this.lex, tokenActual.Fila, tokenActual.Columna);
                         errorSintactico = true;
                     }
                 }
             }
 
-        }
-
-        public string returnT()
-        {
-            return this.lex + "\n" + this.tok + "\n";
         }
 
     }
